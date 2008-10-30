@@ -1,0 +1,148 @@
+AddHandler cgi-script .cgi .pl #not necessary
+
+note about ssl key crt
+To start off, you need to create your server key and certificate using OpenSSL: 
+
+# openssl genrsa -out /etc/ssl/private/server.key 1024
+
+Or, if you wish the key to be encrypted with a passphrase that you will have to type in when starting servers 
+
+# openssl genrsa -des3 -out /etc/ssl/private/server.key 1024
+
+The next step is to generate a Certificate Signing Request which is used to get a Certifying Authority (CA) to sign your certificate. To do this use the command: 
+
+# openssl req -new -key /etc/ssl/private/server.key -out /etc/ssl/private/server.csr
+
+This server.csr file can then be given to Certifying Authority who will sign the key. One such CA is Thawte Certification which you can reach at http://www.thawte.com/. 
+
+If you cannot afford this, or just want to sign the certificate yourself, you can use the following. 
+
+# openssl x509 -req -days 365 -in /etc/ssl/private/server.csr \
+       -signkey /etc/ssl/private/server.key -out /etc/ssl/server.crt
+
+#strong encryption - eg. verify private key and certificate match
+http://ebureau.univ-reims.fr/manual/ssl/ssl_faq.html#ownca
+vi /etc/rc.conf.local
+httpd_flags="-DSSL"
+
+<VirtualHost 192.168.0.2:443>
+     ServerName domain.tld
+     ServerAlias www.domain.tld
+     ServerAdmin admin@domain.tld
+     DocumentRoot /path/to/website/files
+     SSLEngine on
+     SSLCertificateFile /usr/local/etc/apache/ssl.crt/server.crt 
+     SSLCertificateKeyFile /usr/local/etc/apache/ssl.key/server.key
+</VirtualHost>
+ 
+Now, if you had a server listening on another IP address, you could set up another certificate for that IP address to use.  Then, your second VirtualHost could look like this:
+<VirtualHost 192.168.0.3:443>
+     ServerName domain2.tld
+     ServerAlias www.domain2.tld
+     ServerAdmin admin@domain2.tld
+     DocumentRoot /path/to/website/files
+     SSLEngine on
+     SSLCertificateFile /usr/local/etc/apache/ssl.crt/server2.crt 
+     SSLCertificateKeyFile /usr/local/etc/apache/ssl.key/server2.key
+</VirtualHost> 
+
+
+GET PERL WORKING IN THE CHROOT
+Now most people use perl or python or something to run their cgi programs. If you want perl to work, you're going to have to copy it into the chroot:
+# mkdir -p /var/www/usr/bin
+
+cp /usr/bin/perl /var/www/usr/bin/
+cp /usr/bin/perl5.* /var/www/usr/bin/
+
+ldd /usr/bin/perl #check for dependancy
+
+So we copy those over too (note some are already there):
+
+mkdir -p /var/www/usr/lib
+cp /usr/lib/libperl.so.* /var/www/usr/lib/
+cp /usr/lib/libutil.so.* /var/www/usr/lib/
+
+
+MUST get chroot+suexec workin
+
+#RECOMPILE HTTPD
+cd /usr
+cvs checkout -P -rOPENBSD_4_2 src/usr.sbin/httpd && cvs logout 
+
+./configure --with-layout="OpenBSD" --suexec-docroot="/cgi-bin" --suexec-logfile="/logs/suexec_log" --enable-suexec --enable-module=ssl --enable-module=so --enable-module=auth_anon --enable-shared=auth_anon --enable-module=expires --enable-shared=expires --enable-module=headers --enable-shared=headers --enable-module=auth_db --enable-shared=auth_db --enable-module=auth_dbm --enable-shared=auth_dbm --enable-module=auth_digest --enable-shared=auth_digest --enable-module=cern_meta --enable-shared=cern_meta --enable-module=define --enable-shared=define --enable-module=digest --enable-shared=digest --enable-module=info --enable-shared=info --enable-module=log_agent --enable-shared=log_agent --enable-module=log_referer --enable-shared=log_referer --enable-module=mime_magic --enable-shared=mime_magic --enable-module=mmap_static --enable-shared=mmap_static --enable-module=proxy --enable-shared=proxy --enable-module=rewrite --enable-shared=rewrite --enable-module=speling --enable-shared=speling --enable-module=unique_id --enable-shared=unique_id --enable-module=usertrack --enable-shared=usertrack --enable-module=vhost_alias --enable-shared=vhost_alias
+
+chown root:wheel /usr/sbin/suexec
+chmod 4755 /usr/sbin/suexec
+
+#COPY SUEXEC AND ITS DEPENDANCY WITHIN THE CHROOT JAIL
+mkdir -p /var/www/usr/lib
+cp /usr/lib/libm.so.* /var/www/usr/lib
+cp /usr/lib/libssl.so.* /var/www/usr/lib
+cp /usr/lib/libcrypto.so.* /var/www/usr/lib
+cp /usr/lib/libc.so.* /var/www/usr/lib
+mkdir -p /var/www/usr/libexec
+cp /usr/libexec/ld.so /var/www/usr/libexec
+mkdir -p /var/www/usr/sbin
+cp /usr/sbin/suexec /var/www/usr/sbin
+
+#COPY USER/GROUP INFO AND OTHER DEPENDANCIES WITHIN THE CHROOT JAIL
+mkdir -p /var/www/etc/
+cp /etc/group /var/www/etc/
+cp /etc/localtime /var/www/etc/
+cp /etc/login.conf /var/www/etc/
+cp /etc/passwd /var/www/etc/
+cp /etc/pwd.db /var/www/etc/
+mkdir -p /var/www/usr/share
+cp -R /usr/share/nls /var/www/usr/share
+
+#COPY PERL AND OTHER DEPENDANCIES WITHIN THE CHROOT JAIL
+mkdir -p /var/www/usr/bin
+cp /usr/bin/perl /var/www/usr/bin/
+cp /usr/bin/perl5.* /var/www/usr/bin/
+cp /usr/lib/libperl.so.* /var/www/usr/lib/
+cp /usr/lib/libutil.so.* /var/www/usr/lib/
+
+#MORE PERL COPY TO JAIL
+cp /etc/resolv.conf /var/www/etc/
+cp /etc/services /var/www/etc/
+mkdir -p /var/www/usr/libdata /var/www/usr/local
+cp -R /usr/lib/Apache /var/www/usr/lib/
+cp -R /usr/libdata/perl5 /var/www/usr/libdata/
+mkdir -p /var/www/usr/local/libdata
+cp -R /usr/local/libdata/perl5 /var/www/usr/local/libdata/
+mkdir -p /var/www/usr/share
+cp -R /usr/share/zoneinfo /var/www/usr/share/
+
+TEST AN EXAMPLE VIRTUALHOST
+mkdir -p /var/www/htdocs/www.host.com
+echo "hello world" > /var/www/htdocs/www.host.com/index.html
+chown -R nobody:www /var/www/htdocs/www.host.com
+chmod 750 /var/www/htdocs/www.host.com
+
+mkdir -p /var/www/cgi-bin/www.host.com
+cp /var/www/cgi-bin/test.pl /var/www/cgi-bin/www.host.com/
+chown -R nobody:nobody /var/www/cgi-bin/www.host.com
+chmod -R 700 /var/www/cgi-bin/www.host.com/test.pl
+
+Listen 81
+<VirtualHost *:81>
+    DocumentRoot /htdocs/www.host.com
+    ServerName www.host.com
+    User nobody
+    Group nobody
+    ErrorLog /var/www/logs/www.host.com-ERROR
+    CustomLog /var/www/logs/www.host.com-ACCESS combined
+    ScriptAlias /cgi-bin/ "/cgi-bin/www.host.com/"
+</VirtualHost>
+
+********IMPORTANT************
+chmod 666 suexec_log #but really shudnt be like this, no site talked abuot this
+*****************************
+
+(wrong?)MAKE SURE /var/www/cgi-bin has usr/grp ownership same as in httpd.conf where there are the lines 'user' and 'group'
+or else u get intenal server error and premature header crap in log
+
+there is a difrence between
+print "Content-type: text/plain\n\n"; #open file
+&
+print "Content-type: text/html\n\n"; #open as html page

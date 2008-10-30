@@ -1,0 +1,12 @@
+/usr/local/sbin/phpxs -a pdo_pgsql
+
+pg_restore: [archiver (db)] Error while PROCESSING TOC:
+pg_restore: [archiver (db)] Error from TOC entry 1691; 0 0 COMMENT SCHEMA public postgres
+pg_restore: [archiver (db)] could not execute query: ERROR:  must be owner of schema public
+    Command was:
+COMMENT ON SCHEMA public IS 'Standard public schema';
+pg_restore: WARNING:  no privileges could be revoked for "public"
+pg_restore: WARNING:  no privileges could be revoked for "public"
+pg_restore: WARNING:  no privileges were granted for "public"
+pg_restore: WARNING:  no privileges were granted for "public"
+WARNING: errors ignored on restore: 1

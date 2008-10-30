@@ -1,0 +1,64 @@
+pkg_add -iv postgresql-server php5-gd-5.2.3-no_x11 php5-pdo_pgsql php5-pgsql php5-mhash rsync bash
+
+/usr/local/sbin/phpxs -s
+
+in httpdconf: AddType application/x-httpd-php .php
+
+Copy the config file below into /var/www/conf/php.ini
+/usr/local/share/examples/php5/php.ini-recommended
+
+/usr/local/sbin/phpxs -a gd
+
+/usr/local/sbin/phpxs -a pdo_pgsql
+
+/usr/local/sbin/phpxs -a pgsql
+
+/usr/local/sbin/phpxs -a mhash
+
+/usr/local/share/doc/postgresql/README.OpenBSD
+
+useradd
+
+.profile
+PS1=
+alias vi="vim -N"
+chsh -s /usr/local/bin/bash
+EDITOR="/usr/local/bin/vim -N"
+export EDITOR
+
+# su - _postgresql
+$ mkdir /var/postgresql/data
+$ initdb -D /var/postgresql/data -U postgres -A md5 -W
+
+/etc/rc.local:
+
+if [ -x /usr/local/bin/pg_ctl ]; then
+  echo -n ' postgresql'
+  su -l _postgresql -c "nohup /usr/local/bin/pg_ctl start \
+      -D /var/postgresql/data -l /var/postgresql/logfile \
+      -o '-D /var/postgresql/data' >/dev/null"
+fi
+
+/etc/rc.shutdown:
+
+if [ -f /var/postgresql/data/postmaster.pid ]; then
+  su -l _postgresql -c "/usr/local/bin/pg_ctl stop -m fast \
+       -D /var/postgresql/data"
+  rm -f /var/postgresql/data/postmaster.pid
+fi
+
+rsync -avz -e ssh robin@gandaauto.robin.com.au:/var/www/ /var/www/htdocs/gandadev/
+
+vi /etc/rc.conf.local
+httpd_flags="-DSSL"   # for normal use: "" (or "-DSSL" after reading ssl(8))
+nfs_server=YES
+
+vi /etc/exports
+/var/www 192.168.0.3 #-alldirs will make everywhere mountable
+#but openbsd gave example of:
+/work -alldirs -ro -network=10.0.0 -mask=255.255.255.0
+
+
+###ON CLIENT SIDE###
+
+###end client side###

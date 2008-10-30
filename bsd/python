@@ -1,0 +1,5 @@
+--- python-2.5.1p2 -------------------
+If you want to use this package as your default system python, create
+symbolic links like so:
+ln -s /usr/local/bin/python2.5 /usr/local/bin/python
+ln -s /usr/local/bin/pydoc2.5  /usr/local/bin/pydoc

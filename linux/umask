@@ -1,0 +1,13 @@
+ UMASK is a Unix environment variable which automatically sets file permissions on newly created files.
+
+ The UMASK variable can be confusing to use, because it does work as a mask. In other words, you set the permissions that you do not want in the UMASK.
+
+ To calculate permissions which will result from specific UMASK values, subtract the UMASK from 666 for files and from 777 for directories.
+
+ If you want all files created with permissions of 666, set your UMASK to 000. Alternatively, if you want all files created with permissions of 000, set your UMASK to 666.
+
+ A reasonable value for UMASK is 022, which will cause files to be created with permissions of 644 (rwxrw-rw-) and directories to be created with permissions of 755 (rwxr-xr-x).
+
+ A more secure value for UMASK is 066, which will cause files to be created with permissions of 600 (rw-------) and directories to be created with permissions of 700 (rwx------).
+
+ UMASK is nomally defined in the .profile or .login user startup files.

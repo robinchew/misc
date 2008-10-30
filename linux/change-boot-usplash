@@ -1,0 +1,5 @@
+#change boot image 
+sudo update-alternatives --config usplash-artwork.so
+
+#do below also MAYBE
+sudo update-alternatives --set usplash-artwork.so /usr/lib/usplash/usplash-theme-xubuntu.so

@@ -1,0 +1,2 @@
+mplayer -dumpstream file
+mplayer -ss 01:40:00

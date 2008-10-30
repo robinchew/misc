@@ -1,0 +1,11 @@
+http://www.unix.com/ip-networking/34315-how-find-port-numbers-web-server-listening.html
+
+lsof -i TCP (displays online open tcp ports)
+lsof -i UDP
+above commands work for linux only
+
+netstat -anp | head -20 
+
+nmap -anp ( if the nmap utility is installed in linux system)
+
+netstat -lpn

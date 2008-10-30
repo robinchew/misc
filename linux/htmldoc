@@ -1,0 +1,51 @@
+htmldoc -f text32.pdf web --right 1in --left 1in --top 1in --bottom 1in --no-toc --no-title --fontspacing 1.5 --webpage --footer ...
+
+Header/Footer Strings
+
+The HEADER and FOOTER comments allow you to set an arbitrary string of text for the left, center, and right headers and footers. Each string consists of plain text; special values or strings can be inserted using the dollar sign ($):
+$$
+Inserts a single dollar sign in the header. 
+$CHAPTER
+Inserts the current chapter heading. 
+$CHAPTERPAGE
+$CHAPTERPAGE(format)
+Inserts the current page number within a chapter or file. When a format is specified, uses that numeric format (1 = decimal, i = lowercase roman numerals, I = uppercase roman numerals, a = lowercase ascii, A = uppercase ascii) for the page numbers. 
+$CHAPTERPAGES
+$CHAPTERPAGES(format)
+Inserts the total page count within a chapter or file. When a format is specified, uses that numeric format (1 = decimal, i = lowercase roman numerals, I = uppercase roman numerals, a = lowercase ascii, A = uppercase ascii) for the page count. 
+$DATE
+Inserts the current date. 
+$HEADING
+Inserts the current heading. 
+$LOGOIMAGE
+Inserts the logo image; all other text in the string will be ignored. 
+$PAGE
+$PAGE(format)
+Inserts the current page number. When a format is specified, uses that numeric format (1 = decimal, i = lowercase roman numerals, I = uppercase roman numerals, a = lowercase ascii, A = uppercase ascii) for the page numbers. 
+$PAGES
+$PAGES(format)
+Inserts the total page count. When a format is specified, uses that numeric format (1 = decimal, i = lowercase roman numerals, I = uppercase roman numerals, a = lowercase ascii, A = uppercase ascii) for the page count. 
+$TIME
+Inserts the current time. 
+$TITLE
+Inserts the document title.
+
+example html:
+
+<!-- FOOTER RIGHT "$PAGE" -->
+<h1>heading</h1>
+<p><font size="30px">d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it</font></p>
+<p>d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it d escr ipti on o f sh it</p>
+<!--PAGE BREAK-->
+<p>
+breaking page breaking page breaking page breaking page breaking page breaking page breaking page breaking page breaking page breaking page breaking page breaking page breaking page breaking page breaking page breaking page breaking page breaking page breaking page breaking page breaking page breaking page breaking page breaking page breaking page breaking page breaking page breaking page breaking page breaking page breaking page
+</p>
+<p>
+22 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+22 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+22 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+22 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+22 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+</p>
+~                                                   
+

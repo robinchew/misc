@@ -1,0 +1,38 @@
+http://pgfoundry.org/pipermail/wikipedia-news/2006-July/000047.html
+$ su - postgres -c "psql template1"
+template1=# CREATE USER wikiadmin WITH PASSWORD "somepassword";
+template1=# CREATE DATABASE wikidb WITH OWNER wikiadmin;
+template1=# \c wikidb
+wikidb=# CREATE SCHEMA mediawiki;
+wikidb=# \i /usr/share/postgresql/8.1/contrib/tsearch2.sql
+wikidb=# GRANT SELECT ON pg_ts_dict to wikiadmin;
+wikidb=# GRANT SELECT ON pg_ts_parser to wikiadmin;
+wikidb=# GRANT SELECT ON pg_ts_cfg to wikiadmin;
+wikidb=# GRANT SELECT ON pg_ts_cfgmap to wikiadmin;
+
+$ createlang plpgsql wikidb
+
+http://www.postgresqlforums.com/forums/viewtopic.php?f=35&p=178
+update pg_ts_cfg set locale = current_setting('lc_collate') where ts_name = 'default';
+--
+
+OR
+!!!most likely cause of path error in include/DatabasePostgres is cos of undefined $path variable because the wiki is placed in wiki.robin.com.au (no path) instead of robin.com.au/wiki (/wiki is the path) !!!
+sudo su postgres
+createuser -S -D -R -P -E wikiuser (then enter the password)
+createdb -O wikiuser wikidb
+createlang plpgsql wikidb
+psql wikidb
+
+wikidb=# CREATE SCHEMA wikischema;
+wikidb=# \i /usr/share/postgresql/8.1/contrib/tsearch2.sql
+wikidb=# GRANT SELECT ON pg_ts_dict to wikiuser;GRANT SELECT ON pg_ts_parser to wikiuser;GRANT SELECT ON pg_ts_cfg to wikiuser;GRANT SELECT ON pg_ts_cfgmap to wikiuser;
+
+update pg_ts_cfg set locale = current_setting('lc_collate') where ts_name = 'default'; http://www.postgresqlforums.com/forums/viewtopic.php?f=35&p=178
+
+--
+CHECK OUT 
+http://www.mediawiki.org/wiki/Manual:Installing_MediaWiki
+http://www.mediawiki.org/wiki/Manual_talk:Installation
+
+looks like a more complute guide`

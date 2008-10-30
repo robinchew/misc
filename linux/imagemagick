@@ -1,0 +1,7 @@
+#CONVERTING PNG, quality=compression level, 100=best compression
+convert -quality 100 -background white -flatten image1.png image1.png
+
+#CONVERTING GIF, strip create smaller gif files
+convert -strip image1.png image1.gif
+
+#CONVERTING JPG, strip needed?

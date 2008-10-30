@@ -1,0 +1,6 @@
+netstat -plutn
+netstat -apvtu
+
+Other distros follow similar suit. You can find out what's running on your linux box with:
+  - netstat -tuna (all tcp/udp sockets, dont resolve names, all listening/non-listening sockets)
+    - locate iptables; sudo iptables -nvL (show iptables chains for netfilter)

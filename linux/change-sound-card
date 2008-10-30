@@ -1,0 +1,13 @@
+sudo asoundconf list
+ 
+ I got back:
+ 
+ Names of available sound cards:
+ Live
+ V8237
+ 
+ I then did:
+ 
+ sudo asoundconf set-default-card Live
+ 
+ followed by a reboot to test.

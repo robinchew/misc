@@ -1,0 +1,2 @@
+wget http://www.beerorkid.com/compiz/quinn.key.asc -O - | sudo apt-key add -
+wget http://ubuntu.compiz.net/quinn.key.asc -O - | sudo apt-key add - 

@@ -1,0 +1,3 @@
+memory_limit = 12M to your php.ini file (recommended, if you have access)
+ini_set('memory_limit', '12M'); in your sites/default/settings.php file
+php_value memory_limit 12M in your .htaccess file in the Drupal root

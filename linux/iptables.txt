@@ -1,0 +1,22 @@
+ IPTables Configuration
+
+If you set TCP port in aMule to XX and UDP port to YY then you have to set your firewall like this:
+
+iptables -A INPUT -p tcp --dport XX -j ACCEPT
+iptables -A INPUT -p udp --dport XX+3 -j ACCEPT
+iptables -A INPUT -p udp --dport YY -j ACCEPT
+
+iptables -A INPUT -p tcp --dport XX -j ACCEPT
+iptables -A INPUT -p tcp --dport 6667 -j ACCEPT
+iptables -A INPUT -p tcp --dport 6685 -j ACCEPT
+iptables -A INPUT -p udp --dport 4672 -j ACCEPT
+
+If you are building your iptables-rules from scratch, you also need to allow ESTABLISHED and RELATED traffic to come through your firewall:
+
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+And you must enable traffic to leave your machine aswell, by either allowing all outgoing traffic:
+
+iptables -P OUTPUT ACCEPT
+
+or specifying special rules. 

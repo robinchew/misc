@@ -1,0 +1,9 @@
+GRANT
+SELECT,INSERT,UPDATE,DELETE,INDEX,ALTER,CREATE,DROP,RELOAD,SHUTDOWN,PROCESS,
+FILE,
+           ON keystone.*
+           TO <$sys_dbuser name>@localhost
+           IDENTIFIED BY '(password)'
+     WITH GRANT OPTION;
+
+OR

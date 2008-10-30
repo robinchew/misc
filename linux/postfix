@@ -1,0 +1,80 @@
+apti postfix mailx
+----------
+Ok
+
+Internet Site
+
+NONE
+
+mail.robin.com.au
+
+mail.robin.com.au, localhost.localdomain, localhost
+
+No
+
+127.0.0.0/8
+
+Yes
+
+0
+
++
+
+all
+-----------
+#test
+----
+telnet localhost 25
+Trying 127.0.0.1...
+Connected to mail.fossedu.org.
+Escape character is '^]'.
+220 localhost.localdomain ESMTP Postfix (Ubuntu)
+
+Type the following code segment in Postfix's prompt. 
+ehlo localhost
+mail from: root@localhost
+rcpt to: robin@localhost
+data
+Subjet: My first mail on Postfix
+Hi,
+Are you there?
+regards,
+Admin
+. (Type the .[dot] in a new Line and press Enter )
+quit 
+mail
+-----
+
+sudo vi /etc/postfix/main.cf
+virtual_alias_domains = robin.com.au
+virtual_alias_maps = hash:/etc/postfix/virtual
+
+sudo vi /etc/postfix/virtual 
+me@robin.com.au robin
+*@robin.com.au robin #WRONG!
+
+sudo postmap /etc/postfix/virtual
+
+#for mail-client access
+apti courier-pop
+#Instruct Postfix to use Maildirs instead of Mboxes: 
+ sudo postconf -e "home_mailbox = Maildir/"
+
+#Ensure Procmail isn't used: (if the step was taken during dpkg-reconfigure, by mistake) 
+ sudo postconf -e "mailbox_command = "
+
+###########
+SMTP
+###########
+master.cf
+# ==========================================================================
+# service type  private unpriv  chroot  wakeup  maxproc command + args
+#               (yes)   (yes)   (yes)   (never) (100)
+# ==========================================================================
+smtp      inet  n       -       n       -       -       smtpd
+
+#main.cf
+smtp_sasl_auth_enable = yes
+smtp_sasl_security_options = 
+smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
+

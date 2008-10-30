@@ -1,0 +1,13 @@
+sh NV... -k $(uname -r)
+
+linux-headers-
+linux-source-
+build-essential
+
+gcc-3.4
+
+CC=gcc-3.4
+export CC
+
+install 7667
+then 7174

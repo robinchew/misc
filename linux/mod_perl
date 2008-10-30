@@ -1,0 +1,32 @@
+<VirtualHost 192.168.0.10:80>
+  #<FilesMatch "^[^.]+$">
+  <FilesMatch "\.(pl|cgi)$">
+    #AddHandler x-suphp-cgi .cgi .pl
+    #AddHandler cgi-script .cgi .pl
+    #SetHandler cgi-script
+    SetHandler perl-script
+    #PerlHandler Apache::Registry
+#    PerlHandler ModPerl::Registry
+    PerlHandler ModPerl::RegistryPrefork
+#    PerlResponseHandler ModPerl::PerlRun #may not need
+    Options +ExecCGI
+    PerlSendHeader On
+  </FilesMatch>
+  <Location /perl-status>
+    SetHandler perl-script
+    PerlHandler Apache::Status
+    order deny,allow
+    deny from all
+    allow from 192.168.0.1,192.168.0.7
+  </Location>
+   #PerlRequire /home/robin/www/empiriadesign.com/startup.pl
+   ServerName www.empiriadesign.com
+   ServerAlias empiriadesign.com
+   DocumentRoot /home/robin/www/empiriadesign.com/
+   #ServerRoot /home/robin/www/empiriadesign.com/
+   CustomLog /home/robin/www/empiriadesign.com/log/access.log common
+   ErrorLog /home/robin/www/empiriadesign.com/log/apache-error.log
+   LogLevel warn
+#   ServerSignature On
+</VirtualHost>
+

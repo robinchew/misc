@@ -1,0 +1,8 @@
+t do this:
+
+1) sudo apt-get install sugar sugar-activities xserver-xephyr
+
+2) create xephr-xinitrc file in your home directory with this line in it: exec /usr/bin/sugar
+
+3) run this to start it in a windowed xserver:
+xinit ~/xephyr-xinitrc -- /usr/bin/Xephyr :1 -ac -screen 800x600 -dpi 72

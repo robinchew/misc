@@ -1,0 +1,18 @@
+#create from CLIENT computer
+#do not name pubkey other than id_rsa!!!
+ssh-keygen -t dsa
+ssh-keygen -t rsa //recommended
+#put in ~/.ssh
+#CLIENT can just have only the private key OR ELSE CLIENT must have BOTH private and public key
+
+#throw id_rsa.pub to SERVER computer in ~/.ssh
+cat id_rsa.pub >> ~/.ssh/authorized_keys
+
+sudo vi /etc/ssh/sshd_config 
+PermitRootLogin no
+RSAAuthentication yes
+PubkeyAuthentication yes
+
+sudo /etc/init.d/ssh restart
+#if all is well then do this in sshd_config
+PasswordAuthentication no

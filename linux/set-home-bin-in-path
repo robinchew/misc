@@ -1,0 +1,5 @@
+#sudo vi /etc/X11/Xsession
+#sudo vi /etc/profile #maybe /etc/environment
+vi ~/.profile
+PATH="${PATH}":~/bin:/opt/e17/bin
+#PATH=~/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11:/usr/games

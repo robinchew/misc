@@ -1,0 +1,18 @@
+#CHOP OFF STRING
+$ MYVAR=foodforthought.jpg
+$ echo ${MYVAR##*fo}
+rthought.jpg
+$ echo ${MYVAR#*fo}
+odforthought.jpg
+
+$ MYFOO="chickensoup.tar.gz"
+$ echo ${MYFOO%%.*}
+chickensoup
+$ echo ${MYFOO%.*}
+chickensoup.tar
+
+#LOOPING FILES WITH SPACES
+find ~ -name '* *' | while read FILE
+do
+        echo $FILE rocks.
+done

@@ -1,0 +1,17 @@
+http://www.computing.net/linux/wwwboard/forum/28506.html
+
+
+
+mke2fs -n /dev/sdd1 # to find superblock to fix
+
+root@1[knoppix]# fsck.ext3 -b 8193 /dev
+OR e2fsck -b 8193
+root@1[knoppix]# fsck.ext3 -b 32768
+OR e2fsck -b 32768
+
+
+dosnt work the 1st time
+maybe get rid of the line in fstab
+unplug reboot and plug hardware reboot or something then try again
+booted into recovery mode,
+used fsck.ext3 -b 32768 which worked

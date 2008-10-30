@@ -1,0 +1,22 @@
+Installation directory: /home/robin/www/robin.com.au/wiki
+Script URI path: 
+Environment checked. You can install MediaWiki.
+
+Generating configuration file...
+Database type: PostgreSQL
+Loading class: DatabasePostgres
+Attempting to connect to database server as wikiuser...
+Connected to PostgreSQL 8.1.9 on powerpc-unknown-linux-gnu, compiled by GCC gcc-4.0.gcc-opt (GCC) 4.0.3 (Ubuntu 4.0.3-1ubuntu5)
+Creating tables... (table interwiki successfully populated)... done.
+Initializing data...
+Created sysop account robin.
+Initialising "MediaWiki" namespace...
+Clearing message cache...Done.
+
+Creating LocalSettings.php...
+
+Installation successful!
+
+To complete the installation, please do the following: 
+Move /config/LocalSettings.php to /home/robin/www/robin.com.au/wiki/LocalSettings.php for normal install, root of your install for multisite, with rights 640
+Start using your wiki!

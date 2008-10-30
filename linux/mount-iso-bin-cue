@@ -1,0 +1,3 @@
+sudo mount file.iso -o loop -t iso9660 /media/cdrom
+bchunk image.bin image.cue image
+bchunk -o loop image.bin image.cue image

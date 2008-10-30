@@ -1,0 +1,556 @@
+#!/bin/bash
+
+# Needs to be a deb package based computer with perl.
+# Will rdbi (remove, download, build, and install) x264, XviD, and MPlayer from cvs/svn. Also installs other softare bitterbpp depends on.
+# FIXME updated 10 Sep 2005
+# TODO 
+# 1. cleaning old MPlayer stables doesn't work if there is more than one file/directory matching "ls | grep MPlayer | grep -v bz2"
+# 2. configuring lsdvd doesn't work if there is more than one file/directory matching "ls | grep lsdvd"
+# 3. completely automated option
+
+if [ ! `/usr/bin/whoami` = "root" ]; then
+ echo "You must be the root user. Exiting..."
+ exit 1
+fi
+
+if [ $# -eq 0 ]; then
+ echo "This script requires a parameter. Type -h or --help for help."
+ exit 1
+fi
+
+declare ASDF
+declare RUN_QUIETLY
+declare OUR_ROOT="/var/lib/bitterbpp-refresh"
+declare OUR_SUPERUSER
+declare -i LSDVD=0
+declare -i MPLAYER=0
+declare -i XVID=0
+declare -i X264=0
+
+while [ $# -gt 0 ]; do
+ case "$1" in
+ -h | --help ) # FIXME update the version
+  printf "bitterbpp-refresh, updated for bitterbpp v1.5.2beta.\n   -h, --help:     Print this help.\n    -a, --all:     Update/Build all targets.\n-m, --mplayer:     Update/Build MPlayer.\n   -x, --xvid:     Update/Build XviD.\n   -2, --x264:     Update/Build x264.\n\n"
+  exit 0
+  ;;
+ -m | --mplayer )
+  MPLAYER=1
+  ;;
+ -l | --lsdvd )
+  LSDVD=1
+  ;;
+ -x | --xvid )
+  XVID=1
+  ;;
+ -2 | --x264 )
+  X264=1
+  ;;
+ -a | --all )
+  MPLAYER=1
+  LSDVD=1
+  XVID=1
+  X264=1
+  ;;
+ * )
+  echo "Sorry, $1 is an unrecognized switch. Exiting..."
+  exit 1
+  ;;
+ esac
+ shift
+done
+
+if [ -w "/var/lib/" ]; then
+ mkdir -p "$OUR_ROOT" >/dev/null 2>&1
+ cd "$OUR_ROOT"
+else
+ echo "I can't write to /var/lib/bitterbpp-refresh, so I can't create/modify our repositories. Exiting..."
+ exit 1
+fi
+
+# Default to talking about what's happening
+read -p "Run quietly? [N/y] " RUN_QUIETLY
+if [[ ! "$RUN_QUIETLY" = [yY]* ]]; then
+ RUN_QUIETLY=""
+ echo ""
+ read -p "Warning! DEPENDING ON WHAT COMMAND SWITCH YOU PROVIDED, this script 
+will install MPlayer, XviD, and x264 (and the dependencies needed for building) 
+system-wide.
+/var/lib/bitterbpp-refresh is the working directory: MPlayer, XviD, and x264
+will be created/altered here. Total finished size is about 125 megabytes.
+Everything except MPlayer, XviD, and x264 will be installed using apt-get 
+(if available).
+If you are uncomforable with ANY of the above, please quit to avoid any changes 
+to your system. (Enter to continue, Ctrl-C to quit) " ASDF
+ echo ""
+# read -p "Warning! If you already have MPlayer, XviD, or x264 installed (and you didn't use this script to install them), it's best to remove them manually before going through with this script. (Enter if you haven't manually installed them, Ctrl-C to quit) " ASDF
+# echo ""
+else
+ RUN_QUIETLY=">/dev/null 2>&1"
+fi
+
+#read -p "I'll be installing (and cleaning, if necessary) the software system wide. 
+#Would you like me to run the installs/updates as root or with sudo?
+#[root (default) / sudo] " ASDF
+#if [[ "$ASDF" = [sS]* ]]; then
+# echo ""
+# echo "You entered \"$ASDF\" so I'll run installs/updates with sudo."
+# echo ""
+# OUR_SUPERUSER="sudo"
+#else
+# echo ""
+# echo "You entered \"$ASDF\" so I'll run installs/updates as root, as per the default action."
+# echo ""
+# OUR_SUPERUSER="root"
+#fi
+
+# Check to see if we've installed what we needed.
+if [ -r /etc/apt/sources.list ]; then
+ perl -e 'open FILE, "/etc/apt/sources.list" or warn "Could not open /etc/apt/sources.list: $!\n"; my $check1 = 1; my $check2 = 1; while (<FILE>) { if (m#^\s*deb\s+ftp://ftp.nerim.net/#) { $check1 = 0; } if (m#^\s*deb\s+http://www.bunkus.org/#) { $check2 = 0; }}  if ($check1 != 0) { print "Warning! I did not see a deb ftp://ftp.nerim.net/debian-marillat unstable main\nline in your sources.list file!\nI recommend you add this to your sources.list, otherwise you may not be able to download yasm (needed for x264 and XviD).\n\n" } if ($check2 != 0) { print "Warning! I did not see a deb http://www.bunkus.org/ubuntu/hoary/ ./ or deb http://www.bunkus.org/debian/unstable/ ./ line in your sources.list file!\nI recommend you add this to your sources.list, otherwise you may not be able to download mkvtoolnix.\n\n"} if ($check1 !=0 || $check2 != 0) { exit 1; } else { exit 0; }'
+ if [ ! $? -eq 0 ]; then
+  read -p "I suggest making these changes before continuing (unless you're using a AMD64 system, in which case it probably won't work to make those changes). (Enter to continue, Ctrl-C to quit) " ASDF
+ fi
+ if [ ! -e "/var/lib/dpkg/info/bitterbpp.list" ]; then
+  read -p "I'll need to install (with apt-get) autoconf automake binutils cvs gcc liba52-0.7.4-dev libasound2-dev libdts-dev libgtk2-perl libtool libvorbis-dev make mkvtoolnix nasm ogmtools subversion vorbis-tools xlibs-static-dev yasm. Enter to continue, Ctrl-C to quit) " ASDF
+#  if [[ ! "$ASDF" = [yY]* ]]; then
+#   if [ "$OUR_SUPERUSER" = "sudo" ]; then
+#    echo ""
+#    echo "Enter your password to run apt-get for these packages."
+#    sudo apt-get update && sudo apt-get install autoconf automake binutils cvs gcc liba52-0.7.4-dev libasound2-dev libgtk2-perl libdts-dev libtool libvorbis-dev make mkvtoolnix nasm ogmtools subversion vorbis-tools xlibs-static-dev yasm
+  apt-get update && apt-get install autoconf automake binutils cvs gcc liba52-0.7.4-dev libasound2-dev libgtk2-perl libdts-dev libtool libvorbis-dev make mkvtoolnix nasm ogmtools subversion vorbis-tools xlibs-static-dev yasm
+#   else
+#    echo ""
+#    echo "Enter the root password to run apt-get for these packages."
+#    su root apt-get update && su root apt-get install autoconf automake binutils cvs gcc liba52-0.7.4-dev libasound2-dev libgtk2-perl libdts-dev libdvdread3-dev libtool libvorbis-dev make mkvtoolnix nasm ogmtools subversion vorbis-tools xlibs-static-dev yasm
+#   fi
+   if [ ! "$?" = 0 ]; then
+    echo ""
+    read -p "Since everything didn't install OK, I wouldn't recommned continuing. If you're on and AMD64 system, you'll need to find and install the missing packages manually. (Enter to continue, Ctrl-C to quit) " ASDF
+   fi
+#  fi
+ fi
+else
+ read -p "You're not on a deb package based system: I couldn't find sources.list in /etc/apt/. This is OK, but you'll need to have the packages (or equivalent of) autoconf automake binutils cvs gcc liba52-0.7.4-dev libasound2-dev libdts-dev libgtk2-perl libtool libvorbis-dev make mkvtoolnix nasm ogmtools subversion vorbis-tools xlibs-static-dev yasm installed. (Enter to continue, Ctrl-C to quit) " ASDF
+fi
+
+echo ""
+echo "From now on, press enter when asked for a password; it's just for anonymous login to CVS or svn repositories for the softwares."
+echo ""
+
+if [ "$X264" = 1 ]; then
+ # Now x264 stuff
+ if [ -d x264 ]; then
+  cd x264
+  echo "Cleaning old x264..."
+  svn cleanup
+#  if [ "$OUR_SUPERUSER" = "sudo" ]; then
+#   echo ""
+#   echo "Enter your password to uninstall x264."
+#   sudo make uninstall
+#  else
+#   echo ""
+#   echo "Enter the root password to uninstall x264."
+#   su root make uninstall
+   make uninstall
+#  fi
+  eval make distclean "$RUN_QUIETLY"
+  cd "$OUR_ROOT"
+ fi
+ 
+ echo "Downloading/Updating x264..."
+ if [ "$RUN_QUIETLY" != "" ]; then
+  svn -q co svn://svn.videolan.org/x264/trunk x264
+ else
+  svn co svn://svn.videolan.org/x264/trunk x264
+ fi
+ cd x264
+ read -p "I'll be configuring x264 now. Enter your ./configure arguments, enter N for none, or press enter to accept the default [--enable-pthread]: " ASDF
+ if [[ "$ASDF" = [nN]* ]]; then
+  echo "--- begin x264 configure output ---"
+  ./configure | tail
+  echo "--- end x264 configure output ---"
+ elif [ "$ASDF" = "" ]; then
+  echo "--- begin x264 configure output ---"
+  ./configure --enable-pthread | tail
+  echo "--- end x264 configure output ---"
+ else
+  echo "--- begin x264 configure output ---"
+  eval ./configure "$ASDF" | tail
+  echo "--- end x264 configure output ---"
+ fi
+ echo ""
+ read -p "Does the tail end of the x264 ./configure output look ok? (Enter to continue, Ctrl-C to quit) " ASDF
+ echo "Making/Installing x264..."
+ eval make "$RUN_QUIETLY"
+# if [ "$OUR_SUPERUSER" = "sudo" ]; then
+#  echo ""
+#  echo "Enter your password to install x264."
+#  sudo make install
+# else
+#  echo ""
+#  echo "Enter the root password to install x264."
+#  su root make install
+  make install
+# fi
+ cd "$OUR_ROOT"
+else
+ echo "Skipping x264..."
+fi
+
+if [ "$XVID" = 1 ]; then
+ # Now XviD stuff
+ echo "Cleaning old XviD (if it exists)..."
+ rm -rf xvid_*
+ echo "Downloading XviD..."
+ if [ "$RUN_QUIETLY" != "" ]; then
+  wget -q http://downloads.xvid.org/downloads/xvid_latest.tar.gz
+ else
+  wget http://downloads.xvid.org/downloads/xvid_latest.tar.gz
+ fi
+ tar -xzf xvid_latest.tar.gz
+ rm -f xvid_latest.tar.gz
+ declare XVID_DATE=`ls | grep xvid`
+ echo "Bootstrapping/Configuring $XVID_DATE..."
+ cd "$XVID_DATE"/xvidcore/build/generic/
+ eval ./bootstrap.sh "$RUN_QUIETLY"
+ read -p "I'll be configuring XviD now. Enter your ./configure arguments, enter N for none, or press enter to accept the default []: " ASDF
+ if [[ "$ASDF" = [nN]* ]]; then
+  echo "--- begin XviD configure output ---"
+  ./configure | tail
+  echo "--- end XviD configure output ---"
+ elif [ "$ASDF" = "" ]; then
+  echo "--- begin XviD configure output ---"
+  ./configure | tail
+  echo "--- end XviD configure output ---"
+ else
+  echo "--- begin XviD configure output ---"
+  eval ./configure "$ASDF" | tail
+  echo "--- end XviD configure output ---"
+ fi
+ echo ""
+ read -p "Does the tail end of XviD's ./configure output look ok? (Enter to continue, Ctrl-C to quit) " ASDF
+ echo "Making/Installing XviD..."
+ eval make "$RUN_QUIETLY"
+# if [ "$OUR_SUPERUSER" = "sudo" ]; then
+#  echo ""
+#  echo "Enter your password to install XviD."
+#  sudo make install
+# else
+#  echo ""
+#  echo "Enter the root password to install XviD."
+#  su root make install
+  make install
+# fi
+ cd "$OUR_ROOT"
+else
+ echo "Skipping XviD..."
+fi
+
+if [ "$MPLAYER" = 1 ]; then
+ # For cleaning old MPlayer installs
+ echo "Cleaning any old MPlayer directories I can find..."
+ if [ -e "main/mplayer" ]; then
+  cd main
+#  if [ "$OUR_SUPERUSER" = "sudo" ]; then
+#   echo ""
+#   echo "Enter your password to try uninstalling a cvs MPlayer."
+#   sudo make uninstall
+#  else
+#   echo ""
+#   echo "Enter the root password to try uninstalling a cvs MPlayer."
+#   su root make uninstall
+   make uninstall
+#  fi
+  eval make distclean "$RUN_QUIETLY"
+  cd "$OUR_ROOT"
+ fi
+# declare OLD_MPLAYER_STABLE=`ls | grep MPlayer | grep -v bz2`
+for i in `ls | grep MPlayer | grep -v bz2`; do
+ if [ -d "$i" ]; then
+  cd "$i"
+#  if [ "$OUR_SUPERUSER" = "sudo" ]; then
+#   echo ""
+#   echo "Enter your password to try uninstalling $OLD_MPLAYER_STABLE."
+#   sudo make uninstall
+#  else
+#   echo ""
+#   echo "Enter the root password to try uninstalling $OLD_MPLAYER_STABLE."
+#   su root make uninstall
+   make uninstall
+#  fi
+  cd "$OUR_ROOT"
+  rm -rf "$OLD_MPLAYER_STABLE"
+ fi
+done
+  
+ # Get MPlayer
+ read -p "Do you want the cvs MPlayer and ffmpeg or the stable releases? [cvs (default)/stable] " ASDF
+ echo ""
+ if [ "$ASDF" = "stable" ]; then # stable MPlayer
+  echo "You entered \"$ASDF\" so I'll get the stable MPlayer."
+  echo ""
+#  read -p "As a warning, the stable MPlayer refuses to use x264. So, you cannot encode with x264 if you proceed with this option. (Enter to continue, Ctrl-C to quit) " ASDF
+  if [ -e index.html ]; then
+   rm -f index.html
+  fi
+  if [ "$RUN_QUIETLY" != "" ]; then
+   wget -q http://ftp5.mplayerhq.hu/mplayer/releases/
+  else
+   wget http://ftp5.mplayerhq.hu/mplayer/releases/
+  fi
+  # This just scrapes index.html for the latest MPlayer stable
+  declare MPLAYER_STABLE=`perl -e 'my @sort_me; open FILE, "<index.html"; while (<FILE>) { tr/A-Za-z0-9\ \n\-\.\_//cd; if (/MPlayer/ && !(/dev/) && !(/md5/)) { push (@sort_me,$_) }} my @sorted = reverse sort @sort_me; my $name_length = index($sorted[0],"bz2")-index($sorted[0],"MPlayer")+3; my $get_me = substr($sorted[0],index($sorted[0],"MPlayer"),$name_length); print "$get_me\n";'`
+  # devel version: perl -e 'use strict; use warnings; my @sort_me; open FILE, "<index.html"; while (<FILE>) { tr/A-Za-z0-9\ \n\-\.\_//cd; if (/MPlayer/ && !(/dev/) && !(/md5/)) { print; push (@sort_me,$_) }} my @sorted = reverse sort @sort_me; my $name_length = index($sorted[0],"bz2")-index($sorted[0],"MPlayer")+3; my $get_me = substr($sorted[0],index($sorted[0],"MPlayer"),$name_length); print "name_length: $name_length\n$get_me\n";'
+  if [ "$RUN_QUIETLY" != "" ]; then
+   read -p "The current stable MPlayer I found is $MPLAYER_STABLE. (Ctrl-C to quit, Enter to continue downloading/building) " ASDF
+   rm -rf MPlayer* >/dev/null 2>&1
+   echo "Downloading $MPLAYER_STABLE..."
+   wget -q http://ftp5.mplayerhq.hu/mplayer/releases/"$MPLAYER_STABLE"
+  else
+   echo "Downloading $MPLAYER_STABLE..."
+   wget http://ftp5.mplayerhq.hu/mplayer/releases/"$MPLAYER_STABLE"
+  fi
+  tar -xjf "$MPLAYER_STABLE"
+  rm "$MPLAYER_STABLE"
+  declare MPLAYER_DIR=`ls | grep MPlayer | grep -v bz2`
+ else # CVS MPlayer
+  echo "You entered \"$ASDF\" so I'll get the cvs MPlayer, as per the default action."
+  echo ""
+  cvs -d:pserver:anonymous@mplayerhq.hu:/cvsroot/mplayer login
+  if [ -e main ]; then
+   echo "Updating MPlayer..."
+   cd main
+   if [ "$RUN_QUIETLY" != "" ]; then
+    cvs -Qz3 update -dPA
+   else
+    cvs -z3 update -dPA
+   fi
+   cd "$OUR_ROOT"
+  else
+   echo "Downloading MPlayer..."
+   if [ "$RUN_QUIETLY" != "" ]; then
+    cvs -Qz3 -d:pserver:anonymous@mplayerhq.hu:/cvsroot/mplayer co -P main
+   else
+    cvs -z3 -d:pserver:anonymous@mplayerhq.hu:/cvsroot/mplayer co -P main
+   fi
+   cd "$OUR_ROOT"
+  fi
+  # Now libavcodec and libavutil goes to main
+  if [ -e ffmpeg ]; then 
+   cd ffmpeg
+   echo "Updating ffmpeg..."
+   if [ "$RUN_QUIETLY" != "" ]; then
+    cvs -d:pserver:anonymous@mplayerhq.hu:/cvsroot/ffmpeg login
+    cvs -Qz3 update -dPA
+   else
+    cvs -d:pserver:anonymous@mplayerhq.hu:/cvsroot/ffmpeg login
+    cvs -z3 update -dPA
+   fi
+   cd "$OUR_ROOT"
+  else
+   cvs -d:pserver:anonymous@mplayerhq.hu:/cvsroot/ffmpeg login
+   echo "Downloading ffmpeg..."
+   if [ "$RUN_QUIETLY" != "" ]; then
+    cvs -Qz3 -d:pserver:anonymous@mplayerhq.hu:/cvsroot/ffmpeg co -P ffmpeg
+   else
+    cvs -z3 -d:pserver:anonymous@mplayerhq.hu:/cvsroot/ffmpeg co -P ffmpeg
+   fi
+  fi
+  if [ -e main/libavcodec ]; then
+   rm -rf main/libavcodec/
+   rm -rf main/libavutil/
+   rm -rf main/libavformat/
+  fi
+  # ...and put a new one in
+  cp -rp ffmpeg/libavcodec/ main/
+  cp -rp ffmpeg/libavutil/ main/
+  cp -rp ffmpeg/libavformat/ main/
+  declare MPLAYER_DIR="$OUR_ROOT/main"
+ fi
+ 
+ # Now get the MPlayer codecs/index.html page
+ echo "Finding codecs..."
+# if [ -e index.html ]; then
+  rm -f index.html >/dev/null 2>&1
+# fi
+ if [ "$RUN_QUIETLY" != "" ]; then
+  wget -q http://www4.mplayerhq.hu/MPlayer/releases/codecs/
+ else
+  wget http://www4.mplayerhq.hu/MPlayer/releases/codecs/
+ fi
+ # This just scrapes index.html for the latest codecs file
+ # I'm not even gonna start porting that to bash :)
+ declare CODECS=`perl -e 'my @sort_me; open FILE, "<index.html"; while (<FILE>) { if (/all/ && !(/windows/)) { push (@sort_me,$_) }} my @sorted = reverse sort @sort_me; my $get_me = substr($sorted[0],index($sorted[0],"all"),20); print "$get_me\n";'`
+ read -p "Download extra MPlayer codecs? (version $CODECS) [Y/n] " ASDF
+ if [[ ! "$ASDF" = [nN]* ]]; then
+  echo "Downloading $CODECS..."
+  rm -rf all-* >/dev/null 2>&1
+  if [ "$RUN_QUIETLY" != "" ]; then
+   wget -q http://www4.mplayerhq.hu/MPlayer/releases/codecs/$CODECS
+  else
+   wget http://www4.mplayerhq.hu/MPlayer/releases/codecs/$CODECS
+  fi
+  tar -xjf "$CODECS"
+  declare CODECS_DIR=`echo $CODECS | perl -e 'while (<>) { $_ = substr($_,0,index($_,"\.")); print "$_"; }'`
+  if [ -d /usr/local/lib/codecs ]; then
+   read -p "Remove old codecs? Not removing will clobber existing codecs in /usr/local/lib/codecs/ with names identical to new codecs we downloaded. [N/y] " ASDF
+   if [[ "$ASDF" = [yY]* ]]; then
+#    if [ "$OUR_SUPERUSER" = "sudo" ]; then
+#     echo ""
+#     echo "Enter your password to remove things in /usr/local/lib/codecs/."
+#     sudo rm -rf /usr/local/lib/codecs/*
+#     sudo cp -f "$CODECS_DIR"/* /usr/local/lib/codecs/
+#    else
+     echo ""
+#     echo "Enter the root password to remove things in /usr/local/lib/codecs/."
+#     su root rm -rf /usr/local/lib/codecs/*
+#     su root cp -f "$CODECS_DIR"/* /usr/local/lib/codecs/
+     rm -rf /usr/local/lib/codecs/* >/dev/null 2>&1
+     cp -f "$CODECS_DIR"/* /usr/local/lib/codecs/
+#    fi
+   else 
+#    if [ "$OUR_SUPERUSER" = "sudo" ]; then
+#     echo ""
+#     echo "Enter your password to put new codecs in /usr/local/lib/codecs/."
+#     sudo cp -f "$CODECS_DIR"/* /usr/local/lib/codecs/
+#    else
+     echo ""
+#     echo "Enter the root password to put new codecs in /usr/local/lib/codecs/."
+#     su root cp -f "$CODECS_DIR"/* /usr/local/lib/codecs/
+     cp -f "$CODECS_DIR"/* /usr/local/lib/codecs/
+#    fi
+   fi
+  else
+#   if [ "$OUR_SUPERUSER" = "sudo" ]; then
+#    echo ""
+#    echo "Enter your password to make the path /usr/local/lib/codecs/."
+#    sudo mkdir -p /usr/local/lib/codecs
+#    sudo cp "$CODECS_DIR"/* /usr/local/lib/codecs/
+#   else
+    echo ""
+#    echo "Enter the root password to make the path /usr/local/lib/codecs/."
+#    su root mkdir -p /usr/local/lib/codecs
+#    su root cp "$CODECS_DIR"/* /usr/local/lib/codecs/
+    mkdir -p /usr/local/lib/codecs
+    cp "$CODECS_DIR"/* /usr/local/lib/codecs/
+#   fi
+  fi
+  rm -rf "$CODECS_DIR"
+ else
+  echo "Ok, skipped codecs process..."
+ fi
+ 
+ # Now make MPlayer
+ echo "Configuring MPlayer..."
+ cd "$MPLAYER_DIR"
+ read -p "I'll be configuring MPlayer now. Enter your ./configure arguments, enter N for none, or press enter to accept the default [--enable-largefiles --disable-ossaudio]: " ASDF
+ # The perl script after configure just prints from Enabled optional drivers to the next line beginning with \n. It'll also print stuff that says NOTE.
+ if [[ "$ASDF" = [Nn]* ]]; then
+  echo "--- begin MPlayer configure output ---"
+  ./configure | perl -e 'my $a = 0; while (<>) { if (/^\s+Enabled/) { $a = 1 } if (/NOTE/) { $a = 1 } if (/^\n/) { $a = 0 } print if $a == 1 }'
+  echo "--- end MPlayer configure output ---"
+ elif [ "$ASDF" = "" ]; then
+  echo "--- begin MPlayer configure output ---"
+  ./configure --enable-largefiles --disable-ossaudio | perl -e 'my $a = 0; while (<>) { if (/^\s+Enabled/) { $a = 1 } if (/NOTE/) { $a = 1 } if (/^\n/) { $a = 0 } print if $a == 1 }'
+  echo "--- end MPlayer configure output ---"
+ else
+  echo "--- begin MPlayer configure output ---"
+  eval ./configure "$ASDF" | perl -e 'my $a = 0; while (<>) { if (/^\s+Enabled/) { $a = 1 } if (/NOTE/) { $a = 1 } if (/^\n/) { $a = 0 } print if $a == 1 }'
+  echo "--- end MPlayer configure output ---"
+ fi
+ echo ""
+ read -p "Does the tail end of the MPlayer ./configure output look ok? (Enter to continue, Ctrl-C to quit) " ASDF
+ echo "Making/Installing MPlayer..."
+ eval make "$RUN_QUIETLY"
+# if [ "$OUR_SUPERUSER" = "sudo" ]; then
+#  echo ""
+#  echo "Enter your password to install MPlayer."
+#  sudo make install
+# else
+  echo ""
+#  echo "Enter the root password to install MPlayer."
+#  su root make install
+  make install
+# fi
+ cd "$OUR_ROOT"
+else
+ echo "Skipping MPlayer..."
+fi
+
+#if [ "$LSDVD" = 1 ]; then
+# # Now lsdvd stuff
+# declare LSDVD_TEST=`which lsdvd`
+# if [ -x "$LSDVD_TEST" ]; then
+#  LSDVD_TEST=`lsdvd -V 2>&1 | perl -e 'while(<>){print substr($_,6,4)}'`
+#  if [ "$LSDVD_TEST" == "0.15" -o "$LSDVD_TEST" > "0.15" ]; then
+#   echo "You already have lsdvd v0.15 or greater..."
+#  else
+#   echo "You have lsdvd installed, but it seems to be younger than version 0.15. I suggest you remove it and re-run this script."
+#   exit 1
+#  fi
+# else
+#  declare LSDVD=`ls | grep lsdvd`
+#  if [ -d "$LSDVD" ]; then
+#   cd "$LSDVD"
+#   if [ -e Makefile ]; then
+#    if [ "$OUR_SUPERUSER" = "sudo" ]; then
+#     echo ""
+#     echo "Enter your password to uninstall lsdvd."
+#     sudo make uninstall
+#    else
+#     echo ""
+#     echo "Enter the root password to uninstall lsdvd."
+#     su root make uninstall
+#    fi
+#    eval make distclean "$RUN_QUIETLY"
+#   fi
+#   read -p "I'll be configuring lsdvd now. Enter your ./configure arguments, enter N for none, or press enter to accept the default []: " ASDF
+#   if [[ "$ASDF" = [nN]* ]]; then
+#    echo "--- begin lsdvd configure output ---"
+#    ./configure | tail
+#    echo "--- end lsdvd configure output ---"
+#   elif [ "$ASDF" = "" ]; then
+#    echo "--- begin lsdvd configure output ---"
+#    ./configure | tail
+#    echo "--- end lsdvd configure output ---"
+#   else
+#    echo "--- begin lsdvd configure output ---"
+#    eval ./configure "$ASDF" | tail
+#    echo "--- end lsdvd configure output ---"
+#   fi
+#   echo ""
+#   read -p "Does the tail end of lsdvd's ./configure output look ok? (Enter to continue, Ctrl-C to quit) " ASDF
+#   echo "Making/Installing lsdvd..."
+#   eval make "$RUN_QUIETLY"
+#   if [ "$OUR_SUPERUSER" = "sudo" ]; then
+#    echo ""
+#    echo "Enter your password to install lsdvd."
+#    sudo make install
+#   else
+#    echo ""
+#    echo "Enter the root password to install lsdvd."
+#    su root make install
+#   fi
+#  else
+#   read -p "I can't find lsdvd in this directory. Would you like to install it with apt-get? [y/N] " ASDF
+#   if [[ "$ASDF" = [yY]* ]]; then
+#    if [ "$OUR_SUPERUSER" = "sudo" ]; then
+#     echo ""
+#     echo "Enter your password to install lsdvd."
+#     sudo apt-get install lsdvd
+#    else
+#     echo ""
+#     echo "Enter the root password to install lsdvd."
+#     su apt-get install lsdvd
+#    fi
+#   fi
+#  fi
+# fi
+# cd "$OUR_ROOT"
+#else
+# echo "Skipping lsdvd..."
+#fi
+
+echo ""
+echo "Finished."
+#echo "In the future you may re-run rdbi_software.sh in this folder to update all of these programs."
+exit 0

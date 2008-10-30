@@ -1,0 +1,11 @@
+always check out the log for errors
+
+COMMENT THESE
+;Path all scripts have to be in
+;docroot=~/www 
+
+SET UMASK TO 0022 SO THAT CREATED FILES ARE ALWAYS 644 AND DIRECTORIES ARE 755 or else it just be 600
+;Umask to set, specify in octal notation
+umask=0022
+;umask=0077
+

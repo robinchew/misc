@@ -1,0 +1,16 @@
+/etc/acpi/resume.d/40-i8042-input.sh
+#!/bin/sh
+
+# Rebind the AT keyboard interface.
+if [ -f /sys/bus/platform/drivers/i8042/bind ]; then
+  echo -n "i8042" > /sys/bus/platform/drivers/i8042/bind
+fi
+
+/etc/acpi/suspend.d/20-i8042-input.sh
+
+#!/bin/sh
+
+# Unbind the AT keyboard interface.
+if [ -f /sys/bus/platform/drivers/i8042/unbind ]; then
+  echo -n "i8042" > /sys/bus/platform/drivers/i8042/unbind
+fi

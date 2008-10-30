@@ -1,0 +1,5 @@
+ssh -N -p 22 will@roib.noc.amu -L 88/localhost/888
+
+88 is local
+888 is remote
+http://www.engadget.com/2006/03/21/how-to-ssh-tunnels-for-secure-network-access/

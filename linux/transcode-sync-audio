@@ -1,0 +1,23 @@
+transcode -i test.avi -o toast.avi -D 0 -P 1 -N 0x55
+
+-D start from frame number
+
+-P flag 
+pass-through flag (0=off|1=V|2=A|3=A+V) [0]. 
+Pass-through for flag != 1 is broken and not a trivial thing to fix. 
+You can pass-through DV video, AVI files and MPEG2 video. When doing MPEG2 pass-through (together with the -y raw module), you can give a requantization factor by using -w -- for example -w 1.5 -- this will make the MPEG2 stream smaller. 
+The pass-through mode is useful for reconstruction of a broken index of an AVI file. The -x ffmpeg import-module analyzes the compressed bitstream and can detect a keyframe for DIV3, MPEG4 (DivX, XviD, ..) and other formats. It then sets an internal flag which the export module will respect when writing the frame out.
+
+-N 0xNN 
+export audio format id [0x55]. 
+Available format IDs are: 
+0x1 
+PCM uncompressed audio 
+0x50 
+MPEG layer-2 aka MP2 
+0x55 
+MPEG layer-3 aka MP3. Also have a look at --lame_preset if you intend to do VBR audio. 
+0x2000 
+AC3 audio 
+0xfffe 
+OGG/Vorbis audio

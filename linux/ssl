@@ -1,0 +1,22 @@
+https://help.ubuntu.com/community/forum/server/apache2/SSL
+
+http://ubuntuforums.org/showthread.php?t=51753
+
+
+vi /etc/apache2/ports.conf
+Listen 443
+
+if no apache2-ssl-certificate
+do:
+"""
+create ssl certificate:
+sudo make-ssl-cert /usr/share/ssl-cert/ssleay.cnf /etc/apache2/ssl/apache.pem
+
+set the ssl port:
+sudo sed -i '1,2s/\*:80/*:443/' ssl
+sudo sed -i "3a\\\tSSLEngine On\n\tSSLCertificateFile /etc/ssl/private/localhost.pem" ssl
+
+"""
+
+sudo a2ensite ssl
+sudo a2enmod ssl

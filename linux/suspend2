@@ -1,0 +1,65 @@
+look for suspend2 in ubuntu wiki
+look for master kernel in ubuntforums
+
+sudo apt-get source linux-source
+cd linux-source
+bzcat ~/suspend2-2.2.10-for-2.6.20.11.patch.bz2  | patch -p1
+vi Makefile
+EXTRAVERSION = -14  #uname -r where 2.6-22-14
+
+sudo aptitude install kernel-package libgtk2.0-dev and libglade2-dev
+sudo apt-get build-dep linux-image-`uname -r`
+
+cp /boot/config.2.6-22-14 .config
+make oldconfig
+make gconfig
+load /boot/config-2.6.20-15-generic
+
+sudo make-kpkg clean
+
+sudo make-kpkg --rootcmd fakeroot --initrd --append-to-version=-suspend2 kernel-image kernel-headers kernel-source
+OR
+sudo make-kpkg --initrd --append-to-version=-suspend2 kernel_image kernel_headers modules_image
+
+sudo dpkg -i ../*.deb
+
+#######THEN COMPILE RESTRICTED MODULES######
+sudo apt-get source linux--cestricted-modules-2.6-latest
+sudo apt-get build-dep linux-restricted-modules-2.-l[esat
+
+vi gedit debian/rules
+abi_version=14 
+/ifeq "$(DEB_HOST_ARCH)" i386 
+flavours := $(addprefix $(kernel_abi_version)-,generic 386 lowlatency suspend2)
+binary-arch: install # build-udebs 
+
+vi debian/control.stub.in
+/linux-restricted-modules-@@ABIVER@@-generic
+V /lic
+:s/-generic/-suspend2/g
+
+fakeroot debian/rules debian/control # this rebuilds debian/control 
+fakeroot debian/rules binary-indep binary-arch # this actually builds the packages
+
+
+
+
+
+
+
+---
+never used method below
+
+gpg --keyserver hkp://wwwkeys.eu.pgp.net --recv-keys A4FCD4033A111759
+
+gpg --armor --export 3A111759 > keyName.gpg
+
+sudo apt-key add keyName.gpg
+
+add this line to your /etc/apt/sources.list: 
+  deb http://dagobah.ucc.asn.au/ubuntu-suspend2 dapper/
+Run apt-get update 
+Run apt-get install suspend2 
+Add "resume2=swap:/dev/hdaX" to the kopt= line in /boot/grub/menu.lst - remember to change hdaX to where your swap partition really is (run swapon -s to find out), and then run sudo update-grub. Note that the line seems to be commented out - that's correct. It gets interpreted by update-grub and applied to each kernel image. 
+Restart with the new kernel. 
+Run sudo hibernate

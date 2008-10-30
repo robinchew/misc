@@ -1,0 +1,35 @@
+http://www.nvnews.net/vbulletin/forumdisplay.php?f=14
+
+sudo apt-get install nvidia-glx-legacy nvidia-settings linux-restricted-modules-`uname -r`-nvidia-legacy
+
+sudo cp /etc/X11/xorg.conf /etc/X11/xorg.conf_backup 
+sudo nvidia-glx-config enable 
+sudo gedit /usr/share/applications/NVIDIA-Settings.desktop
+OR (if you use KDE)
+sudo kate /usr/share/applications/NVIDIA-Settings.desktop
+
+[Desktop Entry]
+Name=NVIDIA Settings
+Comment=NVIDIA Settings
+Exec=nvidia-settings
+Icon=
+Terminal=false
+Type=Application
+Categories=Application;System;
+
+Load "glx"
+#Load "dri"
+#Load “GLcore”
+
+Section "Device"
+Identifier "NVIDIA Corporation NV40 [GeForce 6200 TurboCache]"
+Driver "nvidia"
+BusID "PCI:1:0:0"
+Option "NvAGP" "0"
+Option "RenderAccel" "Off"
+Option "IgnoreDisplayDevices" "DFP,TV"
+Option "NoRenderExtension" "Off"
+Option "Accel" "Off"
+Option "AllowGLXWithComposite" “Off”
+
+EndSection

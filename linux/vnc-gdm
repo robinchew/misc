@@ -1,0 +1,4 @@
+ps aux | grep auth
+#get -auth value from above
+sudo x11vnc -auth /var/run/xauth/A\:0-Ge9jp5 -passwd
+#MAKE SURE YOU SUDO!!

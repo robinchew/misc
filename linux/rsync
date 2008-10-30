@@ -1,0 +1,8 @@
+rsync -avzu -e ssh remoteuser@remotehost:/remote/dir /this/dir/
+
+a=default
+z=compress
+u=sync only latest files
+v=verbose
+
+#need forward slash at end of folder

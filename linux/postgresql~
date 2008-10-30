@@ -1,0 +1,77 @@
+#AFTER 1st INSTALL
+       # su - _postgresql
+       $ mkdir /var/postgresql/data
+       $ initdb -D /var/postgresql/data -U postgres -A md5 -W
+
+#STAT DAEMON
+su -l _postgresql -c "nohup /usr/local/bin/pg_ctl start -D /var/postgresql/data -l /var/postgresql/logfile -o '-D /var/postgresql/data' >/dev/null"
+
+#ADD USER
+sudo -u postgres createuser -D -A -P myuser
+sudo -u postgres createdb -O myuser mydb
+
+-D, --no-createdb
+The new user is not allowed to create databases. 
+
+-A, --no-adduser
+The new user is not allowed to create other users (i.e., the new user is a regular user not a superuser). 
+
+-P, --pwprompt
+
+#GROUPS
+CREATE GROUP name;
+
+ALTER GROUP name ADD USER uname1, ... ;
+ALTER GROUP name DROP USER uname1, ... ;
+
+DROP GROUP name;
+SELECT groname FROM pg_group;
+
+The psql program's \dg meta-command is also useful for listing the existing groups.
+
+#ALTER
+ALTER DATABASE name OWNER TO new_owner
+ALTER TABLE name OWNER TO new_owner
+ALTER GROUP name OWNER TO new_owner
+                RENAME TO
+
+#CHANGE USER
+\c
+
+
+#SEQUENCE/SERIAL AUTO-INCREMENT ID
+CREATE SEQUENCE car_id_seq
+ALTER TABLE car ALTER COLUMN id SET DEFAULT nextval('car_id_seq');
+
+
+
+
+
+
+#GROUPS
+17.3. Groups
+
+As in Unix, groups are a way of logically grouping users to ease management of privileges: privileges can be granted to, or revoked from, a group as a whole. To create a group, use the CREATE GROUP SQL command:
+CREATE GROUP name;
+
+To add users to or remove users from an existing group, use ALTER GROUP:
+ALTER GROUP name ADD USER uname1, ... ;
+ALTER GROUP name DROP USER uname1, ... ;
+
+To destroy a group, use DROP GROUP:
+DROP GROUP name;
+
+This only drops the group, not its member users. 
+
+To determine the set of existing groups, examine the pg_group system catalog, for example
+SELECT groname FROM pg_group;
+
+The psql program's \dg meta-command is also useful for listing the existing groups.
+
+
+
+#CHANGE USER
+\c
+
+
+

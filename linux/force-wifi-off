@@ -1,0 +1,27 @@
+#!/top everything using the ipw3945 module
+/etc/init.d/networking stop
+/etc/acpi/suspend.d/07-network-manager.sh
+
+#remove the module
+modprobe -r -f ipw3945
+
+#add it back
+modprobe ipw3945
+
+#start everything back up
+/etc/init.d/networking start
+/etc/acpi/resume.d/99-network-manager.shin/sh
+eoeuo
+#stop everything using the ipw3945 module
+/etc/init.d/networking stop
+/etc/acpi/suspend.d/07-network-manager.sh
+
+#remove the module
+modprobe -r -f ipw3945
+
+#add it back
+modprobe ipw3945
+
+#start everything back up
+/etc/init.d/networking start
+/etc/acpi/resume.d/99-network-manager.sh

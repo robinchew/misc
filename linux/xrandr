@@ -1,0 +1,16 @@
+Section "Screen"
+	Identifier	"Default Screen"
+	Monitor		"Configured Monitor"
+	Device		"Configured Video Device"
+  DefaultDepth 24
+  Subsection "Display"
+    Depth 24
+    Modes   "1280x1024"  "1024x768"   "640x480"
+    Virtual 2048 2048
+  EndSubsection
+
+EndSection
+
+xrandr --output VGA --mode 1680x1050 --pos 0x0  --output LVDS --mode 1280x800 --pos 0x1050
+xrandr --output VGA --mode 1024x768 --pos 0x0  --output LVDS --mode 1280x800 --pos -1280x0
+

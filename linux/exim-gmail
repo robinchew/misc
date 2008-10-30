@@ -1,0 +1,29 @@
+http://www.debian-administration.org/articles/280
+
+Uncomment (don't copy and paste from here because my copy from file cut out end of lines) the following lines:
+# plain_server:
+#   driver = plaintext
+#   public_name = PLAIN
+#   server_condition = "${if crypteq{$3}{${extract{1}{:}{${lookup{$2}lsearch{CON$
+#   server_set_id = $2
+#   server_prompts = :
+#   .ifndef AUTH_SERVER_ALLOW_NOTLS_PASSWORDS
+#   server_advertise_condition = ${if eq{$tls_cipher}{}{}{*}}
+#   .endif
+
+Once that has been done create (or edit if it exists) /etc/exim4/exim4.conf.localmacros
+
+Add the line:
+MAIN_TLS_ENABLE = true
+
+To actually setup the users and passwords create /etc/exim4/passwd
+
+Copy output from:
+htpasswd -nd usernameforsmtp
+
+And paste it in /etc/exim4/passwd
+
+Repeat for any other logins you'd like to add.
+
+# update-exim4.conf
+# /etc/init.d/exim4 restart

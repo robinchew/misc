@@ -1,0 +1,20 @@
+
+sudo a2enmod rewrite
+
+
+#turn all http to https
+RewriteEngine On
+RewriteCond %{SERVER_PORT} !^443$
+RewriteRule ^(.*) https://%{SERVER_NAME}$1 [L,
+
+
+#NameVirtualHost *:80 has no VirtualHosts
+#is caused by the asterix
+#shud replace with NameVirtualHost 192.168.1.67:80
+#may cause error like 'data transfer interrupted' when SSL
+#
+#
+#############
+Could not reliably determine the server's fully qualified domain name, using 127.0.1.1 for ServerName
+
+is caused by namevirtualhost??

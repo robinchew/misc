@@ -1,0 +1,2 @@
+sudo mount -t smbfs //longinus/c /media/test -o iocharset=utf8,codepage=unicode,unicode,uid=robin,gid=robin
+

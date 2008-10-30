@@ -1,0 +1,20 @@
+OLD
+http://www.grymoire.com/Unix/Sed.html#uh-0
+http://pegasus.rutgers.edu/~elflord/unix/sed.html
+
+NEW
+$ sed -e 's/foo/bar/g' myfile.txt
+$ sed -i 's/foo/bar/g' myfile.txt
+http://www-128.ibm.com/developerworks/library/l-sed2.html
+
+ sed -e '/^ *$/d' inputFileName 
+caret
+    * The caret (^) matches the beginning of the line.
+    * The dollar sign ($) matches the end of the line.
+    * The period (.) matches any single character.
+    * The asterisk (*) matches zero or more occurrences of the previous character.
+    * A bracketed expression delimited by [ and ] matches any of the characters inside the brackets.
+
+for i in *;do sed '/<form/a\
+<!--edit=form-->
+' $i > "2$i" && mv "2$i" $i; done                     

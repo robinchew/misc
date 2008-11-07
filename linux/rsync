@@ -6,3 +6,6 @@ u=sync only latest files
 v=verbose
 
 #need forward slash at end of folder
+
+#transfer/resume
+rsync --partial --progress robin.com.au:2083/"~/vid/At\ The\ Movies/*39*"

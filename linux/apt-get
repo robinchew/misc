@@ -1,0 +1,6 @@
+#HOLD
+echo 'map hold' | dpkg --set-selections
+
+OR
+
+aptitude hold

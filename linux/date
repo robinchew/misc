@@ -1,0 +1,10 @@
+http://www.wikihow.com/Change-the-Timezone-in-Linux
+
+OR
+
+dpkg-reconfigure tzdata
+https://help.ubuntu.com/community/UbuntuTime
+
+OR
+
+maybe just changing /etc/timezone ?

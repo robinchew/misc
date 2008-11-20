@@ -22,3 +22,13 @@ svn co svn+ssh://trac.autoritel.com/home/robin/svn/autoritel/trunk
 
 #PERMISSION
 trac-admin trac/limo/ permission add robin TRAC_ADMIN
+
+
+#SVN ignore
+http://wolfram.kriesing.de/blog/index.php/2005/svnignore-and-svnkeywords
+http://blog.vixiom.com/2007/02/21/how-to-ignore-all-files-in-a-directory-folder-with-subversion/
+svn -R propset svn:ignore -F .svnignore .
+svn commit * -m"set ignore"
+
+#SVN recursive delete
+find ./ -name ".pyc" | xargs svn delete --force

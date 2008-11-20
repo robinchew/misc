@@ -1,3 +1,8 @@
+#allow lan access
+vi /etc/mysql/my.cnf
+bind-address=192.168.2.100
+
+
 GRANT
 SELECT,INSERT,UPDATE,DELETE,INDEX,ALTER,CREATE,DROP,RELOAD,SHUTDOWN,PROCESS,
 FILE,
@@ -7,3 +12,5 @@ FILE,
      WITH GRANT OPTION;
 
 OR
+
+eg. mysql> GRANT ALL ON foo.* TO bar@'202.54.10.20' IDENTIFIED BY 'PASSWORD';

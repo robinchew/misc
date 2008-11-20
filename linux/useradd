@@ -9,3 +9,4 @@ look up $HOME_DIR to change from /home/
 group
 usermod -s /usr/local/bin/bash robin
 usermod -g robin   -G boo,gandadev //other robin
+usermod -a -G ardev robin

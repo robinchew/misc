@@ -1,0 +1,7 @@
+#search matching lines and yank all of them into register 'a' and for immediate pasting  
+#http://vim.wikia.com/wiki/Copy_the_search_results_into_clipboard
+
+  g/match/y A
+
+#copy register to clipboard
+  let @+ = @a

@@ -1,12 +1,15 @@
-sudo useradd -s /bin/bash -n -m -p paul paul
+sudo useradd -s /bin/bash -n -m paul
+sudo passwd paul
 
 -n=have group same as username
 -m=create home dir
 -d=home dir path
 
-look up $HOME_DIR to change from /home/
+#look up $HOME_DIR to change from /home/
 
-group
+#group
 usermod -s /usr/local/bin/bash robin
 usermod -g robin   -G boo,gandadev //other robin
+
+#append group
 usermod -a -G ardev robin

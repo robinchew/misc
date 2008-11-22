@@ -39,3 +39,8 @@ svn copy -r 21 file:///home/robin/svn/limo/trunk/cake file:///home/robin/svn/lim
 
 #delete current revision then restore older revision
 http://marcgrabanski.com/article/svn-tip-overwrite-corrupt-revision
+
+#update switch url
+http://svnbook.red-bean.com/en/1.1/re27.html
+svn switch URL [PATH]
+svn switch URL

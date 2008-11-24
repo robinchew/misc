@@ -31,7 +31,7 @@ http://blog.vixiom.com/2007/02/21/how-to-ignore-all-files-in-a-directory-folder-
 #to ignore recursively on all files
 svn -R propset svn:ignore -F .svnignore .
 
-#to ignore all files in specific folder
+#to ignore all files in specific folder #! DONT FORGET "" !
 svn propset svn:ignore "*" tmp/cache/
 
 #recursive delete

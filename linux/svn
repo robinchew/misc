@@ -35,7 +35,7 @@ svn -R propset svn:ignore -F .svnignore .
 svn propset svn:ignore "*" tmp/cache/
 
 #recursive delete
-find ./ -name ".pyc" | xargs svn delete --force
+find ./ -name "*.pyc" | xargs svn delete --force
 
 #restore file from older revision to current
 http://wiki.greenstone.org/wiki/index.php/Useful_SVN_Commands#Copying_an_older_revision_of_a_file_or_folder_back_into_the_current_svn_revision, does a commit

@@ -6,6 +6,8 @@ SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="00:30:1b:81:70:8
 #so i made a vdi file without the line above with eth0, so that vbox will add theline above making the new eth0
 
 # NETWORKING #
+sudo aptitude install bridge-utils
+
 #/etc/network/interfaces
 auto lo
 iface lo inet loopback
@@ -16,6 +18,7 @@ iface br0 inet dhcp
         bridge_fd 2.5
 
 #setup application: gksudo .VirtualBox/setup
+#!!NEED TO CHANGE USERNAME!!
 #------------------------------------
 #!/bin/bash
 

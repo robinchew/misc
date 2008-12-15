@@ -1,6 +1,10 @@
 #search matching lines and yank all of them into register 'a' and for immediate pasting  
 #http://vim.wikia.com/wiki/Copy_the_search_results_into_clipboard
-
+ 
+  #clears register a first
+  0"ay0 
+  
+  #yank all matches to register a, no need to care about a, just paste immediately
   g/match/y A
 
 #copy register to clipboard

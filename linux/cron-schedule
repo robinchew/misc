@@ -5,6 +5,7 @@ crontab -e
 minute (0-59), hour (0-23, 0 = midnight), day (1-31), month (1-12), weekday (0-6, 0 = Sunday), command
 
 
-*/20 every 20 sec/min/hr/etc
+*/20 * * * * command
+#means every 20 minutes starting from 0, do command
 
 60 24 31 12 7 /usr/bin/somthing

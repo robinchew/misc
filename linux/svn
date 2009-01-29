@@ -23,6 +23,9 @@ svn co svn+ssh://trac.autoritel.com/home/robin/svn/autoritel/trunk
 #PERMISSION
 trac-admin trac/limo/ permission add robin TRAC_ADMIN
 
+#ENABLE SMTP
+#in conf/trac.ini, and setup exim
+smtp_enabled = true
 
 #SVN ignore
 http://wolfram.kriesing.de/blog/index.php/2005/svnignore-and-svnkeywords

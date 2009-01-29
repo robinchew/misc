@@ -6,6 +6,7 @@ ssh-keygen -t rsa //recommended
 #CLIENT can just have only the private key OR ELSE CLIENT must have BOTH private and public key
 
 #throw id_rsa.pub to SERVER computer in ~/.ssh
+#!!!! MAKE SURE AUTHORIZED_KEYS HAS PERMISSION 600 !!!
 cat id_rsa.pub >> ~/.ssh/authorized_keys
 
 sudo vi /etc/ssh/sshd_config 
@@ -14,5 +15,5 @@ RSAAuthentication yes
 PubkeyAuthentication yes
 
 sudo /etc/init.d/ssh restart
-#if all is well then do this in sshd_config
-PasswordAuthentication no
+#if all is well then do below in sshd_config
+PasswordAuthentication no #not default to user/pass login, must have rsa

@@ -1,4 +1,10 @@
+Follow:
 http://www.debian-administration.org/articles/280
+
+OR
+
+copy the 2 files from the linux/exim4 folder into /etc/exim4/
+tested for Ubuntu Hardy
 
 Uncomment (don't copy and paste from here because my copy from file cut out end of lines) the following lines:
 # plain_server:

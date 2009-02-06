@@ -8,5 +8,19 @@ http://forums.overclockers.co.nz/showthread.php?p=353642
 
 BACKUP
 cat /dev/sda2 | ssh uname@host "cat > ~/image.img"
+
 RESTORE
 ssh uname@host "cat ~/image.img" | cat > /dev/sda2
+
+
+-----WITH GZIP-----
+
+http://www.debianhelp.co.uk/ddcommand.htm
+
+BACKUP
+dd if=/dev/hdx | gzip > /path/to/image.gz
+
+RESTORE
+dd if=/path/to/image of=/dev/hdx
+gzip -dc /path/to/image.gz | dd of=/dev/hdx
+

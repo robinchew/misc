@@ -12,7 +12,7 @@ RewriteRule ^(.*) https://%{SERVER_NAME}$1 [L,
 #is caused by the asterix
 #shud replace with NameVirtualHost 192.168.1.67:80
 #may cause error like 'data transfer interrupted' when SSL
-#
+#comment everything in in /etc/apache2/sites-enabled/default
 #
 #############
 Could not reliably determine the server's fully qualified domain name, using 127.0.1.1 for ServerName

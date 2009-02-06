@@ -1,0 +1,12 @@
+http://karlherrick.com/dev/2008/09/12/dd-backups-over-ssh/
+
+dd if=/dev/hda | ssh username@backupserver.fqdn "dd of=/directory_of_backups_on_ssh_server/backupfile.iso"
+
+---------------OR---------------------------
+
+http://forums.overclockers.co.nz/showthread.php?p=353642
+
+BACKUP
+cat /dev/sda2 | ssh uname@host "cat > ~/image.img"
+RESTORE
+ssh uname@host "cat ~/image.img" | cat > /dev/sda2

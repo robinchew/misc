@@ -1,10 +1,19 @@
 Follow:
-http://www.debian-administration.org/articles/280
+http://www.manu-j.com/blog/wordpress-exim4-ubuntu-gmail-smtp/75/
+http://kb.philross.co.uk/2008/03/15/configuring-exim-to-use-gmail-as-a-smarthost/
 
 OR
 
 copy the 2 files from the linux/exim4 folder into /etc/exim4/
+then run: update-exim4.conf
+and: /etc/init.d/exim4 restart
+
 tested for Ubuntu Hardy
+
+
+---------THE LESS RECOMMENDED WAY BELOW-----------
+
+http://www.debian-administration.org/articles/280
 
 Uncomment (don't copy and paste from here because my copy from file cut out end of lines) the following lines:
 # plain_server:

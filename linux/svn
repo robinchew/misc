@@ -1,11 +1,15 @@
 
 http://wiki.kartbuilding.net/index.php/Trac_and_SVN
+
 #SVN setup
+sudo aptitude install python-subversion sqlite3 python-sqlite
+
 svnadmin create /var/lib/svn/projectname --fs-type fsfs
 chown -R www-data:www-data /var/lib/svn/projectname 
 sudo trac-admin /home/user/projectname initenv
 trac-admin /home/username/projectname/ permission add username MILESTONE_ADMIN REPORT_ADMIN ROADMAP_ADMIN TICKET_ADMIN TRAC_ADMIN
-after add user trac_admin, install the web page login plugin, copy the [components], [accoun-manager] in other trac conf/trac.conf files
+
+after add user trac_admin, install the web page login plugin, copy the [components], [account-manager] in other trac conf/trac.conf files
 
 chown -R username:group /home/username/projectname
 chgrp -R www-data /home/username/projectname/db
@@ -36,6 +40,8 @@ svn -R propset svn:ignore -F .svnignore .
 
 #to ignore all files in specific folder #! DONT FORGET "" !
 svn propset svn:ignore "*" tmp/cache/
+OR
+svn propedit svn:ignore ./
 
 #recursive delete
 find ./ -name "*.pyc" | xargs svn delete --force

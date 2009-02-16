@@ -56,7 +56,6 @@ Section "InputDevice"
 	Option		"ZAxisMapping"		"4 5"
 	Option		"Emulate3Buttons"	"true"
 EndSection
-
 Section "InputDevice"
 	Identifier	"Synaptics Touchpad"
 	Driver		"synaptics"
@@ -82,7 +81,7 @@ Section "InputDevice"
   Option    "ClickTime"     "0"
   Option      "FastTaps" "1"
   Option    "TapButton2" "3" #two-finger right-click tap
-  Option    "TapButton3" "2" #two-finger right-click tap
+  Option    "TapButton3" "2" #three-finger right-click tap
   Option    "SHMConfig"     "on"
 EndSection
 
@@ -170,3 +169,43 @@ EndSection
 Section "DRI"
 	Mode	0666
 EndSection
+
+#/usr/share/hal/fdi/policy/20thirdparty
+        <merge key="input.x11_driver" type="string">synaptics</merge>
+        <merge key="input.x11_options.FastTaps" type="string">1</merge>
+        <merge key="input.x11_options.ClickTime" type="string">0</merge>
+        <merge key="input.x11_options.LeftEdge" type="string">0</merge>
+        <merge key="input.x11_options.RightEdge" type="string">1280</merge>
+        <merge key="input.x11_options.TopEdge" type="string">0</merge>
+        <merge key="input.x11_options.BottomEdge" type="string">800</merge>
+        <merge key="input.x11_options.ClickFinger1" type="string">1</merge>
+        <merge key="input.x11_options.ClickFinger2" type="string">3</merge>
+        <merge key="input.x11_options.ClickFinger3" type="string">2</merge>
+        <merge key="input.x11_options.HorizEdgeScroll" type="string">0</merge>
+        <merge key="input.x11_options.VertEdgeScroll" type="string">0</merge>
+        <merge key="input.x11_options.VertTwoFingerScroll" type="string">1</merge>
+        <merge key="input.x11_options.HorizTwoFingerScroll" type="string">1</merge>
+        <merge key="input.x11_options.HorizScrollDelta" type="string">0</merge>
+        <merge key="input.x11_options.VertScrollDelta" type="string">40</merge>
+        <merge key="input.x11_options.PressureMotionMinZ" type="string">10</merge>
+        <merge key="input.x11_options.FingerLow" type="string">60</merge>
+        <merge key="input.x11_options.FingerHigh" type="string">60</merge>
+        <merge key="input.x11_options.FingerPress" type="string">256</merge>
+        <merge key="input.x11_options.PalmDetect" type="string">0</merge>
+        <merge key="input.x11_options.PalmMinWidth" type="string">10</merge>
+        <merge key="input.x11_options.PalmMinZ" type="string">200</merge>
+        <merge key="input.x11_options.MinSpeed" type="string">0.8</merge>
+        <merge key="input.x11_options.MaxSpeed" type="string">1.2</merge>
+        <merge key="input.x11_options.AccelFactor" type="string">0.10</merge>
+        <merge key="input.x11_options.MaxTapMove" type="string">25</merge>
+        <merge key="input.x11_options.MaxTapTime" type="string">223</merge>
+        <merge key="input.x11_options.MaxDoubleTapTime" type="string">60</merge>
+        <merge key="input.x11_options.SingleTapTimeout" type="string">100</merge>
+        <merge key="input.x11_options.TapButton1" type="string">0</merge>
+        <merge key="input.x11_options.TapButton2" type="string">3</merge>
+        <merge key="input.x11_options.TapButton3" type="string">2</merge>
+        <merge key="input.x11_options.RTCornerButton" type="string">0</merge>
+        <merge key="input.x11_options.RBCornerButton" type="string">0</merge>
+        <merge key="input.x11_options.LTCornerButton" type="string">0</merge>
+        <merge key="input.x11_options.LBCornerButton" type="string">0</merge>
+        <merge key="input.x11_options.SHMConfig" type="string">True</merge>

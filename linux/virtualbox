@@ -5,6 +5,11 @@ VBoxManage clonevdi source.vdi target.vdi
 SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="00:30:1b:81:70:8e", ATTR{type}=="1", KERNEL=="eth*", NAME="eth1"
 #so i made a vdi file without the line above with eth0, so that vbox will add theline above making the new eth0
 
+OR
+
+cp Master.vdi Clone.vdi
+VBoxManage internalcommands setvdiuuid Clone.vdi
+
 # NETWORKING #
 sudo aptitude install bridge-utils
 

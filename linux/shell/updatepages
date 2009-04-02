@@ -1,0 +1,10 @@
+#!/bin/sh
+if [ "$#" -eq "0" ];then
+  echo Enter at least 1 filename as parameter!
+  exit 1    
+fi
+for i in $@
+do
+  updatepage $i
+  echo ""
+done

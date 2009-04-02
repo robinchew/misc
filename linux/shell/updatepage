@@ -1,0 +1,129 @@
+#!/usr/local/bin/bash
+echo '###'$1'###'
+#error checking template
+
+#check for backup folder
+if [ ! -d backup ];then
+  mkdir backup;  
+fi
+#have only 1 parameter
+if [ $# != 1 ];then
+  echo Enter only 1 filename as parameter!
+  exit 1    
+fi
+templatefile=$(sed -n 's/.*<!--template=\([^<]*\)-->.*/\1/p' $1 | tail -1) #output: template/index.html
+if [ $? != 0 ];then
+  echo Template-tag NOT found for $1!
+  exit 1
+fi
+if [ ! -r $templatefile ];then
+  echo "$templatefile CANNOT be read or does NOT exist!"
+  exit 1
+fi
+#sed 's:<!--template=\(.*\):\1:g' $1
+#error checking start/end tags of template-file
+echo -n "Checking edit-tag order in $templatefile: "
+templatetagorder=$(egrep '<!--edit=[^<]*-->|<!--end-edit-->' $templatefile | sed 's/ //g') # sed gets rid of space then outputs <!--edit=content--> <!--end-edit--> <!--edit=.. 
+templatetagordercheck=$(echo "$templatetagorder" | awk '{if($0~/<!--edit=/){edit=$0;getline;if(!($0~/<!--end-edit-->/)){print edit" has NO proper end";}}else{print $0" is displaced"}}' ) #outputs nothing if tagorder is right
+#templatetagorder=$(egrep '<!--edit=[^<]*-->|<!--end-edit-->' $i | awk '{if($0~/<!--edit=/){edit=$0;getline;if(!($0~/<!--end-edit-->/)){print edit" has NO proper end";}}else{print $0" is displaced"}}')
+
+if [ "$templatetagordercheck" ];then #if tagorder contains something =  FAIL
+  echo -e "\E[31mFAIL!"
+  echo "$templatetagordercheck";tput sgr0
+  exit 1
+fi
+echo -e '\E[32mcorrect';tput sgr0
+
+#check if input tagorder is same as template tagorder
+echo -n "Comparing edit-tag order of $templatefile to $1: "
+filetagorder=$(egrep '<!--edit=[^<]*-->|<!--end-edit-->' $1 | sed 's/ //g') #sed gets rid of space then outputs <!--edit=content--> <!--end-edit--> <!--edit=.. 
+if [ "$templatetagorder" == "$filetagorder" ];then
+  echo -e '\E[32msame';tput sgr0
+else 
+  echo -e '\E[31mDIFFERENT'!;
+  echo -e "filetagorder\n$filetagorder\n\ntemplatetagorder\n$templatetagorder";tput sgr0
+  echo -n "Accept template tag order over file tag order? [y/n] "
+  read yesno
+  if [ "$yesno" != 'y' ];then
+    echo Aborting...
+    exit 1
+  fi
+  echo Resuming...
+fi
+#end error checking
+
+getedittags=$(egrep 'edit=[^-]*' $1) #content test spec0
+echo Backing up $1
+cat $1 > backup/$1-tmp-`date +%y%m%d-%H%M%S`
+echo -n "Creating $templatefile variable: "
+template=$(cat $templatefile)
+if [ $? != 0 ]; then
+  echo -e "\E[31mFAIL!";tput sgr0
+  exit 1
+fi
+echo -e '\E[32mdone';tput sgr0
+echo -n "Erasing stuff between edit-tags from $templatefile: "
+for i in $getedittags; do
+  #check if start&end tags are on same line
+  echo "$template" | grep "$i" | grep 'end-edit'
+  if [ $? == 0 ];then
+    echo -en "\E[31m$i has end-edit on same line! ";tput sgr0
+    template=$(echo "$template" | sed "s/\(<!--$i-->\).*<!--end-edit-->/\1:")
+  else  
+#    template=$(echo "$template" | sed "/$i/,/end-edit/
+#    <!--edit=$i-->
+#    <!--end-edit-->
+#    /")
+    template=$(echo "$template" | sed "/$i/,/end-edit/{
+    /$i/!d
+    }")
+  fi
+  if [ $? != 0 ]; then
+    echo -ne "\E[31mFAIL "
+    echo "at '$i' edit-tag!";tput sgr0
+    exit 1
+  fi
+done
+echo -e '\E[32mdone';tput sgr0
+echo -n "Appending content to edit-tags from $templatefile: "
+for i in $getedittags; do
+  #check if start&end tags are on same line
+  cat "$1" | grep "$i" | grep -q 'end-edit'
+  if [ $? == 0 ];then
+    echo -en "\E[31m$i has end-edit on same line! ";tput sgr0
+    content=$(sed -n "/<!--$i-->.*<!--end-edit-->/p" $1) 
+  else
+    #must add \ in front of $ for PERL, for fixing dollar sign ($) and colon (:)
+    content=$(sed -n "/$i/,/end-edit/p" $1) 
+  fi
+  if [ $? != 0 ]; then
+    echo -ne "\E[31mFAIL "
+    echo "Extracting content at '$i' edit-tag!";tput sgr0
+    exit 1 
+  fi
+
+  #must add \ in front of $ for PERL, for fixing dollar sign ($)
+  #and colon (:) ?
+#  boo=$(echo "FUCK" | perl -Wpe "s|F|$content|g") #W=warning, p=loop-around-program-n-print-like-sed, e=one-line-expression
+
+  content=$(echo "$content" | perl -Wpe 's/\$/\\\$/g')
+  template=$(echo "$template" | perl -Wpe "s|^.*?$i.*?$|$content|")
+
+  #template=$(echo "$template" | awk -v content="$content" "!/$i/{print}")
+#  template=$(echo "$template" | sed "/$i/a\\  ")
+  if [ $? != 0 ]; then
+    echo -ne "\E[31mFAIL "
+    echo "Appending content to '$i' edit-tag!";tput sgr0
+    exit 1 
+  fi
+done
+echo -e '\E[32mdone';tput sgr0
+#removing \ leftover due to appending process
+echo "$template" > $1
+if [ $? = 0 ]; then
+  echo Overwritten $1
+  exit 0
+else
+  echo -e "Overwriting $1 \E[31mFAIL!";tput sgr0
+  exit 1
+fi

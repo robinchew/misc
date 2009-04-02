@@ -1,0 +1,15 @@
+#!/bin/sh
+if [ $# != 1 ];then
+  echo Must enter only 1 filename as parameter!
+  exit 1
+fi
+
+echo Updating templates...
+  pages=$(grep "<!--template=$1" *.html *.php | sed 's/:.*//g')
+echo updating: $pages
+for page in $pages; do
+    i=$(($i+1))
+    echo -n $i 
+    updatepage $page
+    echo ""
+done

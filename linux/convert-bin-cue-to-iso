@@ -1,2 +1,1 @@
-bchunk image.bin image.cue image.iso
-bchunk -o loop image.bin image.cue image.iso
+mount-iso-bin-cue

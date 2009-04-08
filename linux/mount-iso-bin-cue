@@ -1,3 +1,8 @@
+#below converts bin,cue to iso
+#not sure which is right
+#first one worked, not 2nd one
+bchunk image.bin image.cue image.iso
+bchunk -o loop image.bin image.cue image.iso
+
+#mount iso
 sudo mount file.iso -o loop -t iso9660 /media/cdrom
-bchunk image.bin image.cue image
-bchunk -o loop image.bin image.cue image

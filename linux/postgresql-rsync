@@ -1,0 +1,8 @@
+archive_mode = on               # enable archiving
+archive_command = 'cp -v %p /var/lib/postgresql/8.3/main/archives/%f'
+archive_timeout = 300        # timeout to close buf
+
+rsync -avzu --remove-sent-files -e ssh postgres@192.168.121:/var/lib/postgresql/8.3/main/archives/ /var/lib/postgresql/8.3/main/archives/ > /dev/null
+
+restore_command = '/usr/lib/postgresql/8.3/bin/pg_standby
+-l -d -s 2 -t /tmp/pgsql.trigger /var/lib/postgresql/8.3/main/archives %f %p %r 2>>standby.log'

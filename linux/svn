@@ -57,3 +57,11 @@ http://marcgrabanski.com/article/svn-tip-overwrite-corrupt-revision
 http://svnbook.red-bean.com/en/1.1/re27.html
 svn switch URL [PATH]
 svn switch URL
+
+#checkout without hidden .svn folders
+svn export
+
+#replace file with older revision
+svn cat -r 50 file.py > file.py #this may be considerd a new change 
+OR
+svn update -r 50 file.py #this may be considered old

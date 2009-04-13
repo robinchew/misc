@@ -1,4 +1,12 @@
 UBUNTU
 vi /etc/default/locale
 
+LANG="en_GB"
+LANGUAGE="en_GB:en"
+
 http://blog.andrewbeacock.com/2007/01/how-to-change-your-default-locale-on.html
+
+#IF
+perl: warning: Setting locale fail
+
+dpkg-reconfigure locales

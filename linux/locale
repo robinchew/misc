@@ -1,12 +1,30 @@
 UBUNTU
-vi /etc/default/locale
-
-LANG="en_GB"
-LANGUAGE="en_GB:en"
-
-http://blog.andrewbeacock.com/2007/01/how-to-change-your-default-locale-on.html
 
 #IF
 perl: warning: Setting locale fail
 
+#TRY
 dpkg-reconfigure locales
+
+--OR/AND--
+
+vi /etc/default/locale
+OR
+vi /etc/environment
+
+LC_ALL=en_GB.UTF8
+LANG=en_GB.UTF8
+LANGUAGE=en_GB.UTF8
+
+--OR MANUALLY--
+
+export LC_ALL=en_GB.UTF8
+export LANG=en_GB.UTF8
+export LANGUAGE=en_GB.UTF8
+
+
+http://blog.andrewbeacock.com/2007/01/how-to-change-your-default-locale-on.html
+
+
+#if still not fixed
+locale-gen ?installed?

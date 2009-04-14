@@ -9,7 +9,19 @@ chown -R www-data:www-data /var/lib/svn/projectname
 sudo trac-admin /home/user/projectname initenv
 trac-admin /home/username/projectname/ permission add username MILESTONE_ADMIN REPORT_ADMIN ROADMAP_ADMIN TICKET_ADMIN TRAC_ADMIN
 
-after add user trac_admin, install the web page login plugin, copy the [components], [account-manager] in other trac conf/trac.conf files
+#ENABLE SMTP EMAIL
+[notification]
+smtp_enabled = true
+
+#GET HTML LOGIN WORKING
+after add user trac_admin, install the web page login plugin, copy the [components], [account-manager] from other trac conf/trac.conf files
+
+#and disable default login method
+[components]
+trac.web.auth.loginmodule = disabled
+
+#POPULATE PERMISSIONS
+#run script from bottom of page
 
 chown -R username:group /home/username/projectname
 chgrp -R www-data /home/username/projectname/db
@@ -65,3 +77,35 @@ svn export
 svn cat -r 50 file.py > file.py #this may be considerd a new change 
 OR
 svn update -r 50 file.py #this may be considered old
+
+
+#SQL SCRIPT
+insert into permission values("staff","WIKI_CREATE");
+insert into permission values("staff","WIKI_VIEW");
+insert into permission values("staff","WIKI_MODIFY");
+insert into permission values("staff","REPORT_VIEW");
+insert into permission values("staff","TICKET_VIEW");
+insert into permission values("staff","TICKET_APPEND");
+insert into permission values("staff","TICKET_CREATE");
+insert into permission values("staff","TIMELINE_VIEW");
+insert into permission values("staff","LOG_VIEW");
+insert into permission values("staff","CHANGESET_VIEW");
+insert into permission values("staff","FILE_VIEW");
+insert into permission values("staff","TICKET_EDIT_CC");
+insert into permission values("staff","TICKET_EDIT_DESCRIPTION");
+insert into permission values("staff","TICKET_CHGPROP");
+insert into permission values("staff","MILESTONE_ADMIN");
+insert into permission values("staff","TICKET_MODIFY");
+insert into permission values("charles","staff");
+insert into permission values("phillllip","staff");
+insert into permission values("martogi","staff");
+insert into permission values("wishbone2712","staff");
+insert into permission values("handy","staff");
+insert into permission values("test","staff");
+insert into permission values("yoko","staff");
+insert into permission values("methilda","staff");
+insert into permission values("christianus","staff");
+insert into permission values("andy","staff");
+insert into permission values("ibnu","staff");
+insert into permission values("ivan","staff");
+insert into permission values("marena","staff");

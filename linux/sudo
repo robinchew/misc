@@ -1,0 +1,10 @@
+#LET USER USE SUDO
+#/etc/sudoers
+
+#users with group 'root' gets to use sudo
+%root ALL=(ALL) ALL
+
+
+#DISABLE ROOT PASSWORD
+#lock account
+sudo passwd -l root

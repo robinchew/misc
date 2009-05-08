@@ -1726,7 +1726,7 @@ begin authenticators
 gmail_login:
        driver = plaintext
        public_name = LOGIN
-       client_send = : mailer@empiriadesign.com : hotmale
+       client_send = : mailer@empiriamedia.com : hotmale
 
 #####################################################
 ### end auth/00_exim4-config_header

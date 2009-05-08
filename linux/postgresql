@@ -30,6 +30,14 @@ SELECT groname FROM pg_group;
 
 The psql program's \dg meta-command is also useful for listing the existing groups.
 
+#CREATE
+create table mytable(
+  id integer primary key,
+  name varchar(20),
+  grup_id integer,
+  FOREIGN KEY (grup_id) references grup (id)
+)
+
 #ALTER
 ALTER DATABASE name OWNER TO new_owner
 ALTER TABLE name OWNER TO new_owner
@@ -84,5 +92,26 @@ GRANT { { CREATE | TEMPORARY | TEMP } [,...] | ALL [ PRIVILEGES ] }
 #JOIN
 SELECT * FROM weather INNER JOIN cities ON (weather.city = cities.name);
 
-#EXAMPLES
-ALTER TABLE distributors ADD CONSTRAINT dist_id_zipcode_key UNIQUE (dist_id, zipcode);
+#################
+#ALTERING TABLES#
+#################
+ALTER TABLE distributors:
+
+#UNIQUE
+ADD CONSTRAINT dist_id_zipcode_key UNIQUE (dist_id, zipcode);
+
+#FOREIGN KEY
+DROP CONSTRAINT registration_user_phone_areacode_id_fkey;
+ADD CONSTRAINT registration_user_phone_areacode_id_fkey FOREIGN KEY(phone_areacode_id) REFERENCES "registration_indophoneareacode" ("id");
+ADD COLUMN "phone_areacode_id" integer NULL REFERENCES "registration_indophoneareacode" ("id");
+
+
+#PRIMARY KEY
+DROP CONSTRAINT registration_indophoneareacode_pkey;
+
+#try
+ADD PRIMARY KEY(id)
+#else
+CREATE SEQUENCE registration_indophoneareacode_id_seq increment 1 minvalue 1 maxvalue 9223372036854775807 start 408 cache 1;
+ALTER TABLE registration_indophoneareacode_id_seq OWNER TO ar_admin
+ADD PRIMARY KEY(id) default nextval('registration_indophoneareacode_id_seq');

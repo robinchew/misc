@@ -14,48 +14,6 @@
 # again, run the following command:
 #   sudo dpkg-reconfigure -phigh xserver-xorg
 
-Section "Files"
-	FontPath	"/usr/share/fonts/X11/misc"
-	FontPath	"/usr/share/fonts/X11/cyrillic"
-	FontPath	"/usr/share/fonts/X11/100dpi/:unscaled"
-	FontPath	"/usr/share/fonts/X11/75dpi/:unscaled"
-	FontPath	"/usr/share/fonts/X11/Type1"
-	FontPath	"/usr/share/fonts/X11/100dpi"
-	FontPath	"/usr/share/fonts/X11/75dpi"
-	# path to defoma fonts
-	FontPath	"/var/lib/defoma/x-ttcidfont-conf.d/dirs/TrueType"
-EndSection
-
-Section "Module"
-	Load	"bitmap"
-	Load	"ddc"
-	Load	"dri"
-	Load	"extmod"
-	Load	"freetype"
-	Load	"glx"
-	Load	"int10"
-	Load	"vbe"
-EndSection
-
-Section "InputDevice"
-	Identifier	"Generic Keyboard"
-	Driver		"kbd"
-	Option		"CoreKeyboard"
-	Option		"XkbRules"	"xorg"
-	Option		"XkbModel"	"pc105"
-	Option		"XkbLayout"	"us"
-	Option		"XkbVariant"	"dvorak"
-EndSection
-
-Section "InputDevice"
-	Identifier	"Configured Mouse"
-	Driver		"mouse"
-	Option		"CorePointer"
-	Option		"Device"		"/dev/input/mice"
-	Option		"Protocol"		"ImPS/2"
-	Option		"ZAxisMapping"		"4 5"
-	Option		"Emulate3Buttons"	"true"
-EndSection
 Section "InputDevice"
 	Identifier	"Synaptics Touchpad"
 	Driver		"synaptics"
@@ -67,7 +25,8 @@ Section "InputDevice"
   Option    "MinSpeed"    "0.1"
   Option    "RTCornerButton" "0"
   Option    "RBCornerButton" "0"
-  Option    "HorizScrollDelta"  "0"
+  Option    "HorizEdgeScroll"  "1"
+  Option    "HorizScrollDelta"  "1"
   Option    "SingleTapTimeout"  "100"
   Option    "MaxDoubleTapTime"  "60"
   Option       "FingerLow"     "60"#untouch when lower default 25
@@ -84,92 +43,12 @@ Section "InputDevice"
   Option    "TapButton3" "2" #three-finger right-click tap
   Option    "SHMConfig"     "on"
 EndSection
-
-Section "InputDevice"
-	Driver		"wacom"
-	Identifier	"stylus"
-	Option		"Device"	"/dev/input/wacom"
-	Option		"Type"		"stylus"
-	Option		"ForceDevice"	"ISDV4"		# Tablet PC ONLY
-EndSection
-
-Section "InputDevice"
-	Driver		"wacom"
-	Identifier	"eraser"
-	Option		"Device"	"/dev/input/wacom"
-	Option		"Type"		"eraser"
-	Option		"ForceDevice"	"ISDV4"		# Tablet PC ONLY
-EndSection
-
-Section "InputDevice"
-	Driver		"wacom"
-	Identifier	"cursor"
-	Option		"Device"	"/dev/input/wacom"
-	Option		"Type"		"cursor"
-	Option		"ForceDevice"	"ISDV4"		# Tablet PC ONLY
-EndSection
-
-Section "Device"
-	Identifier	"Intel Corporation Mobile 945GM/GMS/940GML Express Integrated Graphics Controller"
-	Driver		"i810"
-	BusID		"PCI:0:2:0"
-	Option		"UseFBDev"		"true"
-  Option "LinearAlloc" "8192"
-EndSection
-
-Section "Monitor"
-	Identifier	"Generic Monitor"
-	Option		"DPMS"
-	HorizSync	28-64
-	VertRefresh	43-60
-EndSection
-
-Section "Screen"
-	Identifier	"Default Screen"
-	Device		"Intel Corporation Mobile 945GM/GMS/940GML Express Integrated Graphics Controller"
-	Monitor		"Generic Monitor"
-	DefaultDepth	24
-	SubSection "Display"
-		Depth		1
-		Modes		"1280x800" "1024x768" "800x600" "640x480"
-	EndSubSection
-	SubSection "Display"
-		Depth		4
-		Modes		"1280x800" "1024x768" "800x600" "640x480"
-	EndSubSection
-	SubSection "Display"
-		Depth		8
-		Modes		"1280x800" "1024x768" "800x600" "640x480"
-	EndSubSection
-	SubSection "Display"
-		Depth		15
-		Modes		"1280x800" "1024x768" "800x600" "640x480"
-	EndSubSection
-	SubSection "Display"
-		Depth		16
-		Modes		"1280x800" "1024x768" "800x600" "640x480"
-	EndSubSection
-	SubSection "Display"
-		Depth		24
-		Modes		"1280x800" "1024x768" "800x600" "640x480"
-	EndSubSection
-EndSection
-
 Section "ServerLayout"
 	Identifier	"Default Layout"
-	Screen		"Default Screen"
-	InputDevice	"Generic Keyboard"
-	InputDevice	"Configured Mouse"
-	InputDevice     "stylus"	"SendCoreEvents"
-	InputDevice     "cursor"	"SendCoreEvents"
-	InputDevice     "eraser"	"SendCoreEvents"
 	InputDevice	"Synaptics Touchpad"
 EndSection
 
-Section "DRI"
-	Mode	0666
-EndSection
-
+#FORGOT HOW TO GET BELOW TO WORK
 #/usr/share/hal/fdi/policy/20thirdparty
         <merge key="input.x11_driver" type="string">synaptics</merge>
         <merge key="input.x11_options.FastTaps" type="string">1</merge>
@@ -181,11 +60,11 @@ EndSection
         <merge key="input.x11_options.ClickFinger1" type="string">1</merge>
         <merge key="input.x11_options.ClickFinger2" type="string">3</merge>
         <merge key="input.x11_options.ClickFinger3" type="string">2</merge>
-        <merge key="input.x11_options.HorizEdgeScroll" type="string">0</merge>
+        <merge key="input.x11_options.HorizEdgeScroll" type="string">1</merge>
+        <merge key="input.x11_options.HorizScrollDelta" type="string">1</merge>
         <merge key="input.x11_options.VertEdgeScroll" type="string">0</merge>
         <merge key="input.x11_options.VertTwoFingerScroll" type="string">1</merge>
         <merge key="input.x11_options.HorizTwoFingerScroll" type="string">1</merge>
-        <merge key="input.x11_options.HorizScrollDelta" type="string">0</merge>
         <merge key="input.x11_options.VertScrollDelta" type="string">40</merge>
         <merge key="input.x11_options.PressureMotionMinZ" type="string">10</merge>
         <merge key="input.x11_options.FingerLow" type="string">60</merge>

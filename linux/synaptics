@@ -26,7 +26,7 @@ Section "InputDevice"
   Option    "RTCornerButton" "0"
   Option    "RBCornerButton" "0"
   Option    "HorizEdgeScroll"  "1"
-  Option    "HorizScrollDelta"  "1"
+  Option    "HorizScrollDelta"  "100"
   Option    "SingleTapTimeout"  "100"
   Option    "MaxDoubleTapTime"  "60"
   Option       "FingerLow"     "60"#untouch when lower default 25
@@ -61,7 +61,7 @@ EndSection
         <merge key="input.x11_options.ClickFinger2" type="string">3</merge>
         <merge key="input.x11_options.ClickFinger3" type="string">2</merge>
         <merge key="input.x11_options.HorizEdgeScroll" type="string">1</merge>
-        <merge key="input.x11_options.HorizScrollDelta" type="string">1</merge>
+        <merge key="input.x11_options.HorizScrollDelta" type="string">100</merge>
         <merge key="input.x11_options.VertEdgeScroll" type="string">0</merge>
         <merge key="input.x11_options.VertTwoFingerScroll" type="string">1</merge>
         <merge key="input.x11_options.HorizTwoFingerScroll" type="string">1</merge>

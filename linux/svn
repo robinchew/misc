@@ -67,8 +67,9 @@ http://marcgrabanski.com/article/svn-tip-overwrite-corrupt-revision
 
 #update switch url
 http://svnbook.red-bean.com/en/1.1/re27.html
-svn switch URL [PATH]
+svn switch URL PATH
 svn switch URL
+svn switch --relocate svn+ssh://192.168.1.100/svn/fashion/trunk svn+ssh://trac.empiriamedia.com/svn/fashion/trunk
 
 #checkout without hidden .svn folders
 svn export

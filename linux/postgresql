@@ -115,3 +115,16 @@ ADD PRIMARY KEY(id)
 CREATE SEQUENCE registration_indophoneareacode_id_seq increment 1 minvalue 1 maxvalue 9223372036854775807 start 408 cache 1;
 ALTER TABLE registration_indophoneareacode_id_seq OWNER TO ar_admin
 ADD PRIMARY KEY(id) default nextval('registration_indophoneareacode_id_seq');
+
+#PL/PGSQL script
+#for looping, code below needs test to confirm it works
+create or replace function testf() 
+returns void as $body$
+num integer;
+begin
+for i in 1..15 loop
+insert into group values (i, 'abc');
+end loop;
+end;
+$body$
+language plpgsql;

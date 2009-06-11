@@ -58,6 +58,9 @@ svn propedit svn:ignore ./
 #recursive delete
 find ./ -name "*.pyc" | xargs svn delete --force
 
+#delete/remove files with exclamation status
+svn status | grep ! | awk '{print $2}' | xargs svn rm 
+
 #restore file from older revision to current
 http://wiki.greenstone.org/wiki/index.php/Useful_SVN_Commands#Copying_an_older_revision_of_a_file_or_folder_back_into_the_current_svn_revision, does a commit
 svn copy -r 21 file:///home/robin/svn/limo/trunk/cake file:///home/robin/svn/limo/trunk/cake -m 'restoring cake folder from old revision to current'

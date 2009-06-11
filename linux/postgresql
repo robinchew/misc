@@ -8,6 +8,9 @@ su -l _postgresql -c "nohup /usr/local/bin/pg_ctl start -D /var/postgresql/data 
 
 #ADD USER
 sudo -u postgres createuser -D -A -P myuser
+OR maybe
+createuser -U postgres -D -A -P myuser
+
 in psql: alter user robin with password 
 sudo -u postgres createdb -O myuser mydb
 

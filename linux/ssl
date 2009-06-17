@@ -9,6 +9,8 @@ Listen 443
 if no apache2-ssl-certificate
 do:
 """
+sudo aptitude install ssl-cert
+
 create ssl certificate:
 sudo make-ssl-cert /usr/share/ssl-cert/ssleay.cnf /etc/apache2/ssl/apache.pem
 

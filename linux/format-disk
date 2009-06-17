@@ -1,0 +1,3 @@
+su -
+fdisk /dev/sda
+mkfs -t vfat /dev/sda1 #i only need to use this line

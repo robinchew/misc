@@ -8,4 +8,4 @@ v=verbose
 #need forward slash at end of folder
 
 #transfer/resume
-rsync --partial --progress -e "ssh -p2083" robin.com.au:"~/vid/At\ The\ Movies/*39*"
+rsync --partial --progress -e "ssh -p2083" robin.com.au:"~/vid/At\ The\ Movies/*39*" .

@@ -1,0 +1,6 @@
+#!/bin/sh
+#ssh autoritel.com -x 'if [ ! -d production_data ];then;mkdir production_data;fi; python /var/www/autoritel/manage.py dumpdata --indent 2 > /var/www/autoritel/production_data/`date +%y%m%d-%H:%M`.json'
+
+ssh robin@autoritel.com -x 'python /var/www/autoritel/manage.py dumpdata --indent 2 > /var/www/autoritel/production_data/`date +%y%m%d-%H%M`.json'
+ssh robin@autoritel.com -x 'pg_dump autoritel | gzip -c > /var/www/autoritel/production_data/`date +%y%m%d-%H%M`.out.gz'
+rsync --exclude=".svn" -avzu -e ssh robin@autoritel.com:/var/www/autoritel/production_data ./

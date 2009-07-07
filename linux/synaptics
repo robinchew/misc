@@ -91,5 +91,5 @@ EndSection
 
 
 # DISABLE TOUCHPAD WHILE TYPING
-syndaemon -i 1 -d # i = seconds for delay, d = daemon
+syndaemon -i 0.5 -d # i = seconds for delay, d = daemon
 # make it autostart somewhere maybe in .profile or rc.local

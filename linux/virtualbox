@@ -1,3 +1,6 @@
+# START VM #
+su - robin -c 'VBoxManage startvm "SVN Server" -type vrdp'
+
 # CLONE VDI #
 # source.vdi needs to be FULL PATH sometimes, if not in VDI folder
 VBoxManage clonevdi source.vdi target.vdi
@@ -10,7 +13,9 @@ OR
 cp Master.vdi Clone.vdi
 VBoxManage internalcommands setvdiuuid Clone.vdi
 
-# NETWORKING #
+# BRIDGE NETWORKING #
+# newer version of virtualbox is automatic, making below irrelevant
+
 sudo aptitude install bridge-utils
 
 #/etc/network/interfaces

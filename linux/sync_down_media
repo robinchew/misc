@@ -1,0 +1,2 @@
+#!/bin/sh
+rsync --exclude=".svn" -avzu -e ssh robin@autoritel.com:/var/www/autoritel/media ./

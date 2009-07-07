@@ -7,9 +7,9 @@
 su -l _postgresql -c "nohup /usr/local/bin/pg_ctl start -D /var/postgresql/data -l /var/postgresql/logfile -o '-D /var/postgresql/data' >/dev/null"
 
 #ADD USER
-sudo -u postgres createuser -D -A -P myuser
+sudo -u postgres createuser -D -A -P -R myuser
 OR maybe
-createuser -U postgres -D -A -P myuser
+createuser -U postgres -D -A -P -R myuser
 
 in psql: alter user robin with password 
 sudo -u postgres createdb -O myuser mydb
@@ -21,6 +21,14 @@ The new user is not allowed to create databases.
 The new user is not allowed to create other users (i.e., the new user is a regular user not a superuser). 
 
 -P, --pwprompt
+
+-R, --no-createrole
+
+CREATE USER robin
+
+#ALTER OWNER FOR ALL TABLES
+select 'alter table '|| tablename ||' owner to ar_group;' from pg_tables where schemaname = 'public';
+#then copy the lines and paste
 
 #GROUPS
 CREATE GROUP name;
@@ -131,3 +139,13 @@ end loop;
 end;
 $body$
 language plpgsql;
+
+
+#BACKUP AND RESTORE
+http://www.cyberciti.biz/tips/howto-backup-postgresql-databases.html
+#backup
+pg_dump autoritel | gzip -c > autoritel.out.gz
+
+#restore
+gunzip autoritel.out.gz
+psql -d autoritel -f autoritel.out.gz

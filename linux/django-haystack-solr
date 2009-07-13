@@ -1,0 +1,26 @@
+#install java
+openjdk-6-jre
+
+#download solr
+http://www.apache.org/dyn/closer.cgi/lucene/solr/
+
+#download haystack
+http://github.com/toastdriven/django-haystack/tree/master
+
+http://haystacksearch.org/docs/installing_search_engines.html
+
+#get pysolr
+http://github.com/toastdriven/pysolr/tree/master
+#which depends on simplejson
+
+#settings.py
+HAYSTACK_SEARCH_ENGINE = 'solr'
+HAYSTACK_SOLR_URL = 'http://localhost:8983/solr/'
+
+./manage.py build_solr_schema >  apache-solr/example/solr/conf/schema.xml 
+#! CAUTION the first line of the output may not be XML, so delete it
+
+java -jar apache-solr/example/start.jar
+
+./manage.py reindex
+

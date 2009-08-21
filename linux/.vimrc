@@ -6,6 +6,7 @@ set tabstop=2
 set smarttab
 set expandtab
 set autoindent
+set paste
 noremap r :%s:::g<left><left><left>
 vnoremap r :s:::g<Left><Left><Left>
 au! BufRead,BufNewFile *.module    set filetype=php

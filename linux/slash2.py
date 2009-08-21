@@ -48,7 +48,8 @@ for match in regex.finditer(html):
   title=re.sub('\>',"_",title)
 #  title=re.sub("\\\'"," ",title)
   title=title.decode('string_escape')
-  title=re.sub('"',"'",title)
+  title=re.sub('"',"_",title)
+  title=re.sub("'","_",title)
   title=re.sub('\?','(q)',title)
   day=re.sub(':','',match.group(3))
   hour=re.sub(':','',match.group(4))
@@ -67,6 +68,7 @@ for match in regex.finditer(html):
   except urllib2.URLError, e:
       error_msg="Error opening "+url
       print error_msg
+      sys.exit()
 
   try:
     save_page=open(filename,'w')
@@ -74,7 +76,6 @@ for match in regex.finditer(html):
 	  try:
 	    save_page=open(filename[0:-1],'w')
 	  except IOError:
-	    save_page=open(filename,'w')
 	    error_msg="Error saving "+title+" from "+url+" to "+filename
 	    print error_msg
 	    print url 

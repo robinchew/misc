@@ -4,7 +4,7 @@ sudo usermod -a -G b2b robin
 sudo svnadmin create /svn/b2b --fs-type fsfs
 sudo chgrp -R bbdev b2b/
 sudo chmod -R g+w /svn/b2b
-svn import ~/newdjangoproject file:///svn/b2b/trunk
+svn import ~/newdjangoproject file:///svn/b2b/trunk -m 'start django project'
 
 sudo trac-admin /home/username/trac/projectname initenv
 sudo trac-admin /home/username/trac/projectname/ permission add robin TRAC_ADMIN
@@ -121,6 +121,7 @@ insert into permission values("handy","staff");
 insert into permission values("test","staff");
 insert into permission values("yoko","staff");
 insert into permission values("methilda","staff");
+insert into permission values("mharten","staff");
 insert into permission values("christianus","staff");
 insert into permission values("andy","staff");
 insert into permission values("ibnu","staff");

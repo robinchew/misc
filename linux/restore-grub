@@ -5,4 +5,6 @@ find /boot/grub/stage1 #if you dont know if it is hd0 or what
 root (hd0,0)
 setup (hd0)
 
+quit
+
 #!! Watch the SPACES and remember to SUDO

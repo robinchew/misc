@@ -148,4 +148,4 @@ pg_dump autoritel | gzip -c > autoritel.out.gz
 
 #restore
 gunzip autoritel.out.gz
-psql -d autoritel -f autoritel.out.gz
+psql -d autoritel -f autoritel.out

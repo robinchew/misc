@@ -23,3 +23,6 @@
 
 #eg. REPLACE MULTIPLE LINES
 <,'>s:\(pk"\: \)\(\d*\)\(.*\n.*\n.*\n\):\1\2\3"code"\:\2,:g
+
+
+set paste #so indentation wont get affected http://stackoverflow.com/revisions/58794/list

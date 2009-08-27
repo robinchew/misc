@@ -3,15 +3,19 @@
        $ mkdir /var/postgresql/data
        $ initdb -D /var/postgresql/data -U postgres -A md5 -W
 
+#SSL
+#edit /etc/postgresql/..../postgresql.conf
+ssl=true
+
 #STAT DAEMON
 su -l _postgresql -c "nohup /usr/local/bin/pg_ctl start -D /var/postgresql/data -l /var/postgresql/logfile -o '-D /var/postgresql/data' >/dev/null"
 
 #ADD USER
 sudo -u postgres createuser -D -A -P -R myuser
-OR maybe
-createuser -U postgres -D -A -P -R myuser
 
-in psql: alter user robin with password 
+in psql: 
+alter user robin with password 'mypassword'
+
 sudo -u postgres createdb -O myuser mydb
 
 -D, --no-createdb

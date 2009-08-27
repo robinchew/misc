@@ -1,0 +1,13 @@
+# sites-available/default-000
+# OR
+# http.conf
+
+LoadModule wsgi_module modules/mod_wsgi.so
+
+WSGIDaemonProcess site-1 user=www-data group=www-data threads=25
+WSGIProcessGroup site-1
+
+Include "/var/www/autoritel/apache/apache_django_wsgi.conf"
+Include "/var/www/fashion/apache/apache_django_wsgi.conf"
+
+#refer to also: multi-network-interfaces

@@ -1,0 +1,7 @@
+tar -cvf foo.tar /home/mine/work /home/mine/school
+gzip foo.tar
+
+OR
+
+tar -czvf archive.tgz files/
+#! flag czvf must be in order!

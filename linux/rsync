@@ -9,3 +9,6 @@ v=verbose
 
 #transfer/resume
 rsync --partial --progress -e "ssh -p2083" robin.com.au:"~/vid/At\ The\ Movies/*39*" .
+
+--exclude=PATTERN exclude files matching PATTERN
+--exclude-from=FILE exclude patterns listed in FILE 

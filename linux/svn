@@ -1,9 +1,9 @@
 #QUICK STEPS TO SETUP NEW SVN+TRAC
-sudo groupadd b2b
-sudo usermod -a -G b2b robin
+sudo groupadd bbdev
+sudo usermod -a -G bbdev robin
 sudo svnadmin create /svn/b2b --fs-type fsfs
-sudo chgrp -R bbdev b2b/
-sudo chmod -R g+w /svn/b2b
+sudo chgrp -R bbdev /svn/b2b/
+sudo chmod -R g+ws /svn/b2b
 svn import ~/newdjangoproject file:///svn/b2b/trunk -m 'start django project'
 
 sudo trac-admin /home/username/trac/projectname initenv

@@ -1,3 +1,6 @@
+# CHANGE PORT FOR VRDP REMOTE DESKTOP
+VBoxManage modifyvm 'server' --vrdp on --vrdpport 3399
+
 # START VM #
 su - robin -c 'VBoxManage startvm "SVN Server" -type vrdp'
 
@@ -13,8 +16,10 @@ OR
 cp Master.vdi Clone.vdi
 VBoxManage internalcommands setvdiuuid Clone.vdi
 
-# BRIDGE NETWORKING #
-# newer version of virtualbox is automatic, making below irrelevant
+# BRIDGE NETWORKING
+VBoxManage modifyvm 'server' --nic1 bridged --bridgeadapter1 eth0
+
+# bridging in newer version of virtualbox is automatic, making below irrelevant
 
 sudo aptitude install bridge-utils
 

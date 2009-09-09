@@ -1,0 +1,1610 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+
+
+
+    <title></title>
+<!--<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />-->
+<link rel="stylesheet" href="sql-test_files/style.css" type="text/css">
+<script src="sql-test_files/jquery-latest.js" type="text/javascript"></script>
+<link type="text/css" href="sql-test_files/custom.css" rel="stylesheet">
+<script src="sql-test_files/custom.js" type="text/javascript"></script>
+<script type="text/javascript" src="sql-test_files/jquery_002.js"></script>
+<script type="text/javascript" src="sql-test_files/ui_002.js"></script>
+<script type="text/javascript" src="sql-test_files/ui.js"></script>
+<script src="sql-test_files/jquery.js" type="text/javascript"></script>
+
+  <link rel="stylesheet" href="sql-test_files/fashion_finder.css" type="text/css">
+
+</head><div FirebugVersion="1.3.3" style="display: none;" id="_firebugConsole"></div><body>
+    
+    
+    
+<div class="bg">
+<div class="page_container">
+	<div class="page"> 
+		<div class="logo">
+            <!--img src="/media/swirl-left.png" class="img_left"/>
+            <img src="/media/swirl-right.png" class="img_right"/-->
+           
+            
+                <form name="log_in">
+                    <div class="title" style="padding: 0px; margin-left: 760px; font-size: 16px;">
+                        Welcome,
+                        <div class="title" style="padding: 0px; margin-left: 45px; font-size: 16px;">
+                           Guest
+                        </div>
+                    </div>
+                    <div class="button_login_signup">
+                        <a class="log_in" href="http://localhost:8000/account/login/">Log in</a>
+                        <a class="sign_up" href="http://localhost:8000/account/sign-up/">Sign Up</a>
+                    </div>
+                </form>
+            <!--div class="login_form">
+                <form name="log_in">
+                    <input name="email" type="text" value="type your email" size="25" maxlength="100" />
+                    <input name="password" type="text" value="type your Password" size="25" maxlength="100" />
+                    <br />
+                    <input name="remember_me" type="checkbox" />
+                    <a>Remember me </a>
+                    <a id="forget_password_link"> Forget password ?</a>
+                    <div class="button_login_signup">
+                    <a class="log_in" href="/account/login/">Log in</a>
+                    <a class="sign_up" href="/account/sign-up/">Sign Up</a>
+                    </div>
+                </form>
+             </div-->
+             
+		</div>	
+		<div class="top_menu">
+
+            <a id="home_link" style="margin-left: 48px;" href="http://localhost:8000/" class="link_decoration">Home</a>
+
+			<a id="fashion_finder_link" style="margin-left: 3px; width: 160px;" href="http://localhost:8000/fashion/find-by-store/" class="hyperlink">Fashion Finder</a>
+			<a id="my_profile_link" style="margin-left: 1px; margin-right: -7px;" href="http://localhost:8000/account/my-profile/" class="link_decoration">My Profile</a>
+			<a id="fashion_facts_link" style="margin-left: 10px; width: 145px;" href="http://localhost:8000/fashion-facts/" class="link_decoration">Fashion Facts</a>
+			<a id="contact_us_link" style="margin-left: 5px;" href="http://localhost:8000/account/contact-us/" class="link_decoration">Contact Us</a>
+			<a id="about_us_link" style="margin-left: 5px;" href="http://localhost:8000/account/about-us/" class="link_decoration">About Us</a>
+		</div>
+		<div id="google" style="overflow: hidden; height: 1%;">
+            <div style="overflow: hidden; float: left; display: inline;">
+                <img src="sql-test_files/google.jpg">
+            </div>
+            
+            <div style="overflow: hidden; float: left; display: inline;">
+                Shop:
+                <input name="google_search" size="62" maxlength="100" type="text">
+                <input class="sign_up" name="google_search_ssubmit" value="Search" type="submit">
+
+            </div>
+
+            <div>
+                <input name="search_web" type="checkbox"> Web
+                <input name="search_fashionment" type="checkbox"> Fashionment
+            </div>
+
+		</div>
+		
+    <div class="first_column">
+        <div style="height: 999px;" class="side_menu_box">
+            <img src="sql-test_files/line_long1.png" class="border_left">
+            <img src="sql-test_files/line_long1.png" class="border_right">
+            
+            
+                <div class="title" style="padding: 0px; margin-left: 20px; font-size: 14px;">
+                    Welcome,
+                    <div class="title" style="padding: 0px; margin-left: 45px; font-size: 14px;">
+                       Guest
+                    </div>
+                </div>    
+            
+                        
+        </div>
+    </div>
+    <div class="second_column">
+        <div class="content_loged">
+            <img src="sql-test_files/line_long1.png" class="content_border_left">
+            <img src="sql-test_files/line_long1.png" class="content_border_right">
+            
+<!--
+
+
+  % |
+   rank |
+  
+  
+
+  % |
+   rank |
+  
+  
+
+  % |
+   rank |
+  
+  
+
+  % |
+   rank |
+  
+  
+
+  % |
+   rank |
+  
+  
+
+-->
+<table style="margin-left: -15px; margin-top: -30px; width: 700px; font-family: Arial;">
+    <tbody><tr>
+        <td colspan="5">
+                    <div id="search_form_tabs_relative">&nbsp;<div id="search_form_tabs"><a class="" href="#">Find by store</a><a class="selected" href="#">Find by fashion</a></div></div><div style="display: none;" id="search_store_form_box" class="search_form_box">
+          <form method="get" id="search_store_form" action="/fashion/find-by-store/">
+            <table>
+                 
+                <tbody><tr>
+                    <td width="22%">
+                        Search Stores :
+                    </td>
+                    <td width="76%">
+                        <input style="width: 450px;" name="keyword" id="id_keyword" type="text">
+                    </td>
+                </tr>
+                 
+                <tr>
+                    <td width="22%">
+                        Category :
+                    </td>
+                    <td width="76%">
+                        <select name="category" id="id_category">
+<option value="" selected="selected">---------</option>
+<option value="1">cloth</option>
+<option value="2">jeans</option>
+</select>
+                    </td>
+                </tr>
+                 
+                <tr>
+                    <td width="22%">
+                        Line :
+                    </td>
+                    <td width="76%">
+                        <select disabled="disabled" name="line" id="id_line">
+<option value="" selected="selected">---------</option>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</select>
+                    </td>
+                </tr>
+                 
+                 <tr style="height: 25px;">
+                    <td width="22%">
+                        &nbsp;
+                    </td>
+                    <td width="76%">
+                        &nbsp;
+                    </td>
+                </tr>
+                 <tr>
+                     <td colspan="5" align="right">
+                            <input class="short_red_button" style="padding: 1px 11px 4px;" value="search" name="submit" type="submit">
+                     </td>
+                 </tr>
+            </tbody></table>
+          </form>
+        </div>
+<script>
+    $(document).ready(function(){
+        $("#id_keyword").css('width','450px')
+        updateModel2({form:'#search_store_form',model:'#id_line',brand:'#id_category'})
+    })
+</script>
+
+                    <div style="display: block;" id="search_item_form_box" class="search_form_box">
+          <form method="get" action="/fashion/find-by-item/" id="search_item_form">
+            <table>
+                 
+                <tbody><tr>
+                    <td width="22%">
+                        Search Fashion :
+                    </td>
+                    <td width="2%">
+
+                    </td>
+                    <td width="76%">
+                        <input style="width: 450px;" name="keywords" id="id_keywords" type="text">
+                    </td>
+                </tr>
+                 
+                <tr>
+                    <td width="22%">
+                        Category :
+                    </td>
+                    <td width="2%">
+
+                    </td>
+                    <td width="76%">
+                        <select name="category" id="id_category">
+<option value="" selected="selected">---------</option>
+<option value="1">cloth</option>
+<option value="2">jeans</option>
+</select>
+                    </td>
+                </tr>
+                 
+                <tr>
+                    <td width="22%">
+                        Gender :
+                    </td>
+                    <td width="2%">
+
+                    </td>
+                    <td width="76%">
+                        <select name="gender" id="id_gender">
+<option value="1" selected="selected">MALE</option>
+<option value="0">FEMALE</option>
+<option value="2">UNISEX</option>
+</select>
+                    </td>
+                </tr>
+                 
+                <tr>
+                    <td width="22%">
+                        Availability :
+                    </td>
+                    <td width="2%">
+
+                    </td>
+                    <td width="76%">
+                        <select name="availability" id="id_availability">
+<option value="1" selected="selected">In-Stock</option>
+<option value="2">Pre-Order</option>
+<option value="3">Sold Out</option>
+</select>
+                    </td>
+                </tr>
+                 
+                 <tr>
+                     <td colspan="5" align="right">
+                            <input class="short_red_button" style="padding: 1px 11px 3px;" value="search" name="submit2" type="submit">
+                     </td>
+                 </tr>
+            </tbody></table>
+          </form>
+        </div>
+<script>
+    $(document).ready(function(){
+        $("#id_keywords").css('width','450px')
+    })
+</script>
+
+        </td>
+    </tr>
+    <tr>
+        <td colspan="5">
+            <hr>
+        </td>
+    </tr>
+
+    
+        <tr>
+            <td class="title" style="padding: 0px;" width="80%">
+               <h2> Fashion Finder Result </h2>
+            </td>
+            <td>
+                
+                    previous
+                
+            </td>
+            <td>
+                
+                    <a href="http://localhost:8000/fashion/find-by-item/?gender=1&amp;availability=1&amp;page=2" class="hyperlink">next</a>
+                
+            </td>
+            <td>
+
+            </td>
+            <td>
+
+            </td>
+        </tr>
+
+        
+        <tr>
+            <td colspan="5">
+                Fashion Items
+            </td>
+        </tr>
+        
+        <tr>
+            <td colspan="5">
+                
+                <table style="width: 100%; height: 100px;">
+                            <tbody><tr style="height: 20px;">
+                                <td rowspan="6" width="90">
+                                    
+                                    <a href="http://localhost:8000/fashion/store/detail-items/1/" class="hyperlink">
+                                        <div class="picture_border" style="background: transparent url() no-repeat scroll center center; height: 85px; width: 128px; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;"></div>
+                                    </a>
+                                </td>
+                                <td width="14%">
+
+                                </td>
+                                <td width="1%">
+
+                                </td>
+                                <td width="28%">
+
+                                </td>
+                                <td rowspan="6" valign="bottom" width="130">
+                                    
+                                        
+                                    
+                                </td>
+                                <td rowspan="6" valign="bottom" width="21%">
+                                    &nbsp;&nbsp;
+                                    <a class="medium_red_button" style="padding: 2px 20px;" href="http://localhost:8000/fashion/store/detail-items/1/">
+                                        View Detail
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="14%">
+                                    Item Name
+                                </td>
+                                <td width="1%">
+                                    :
+                                </td>
+                                <td width="30%">
+                                    <a href="http://localhost:8000/fashion/store/detail-items/1/" class="hyperlink">
+                                    kemeja
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="14%">
+                                    Price
+                                </td>
+                                <td width="1%">
+                                    :
+                                </td>
+                                <td width="30%">
+                                    700
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="14%">
+                                    Line
+                                </td>
+                                <td width="1%">
+                                    :
+                                </td>
+                                <td width="30%">
+                                    <a href="http://localhost:8000/fashion/store/view-line/1/" class="hyperlink">
+                                    T-shirt
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="14%">
+                                    Category
+                                </td>
+                                <td width="1%">
+                                    :
+                                </td>
+                                <td width="30%">
+                                    cloth
+                                </td>
+                            </tr>
+                            <tr style="height: 20px;">
+                                <td width="14%">
+
+                                </td>
+                                <td width="1%">
+
+                                </td>
+                                <td width="30%">
+
+                                </td>
+                            </tr>
+                </tbody></table>
+                
+                <table style="width: 100%; height: 100px;">
+                            <tbody><tr style="height: 20px;">
+                                <td rowspan="6" width="90">
+                                    
+                                    <a href="http://localhost:8000/fashion/store/detail-items/2/" class="hyperlink">
+                                        <div class="picture_border" style="background: transparent url() no-repeat scroll center center; height: 85px; width: 128px; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;"></div>
+                                    </a>
+                                </td>
+                                <td width="14%">
+
+                                </td>
+                                <td width="1%">
+
+                                </td>
+                                <td width="28%">
+
+                                </td>
+                                <td rowspan="6" valign="bottom" width="130">
+                                    
+                                        
+                                    
+                                </td>
+                                <td rowspan="6" valign="bottom" width="21%">
+                                    &nbsp;&nbsp;
+                                    <a class="medium_red_button" style="padding: 2px 20px;" href="http://localhost:8000/fashion/store/detail-items/2/">
+                                        View Detail
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="14%">
+                                    Item Name
+                                </td>
+                                <td width="1%">
+                                    :
+                                </td>
+                                <td width="30%">
+                                    <a href="http://localhost:8000/fashion/store/detail-items/2/" class="hyperlink">
+                                    halo
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="14%">
+                                    Price
+                                </td>
+                                <td width="1%">
+                                    :
+                                </td>
+                                <td width="30%">
+                                    700
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="14%">
+                                    Line
+                                </td>
+                                <td width="1%">
+                                    :
+                                </td>
+                                <td width="30%">
+                                    <a href="http://localhost:8000/fashion/store/view-line/2/" class="hyperlink">
+                                    holiday
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="14%">
+                                    Category
+                                </td>
+                                <td width="1%">
+                                    :
+                                </td>
+                                <td width="30%">
+                                    cloth
+                                </td>
+                            </tr>
+                            <tr style="height: 20px;">
+                                <td width="14%">
+
+                                </td>
+                                <td width="1%">
+
+                                </td>
+                                <td width="30%">
+
+                                </td>
+                            </tr>
+                </tbody></table>
+                
+                <table style="width: 100%; height: 100px;">
+                            <tbody><tr style="height: 20px;">
+                                <td rowspan="6" width="90">
+                                    
+                                    <a href="http://localhost:8000/fashion/store/detail-items/3/" class="hyperlink">
+                                        <div class="picture_border" style="background: transparent url() no-repeat scroll center center; height: 85px; width: 128px; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;"></div>
+                                    </a>
+                                </td>
+                                <td width="14%">
+
+                                </td>
+                                <td width="1%">
+
+                                </td>
+                                <td width="28%">
+
+                                </td>
+                                <td rowspan="6" valign="bottom" width="130">
+                                    
+                                        
+                                    
+                                </td>
+                                <td rowspan="6" valign="bottom" width="21%">
+                                    &nbsp;&nbsp;
+                                    <a class="medium_red_button" style="padding: 2px 20px;" href="http://localhost:8000/fashion/store/detail-items/3/">
+                                        View Detail
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="14%">
+                                    Item Name
+                                </td>
+                                <td width="1%">
+                                    :
+                                </td>
+                                <td width="30%">
+                                    <a href="http://localhost:8000/fashion/store/detail-items/3/" class="hyperlink">
+                                    halo
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="14%">
+                                    Price
+                                </td>
+                                <td width="1%">
+                                    :
+                                </td>
+                                <td width="30%">
+                                    700
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="14%">
+                                    Line
+                                </td>
+                                <td width="1%">
+                                    :
+                                </td>
+                                <td width="30%">
+                                    <a href="http://localhost:8000/fashion/store/view-line/3/" class="hyperlink">
+                                    spring
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="14%">
+                                    Category
+                                </td>
+                                <td width="1%">
+                                    :
+                                </td>
+                                <td width="30%">
+                                    cloth
+                                </td>
+                            </tr>
+                            <tr style="height: 20px;">
+                                <td width="14%">
+
+                                </td>
+                                <td width="1%">
+
+                                </td>
+                                <td width="30%">
+
+                                </td>
+                            </tr>
+                </tbody></table>
+                
+                <table style="width: 100%; height: 100px;">
+                            <tbody><tr style="height: 20px;">
+                                <td rowspan="6" width="90">
+                                    
+                                    <a href="http://localhost:8000/fashion/store/detail-items/6/" class="hyperlink">
+                                        <div class="picture_border" style="background: transparent url() no-repeat scroll center center; height: 85px; width: 128px; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;"></div>
+                                    </a>
+                                </td>
+                                <td width="14%">
+
+                                </td>
+                                <td width="1%">
+
+                                </td>
+                                <td width="28%">
+
+                                </td>
+                                <td rowspan="6" valign="bottom" width="130">
+                                    
+                                        
+                                    
+                                </td>
+                                <td rowspan="6" valign="bottom" width="21%">
+                                    &nbsp;&nbsp;
+                                    <a class="medium_red_button" style="padding: 2px 20px;" href="http://localhost:8000/fashion/store/detail-items/6/">
+                                        View Detail
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="14%">
+                                    Item Name
+                                </td>
+                                <td width="1%">
+                                    :
+                                </td>
+                                <td width="30%">
+                                    <a href="http://localhost:8000/fashion/store/detail-items/6/" class="hyperlink">
+                                    halo
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="14%">
+                                    Price
+                                </td>
+                                <td width="1%">
+                                    :
+                                </td>
+                                <td width="30%">
+                                    700
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="14%">
+                                    Line
+                                </td>
+                                <td width="1%">
+                                    :
+                                </td>
+                                <td width="30%">
+                                    <a href="http://localhost:8000/fashion/store/view-line/2/" class="hyperlink">
+                                    holiday
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="14%">
+                                    Category
+                                </td>
+                                <td width="1%">
+                                    :
+                                </td>
+                                <td width="30%">
+                                    cloth
+                                </td>
+                            </tr>
+                            <tr style="height: 20px;">
+                                <td width="14%">
+
+                                </td>
+                                <td width="1%">
+
+                                </td>
+                                <td width="30%">
+
+                                </td>
+                            </tr>
+                </tbody></table>
+                
+                <table style="width: 100%; height: 100px;">
+                            <tbody><tr style="height: 20px;">
+                                <td rowspan="6" width="90">
+                                    
+                                    <a href="http://localhost:8000/fashion/store/detail-items/7/" class="hyperlink">
+                                        <div class="picture_border" style="background: transparent url() no-repeat scroll center center; height: 85px; width: 128px; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;"></div>
+                                    </a>
+                                </td>
+                                <td width="14%">
+
+                                </td>
+                                <td width="1%">
+
+                                </td>
+                                <td width="28%">
+
+                                </td>
+                                <td rowspan="6" valign="bottom" width="130">
+                                    
+                                        
+                                    
+                                </td>
+                                <td rowspan="6" valign="bottom" width="21%">
+                                    &nbsp;&nbsp;
+                                    <a class="medium_red_button" style="padding: 2px 20px;" href="http://localhost:8000/fashion/store/detail-items/7/">
+                                        View Detail
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="14%">
+                                    Item Name
+                                </td>
+                                <td width="1%">
+                                    :
+                                </td>
+                                <td width="30%">
+                                    <a href="http://localhost:8000/fashion/store/detail-items/7/" class="hyperlink">
+                                    halo
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="14%">
+                                    Price
+                                </td>
+                                <td width="1%">
+                                    :
+                                </td>
+                                <td width="30%">
+                                    700
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="14%">
+                                    Line
+                                </td>
+                                <td width="1%">
+                                    :
+                                </td>
+                                <td width="30%">
+                                    <a href="http://localhost:8000/fashion/store/view-line/6/" class="hyperlink">
+                                    halow
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="14%">
+                                    Category
+                                </td>
+                                <td width="1%">
+                                    :
+                                </td>
+                                <td width="30%">
+                                    cloth
+                                </td>
+                            </tr>
+                            <tr style="height: 20px;">
+                                <td width="14%">
+
+                                </td>
+                                <td width="1%">
+
+                                </td>
+                                <td width="30%">
+
+                                </td>
+                            </tr>
+                </tbody></table>
+                
+            </td>
+        </tr>
+        
+        
+    
+</tbody></table>
+<script>
+    $(document).ready(function(){
+        searchFormTabs([{id:'search_store_form_box',text:'Find by store'},{id:'search_item_form_box',text:'Find by fashion'}])
+        
+            $('.side_menu_box').attr('style','height:999px;')
+        
+})
+</script>
+
+        </div>
+    </div>
+<script>
+    <!--
+    var store1 = $("#store1")
+    var open = $('#open')
+    var name2 = $('#name2')
+    var name1 = $('#name1')
+    var all1 =$('#all1')
+    var all2 =$('#all2')
+    var all = $('#all')
+    var img = $('#img')
+    var expand = $('#expand')
+    var name3 = $('#name3')
+    $(document).ready(function(){
+     
+     //var mail = $("#mail")
+     //var compare = $("#list_compare")
+     store1.toggle(
+        function(){
+            all.slideToggle();
+            img.attr('src','/media/fashion_icon.png');
+            $(this).attr('style','color:#B5121C; font-size:14px; font-weight:bold; margin-left:0px;');
+
+        }, 
+        function(){
+            all.slideToggle();
+            img.attr('src','');
+            $(this).attr('style','color:#B5121C; font-size:14px; font-weight:bold; margin-left:20px;');
+        }
+     )
+         /*
+       $("#line1").toggle(
+        function(){
+            $('#item1 .rows').slideToggle();
+            $('#img1').attr('src','/media/tambah.png');
+        },
+        function(){
+            $('#item1 .rows').slideToggle();
+            $('#img1').attr('src','/media/kurang.png');
+        }
+     )
+       $("#line2").toggle(
+        function(){
+            $('#item2 .rows').slideToggle();
+            $('#img2').attr('src','/media/tambah.png');
+        },
+        function(){
+            $('#item2 .rows').slideToggle();
+            $('#img2').attr('src','/media/kurang.png');
+        }
+     )
+       $("#line3").toggle(
+        function(){
+            $('#item3 .rows').slideToggle();
+            $('#img3').attr('src','/media/tambah.png');
+        },
+        function(){
+            $('#item3 .rows').slideToggle();
+            $('#img3').attr('src','/media/kurang.png');
+        }
+     )
+       $("#line4").toggle(
+        function(){
+            $('#item4 .rows').slideToggle();
+            $('#img4').attr('src','/media/tambah.png');
+        },
+        function(){
+            $('#item4 .rows').slideToggle();
+            $('#img4').attr('src','/media/kurang.png');
+        }
+     )
+       $("#line5").toggle(
+        function(){
+            $('#item5 .rows').slideToggle();
+            $('#img5').attr('src','/media/tambah.png');
+        },
+        function(){
+            $('#item5 .rows').slideToggle();
+            $('#img5').attr('src','/media/kurang.png');
+        }
+     )
+     compare.toggle(
+        function(){
+            $('#all1').slideToggle();
+            $('#open').attr('src','/media/tambah.png');
+        },
+        function(){
+            $('#all1').slideToggle();
+            $('#open').attr('src','/media/kurang.png');
+        }
+    )
+     mail.toggle(
+        function(){
+            $('#all2').slideToggle();
+            $('#expand').attr('src','/media/tambah.png');
+        },
+        function(){
+            $('#all2').slideToggle();
+            $('#expand').attr('src','/media/kurang.png');
+        }
+    */
+    })
+
+    -->
+</script>
+
+		<!--<div class="first_column">
+			<div class="side_menu_box">
+			Side menu bar 1234567890123
+			</div>		
+		</div>		
+		<div id="content" class="second_column">
+            
+		</div>-->
+	</div>	
+		
+	<div class="page_bottom">
+		<div style="padding-top: 4px;">		
+			<a id="help_link">HELP</a>
+			 |
+			<a id="site_map_link">  SITE MAP  </a>
+			 | 
+			<a id="developers_link">  DEVELOPERS  </a> 
+			 | 
+			<a id="term_of_use_link">  TERM OF USE  </a>
+			 |
+			<a id="privacy_policy_link">  PRIVACY POLICY  </a>
+		</div>
+		<div style="font-size: 10px; float: right;">
+			2009 PT Empiria Media Indonesia. All right reserved patent no. ???
+		</div>
+	</div>
+</div>
+</div>
+
+<ol>
+
+
+<li>
+  <b style="font-size: 2em;">0.006</b>SELECT "store_item"."id",
+"store_item"."line_id", "store_item"."item",
+"store_item"."description", "store_item"."colour", "store_item"."size",
+"store_item"."gender", "store_item"."price",
+"store_item"."availability", "store_item"."picture1",
+"store_item"."picture2", "store_item"."item_code",
+"store_item"."deleted", "store_item"."primary",
+"store_item"."set_primary_date" FROM "store_item" INNER JOIN
+"store_line" ON ("store_item"."line_id" = "store_line"."id") INNER JOIN
+"store_store" ON ("store_line"."store_id" = "store_store"."id") WHERE
+("store_item"."gender" = 1 AND "store_store"."deleted" = False AND
+"store_item"."availability" = 1 )<br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.001</b>SELECT "store_item"."id",
+"store_item"."line_id", "store_item"."item",
+"store_item"."description", "store_item"."colour", "store_item"."size",
+"store_item"."gender", "store_item"."price",
+"store_item"."availability", "store_item"."picture1",
+"store_item"."picture2", "store_item"."item_code",
+"store_item"."deleted", "store_item"."primary",
+"store_item"."set_primary_date" FROM "store_item" WHERE
+"store_item"."id" IN (1, 2, 3, 6, 7, 8, 10, 13, 16, 19, 21, 22, 26, 27,
+28, 30)<br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.001</b>SELECT "store_line"."id",
+"store_line"."store_id", "store_line"."line",
+"store_line"."category_id" FROM "store_line" WHERE "store_line"."id" =
+1 <br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.001</b>SELECT "store_store"."id",
+"store_store"."user_id", "store_store"."name",
+"store_store"."location", "store_store"."province_id",
+"store_store"."post_code", "store_store"."country_id",
+"store_store"."phone_area_id", "store_store"."telephone",
+"store_store"."handphone", "store_store"."fax_code_id",
+"store_store"."fax", "store_store"."company_website",
+"store_store"."store_story", "store_store"."picture",
+"store_store"."promotion_text", "store_store"."last_updated",
+"store_store"."deleted" FROM "store_store" WHERE "store_store"."id" = 1
+<br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT
+"django_session"."session_key", "django_session"."session_data",
+"django_session"."expire_date" FROM "django_session" WHERE
+("django_session"."session_key" = 0a27ecfa5556ded9b6c6d3f0e42f9832 AND
+"django_session"."expire_date" &gt; 2009-07-17 09:38:51.363840 )<br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT
+"store_addicted"."id", "store_addicted"."user_id",
+"store_addicted"."store_id", "store_addicted"."deleted" FROM
+"store_addicted" WHERE ("store_addicted"."deleted" = False AND
+"store_addicted"."user_id" = AnonymousUser AND
+"store_addicted"."store_id" = 1 )<br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT "store_line"."id",
+"store_line"."store_id", "store_line"."line",
+"store_line"."category_id" FROM "store_line" WHERE "store_line"."id" =
+2 <br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT "store_store"."id",
+"store_store"."user_id", "store_store"."name",
+"store_store"."location", "store_store"."province_id",
+"store_store"."post_code", "store_store"."country_id",
+"store_store"."phone_area_id", "store_store"."telephone",
+"store_store"."handphone", "store_store"."fax_code_id",
+"store_store"."fax", "store_store"."company_website",
+"store_store"."store_story", "store_store"."picture",
+"store_store"."promotion_text", "store_store"."last_updated",
+"store_store"."deleted" FROM "store_store" WHERE "store_store"."id" = 2
+<br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT
+"store_addicted"."id", "store_addicted"."user_id",
+"store_addicted"."store_id", "store_addicted"."deleted" FROM
+"store_addicted" WHERE ("store_addicted"."deleted" = False AND
+"store_addicted"."user_id" = AnonymousUser AND
+"store_addicted"."store_id" = 2 )<br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT "store_line"."id",
+"store_line"."store_id", "store_line"."line",
+"store_line"."category_id" FROM "store_line" WHERE "store_line"."id" =
+3 <br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT "store_store"."id",
+"store_store"."user_id", "store_store"."name",
+"store_store"."location", "store_store"."province_id",
+"store_store"."post_code", "store_store"."country_id",
+"store_store"."phone_area_id", "store_store"."telephone",
+"store_store"."handphone", "store_store"."fax_code_id",
+"store_store"."fax", "store_store"."company_website",
+"store_store"."store_story", "store_store"."picture",
+"store_store"."promotion_text", "store_store"."last_updated",
+"store_store"."deleted" FROM "store_store" WHERE "store_store"."id" = 2
+<br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT
+"store_addicted"."id", "store_addicted"."user_id",
+"store_addicted"."store_id", "store_addicted"."deleted" FROM
+"store_addicted" WHERE ("store_addicted"."deleted" = False AND
+"store_addicted"."user_id" = AnonymousUser AND
+"store_addicted"."store_id" = 2 )<br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT "store_line"."id",
+"store_line"."store_id", "store_line"."line",
+"store_line"."category_id" FROM "store_line" WHERE "store_line"."id" =
+2 <br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT "store_store"."id",
+"store_store"."user_id", "store_store"."name",
+"store_store"."location", "store_store"."province_id",
+"store_store"."post_code", "store_store"."country_id",
+"store_store"."phone_area_id", "store_store"."telephone",
+"store_store"."handphone", "store_store"."fax_code_id",
+"store_store"."fax", "store_store"."company_website",
+"store_store"."store_story", "store_store"."picture",
+"store_store"."promotion_text", "store_store"."last_updated",
+"store_store"."deleted" FROM "store_store" WHERE "store_store"."id" = 2
+<br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT
+"store_addicted"."id", "store_addicted"."user_id",
+"store_addicted"."store_id", "store_addicted"."deleted" FROM
+"store_addicted" WHERE ("store_addicted"."deleted" = False AND
+"store_addicted"."user_id" = AnonymousUser AND
+"store_addicted"."store_id" = 2 )<br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT "store_line"."id",
+"store_line"."store_id", "store_line"."line",
+"store_line"."category_id" FROM "store_line" WHERE "store_line"."id" =
+6 <br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT "store_store"."id",
+"store_store"."user_id", "store_store"."name",
+"store_store"."location", "store_store"."province_id",
+"store_store"."post_code", "store_store"."country_id",
+"store_store"."phone_area_id", "store_store"."telephone",
+"store_store"."handphone", "store_store"."fax_code_id",
+"store_store"."fax", "store_store"."company_website",
+"store_store"."store_story", "store_store"."picture",
+"store_store"."promotion_text", "store_store"."last_updated",
+"store_store"."deleted" FROM "store_store" WHERE "store_store"."id" = 3
+<br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT
+"store_addicted"."id", "store_addicted"."user_id",
+"store_addicted"."store_id", "store_addicted"."deleted" FROM
+"store_addicted" WHERE ("store_addicted"."deleted" = False AND
+"store_addicted"."user_id" = AnonymousUser AND
+"store_addicted"."store_id" = 3 )<br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT "store_line"."id",
+"store_line"."store_id", "store_line"."line",
+"store_line"."category_id" FROM "store_line" WHERE "store_line"."id" =
+1 <br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT "store_store"."id",
+"store_store"."user_id", "store_store"."name",
+"store_store"."location", "store_store"."province_id",
+"store_store"."post_code", "store_store"."country_id",
+"store_store"."phone_area_id", "store_store"."telephone",
+"store_store"."handphone", "store_store"."fax_code_id",
+"store_store"."fax", "store_store"."company_website",
+"store_store"."store_story", "store_store"."picture",
+"store_store"."promotion_text", "store_store"."last_updated",
+"store_store"."deleted" FROM "store_store" WHERE "store_store"."id" = 1
+<br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT
+"store_addicted"."id", "store_addicted"."user_id",
+"store_addicted"."store_id", "store_addicted"."deleted" FROM
+"store_addicted" WHERE ("store_addicted"."deleted" = False AND
+"store_addicted"."user_id" = AnonymousUser AND
+"store_addicted"."store_id" = 1 )<br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT "store_line"."id",
+"store_line"."store_id", "store_line"."line",
+"store_line"."category_id" FROM "store_line" WHERE "store_line"."id" =
+5 <br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT "store_store"."id",
+"store_store"."user_id", "store_store"."name",
+"store_store"."location", "store_store"."province_id",
+"store_store"."post_code", "store_store"."country_id",
+"store_store"."phone_area_id", "store_store"."telephone",
+"store_store"."handphone", "store_store"."fax_code_id",
+"store_store"."fax", "store_store"."company_website",
+"store_store"."store_story", "store_store"."picture",
+"store_store"."promotion_text", "store_store"."last_updated",
+"store_store"."deleted" FROM "store_store" WHERE "store_store"."id" = 2
+<br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT
+"store_addicted"."id", "store_addicted"."user_id",
+"store_addicted"."store_id", "store_addicted"."deleted" FROM
+"store_addicted" WHERE ("store_addicted"."deleted" = False AND
+"store_addicted"."user_id" = AnonymousUser AND
+"store_addicted"."store_id" = 2 )<br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT "store_line"."id",
+"store_line"."store_id", "store_line"."line",
+"store_line"."category_id" FROM "store_line" WHERE "store_line"."id" =
+5 <br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT "store_store"."id",
+"store_store"."user_id", "store_store"."name",
+"store_store"."location", "store_store"."province_id",
+"store_store"."post_code", "store_store"."country_id",
+"store_store"."phone_area_id", "store_store"."telephone",
+"store_store"."handphone", "store_store"."fax_code_id",
+"store_store"."fax", "store_store"."company_website",
+"store_store"."store_story", "store_store"."picture",
+"store_store"."promotion_text", "store_store"."last_updated",
+"store_store"."deleted" FROM "store_store" WHERE "store_store"."id" = 2
+<br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT
+"store_addicted"."id", "store_addicted"."user_id",
+"store_addicted"."store_id", "store_addicted"."deleted" FROM
+"store_addicted" WHERE ("store_addicted"."deleted" = False AND
+"store_addicted"."user_id" = AnonymousUser AND
+"store_addicted"."store_id" = 2 )<br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT "store_line"."id",
+"store_line"."store_id", "store_line"."line",
+"store_line"."category_id" FROM "store_line" WHERE "store_line"."id" =
+8 <br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT "store_store"."id",
+"store_store"."user_id", "store_store"."name",
+"store_store"."location", "store_store"."province_id",
+"store_store"."post_code", "store_store"."country_id",
+"store_store"."phone_area_id", "store_store"."telephone",
+"store_store"."handphone", "store_store"."fax_code_id",
+"store_store"."fax", "store_store"."company_website",
+"store_store"."store_story", "store_store"."picture",
+"store_store"."promotion_text", "store_store"."last_updated",
+"store_store"."deleted" FROM "store_store" WHERE "store_store"."id" = 2
+<br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT
+"store_addicted"."id", "store_addicted"."user_id",
+"store_addicted"."store_id", "store_addicted"."deleted" FROM
+"store_addicted" WHERE ("store_addicted"."deleted" = False AND
+"store_addicted"."user_id" = AnonymousUser AND
+"store_addicted"."store_id" = 2 )<br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT "store_line"."id",
+"store_line"."store_id", "store_line"."line",
+"store_line"."category_id" FROM "store_line" WHERE "store_line"."id" =
+12 <br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT "store_store"."id",
+"store_store"."user_id", "store_store"."name",
+"store_store"."location", "store_store"."province_id",
+"store_store"."post_code", "store_store"."country_id",
+"store_store"."phone_area_id", "store_store"."telephone",
+"store_store"."handphone", "store_store"."fax_code_id",
+"store_store"."fax", "store_store"."company_website",
+"store_store"."store_story", "store_store"."picture",
+"store_store"."promotion_text", "store_store"."last_updated",
+"store_store"."deleted" FROM "store_store" WHERE "store_store"."id" =
+14 <br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT
+"store_addicted"."id", "store_addicted"."user_id",
+"store_addicted"."store_id", "store_addicted"."deleted" FROM
+"store_addicted" WHERE ("store_addicted"."deleted" = False AND
+"store_addicted"."user_id" = AnonymousUser AND
+"store_addicted"."store_id" = 14 )<br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT "store_line"."id",
+"store_line"."store_id", "store_line"."line",
+"store_line"."category_id" FROM "store_line" WHERE "store_line"."id" =
+12 <br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT "store_store"."id",
+"store_store"."user_id", "store_store"."name",
+"store_store"."location", "store_store"."province_id",
+"store_store"."post_code", "store_store"."country_id",
+"store_store"."phone_area_id", "store_store"."telephone",
+"store_store"."handphone", "store_store"."fax_code_id",
+"store_store"."fax", "store_store"."company_website",
+"store_store"."store_story", "store_store"."picture",
+"store_store"."promotion_text", "store_store"."last_updated",
+"store_store"."deleted" FROM "store_store" WHERE "store_store"."id" =
+14 <br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT
+"store_addicted"."id", "store_addicted"."user_id",
+"store_addicted"."store_id", "store_addicted"."deleted" FROM
+"store_addicted" WHERE ("store_addicted"."deleted" = False AND
+"store_addicted"."user_id" = AnonymousUser AND
+"store_addicted"."store_id" = 14 )<br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT "store_line"."id",
+"store_line"."store_id", "store_line"."line",
+"store_line"."category_id" FROM "store_line" WHERE "store_line"."id" =
+13 <br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT "store_store"."id",
+"store_store"."user_id", "store_store"."name",
+"store_store"."location", "store_store"."province_id",
+"store_store"."post_code", "store_store"."country_id",
+"store_store"."phone_area_id", "store_store"."telephone",
+"store_store"."handphone", "store_store"."fax_code_id",
+"store_store"."fax", "store_store"."company_website",
+"store_store"."store_story", "store_store"."picture",
+"store_store"."promotion_text", "store_store"."last_updated",
+"store_store"."deleted" FROM "store_store" WHERE "store_store"."id" = 1
+<br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT
+"store_addicted"."id", "store_addicted"."user_id",
+"store_addicted"."store_id", "store_addicted"."deleted" FROM
+"store_addicted" WHERE ("store_addicted"."deleted" = False AND
+"store_addicted"."user_id" = AnonymousUser AND
+"store_addicted"."store_id" = 1 )<br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT "store_line"."id",
+"store_line"."store_id", "store_line"."line",
+"store_line"."category_id" FROM "store_line" WHERE "store_line"."id" =
+12 <br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT "store_store"."id",
+"store_store"."user_id", "store_store"."name",
+"store_store"."location", "store_store"."province_id",
+"store_store"."post_code", "store_store"."country_id",
+"store_store"."phone_area_id", "store_store"."telephone",
+"store_store"."handphone", "store_store"."fax_code_id",
+"store_store"."fax", "store_store"."company_website",
+"store_store"."store_story", "store_store"."picture",
+"store_store"."promotion_text", "store_store"."last_updated",
+"store_store"."deleted" FROM "store_store" WHERE "store_store"."id" =
+14 <br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT
+"store_addicted"."id", "store_addicted"."user_id",
+"store_addicted"."store_id", "store_addicted"."deleted" FROM
+"store_addicted" WHERE ("store_addicted"."deleted" = False AND
+"store_addicted"."user_id" = AnonymousUser AND
+"store_addicted"."store_id" = 14 )<br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT "store_line"."id",
+"store_line"."store_id", "store_line"."line",
+"store_line"."category_id" FROM "store_line" WHERE "store_line"."id" =
+15 <br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT "store_store"."id",
+"store_store"."user_id", "store_store"."name",
+"store_store"."location", "store_store"."province_id",
+"store_store"."post_code", "store_store"."country_id",
+"store_store"."phone_area_id", "store_store"."telephone",
+"store_store"."handphone", "store_store"."fax_code_id",
+"store_store"."fax", "store_store"."company_website",
+"store_store"."store_story", "store_store"."picture",
+"store_store"."promotion_text", "store_store"."last_updated",
+"store_store"."deleted" FROM "store_store" WHERE "store_store"."id" =
+17 <br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT
+"store_addicted"."id", "store_addicted"."user_id",
+"store_addicted"."store_id", "store_addicted"."deleted" FROM
+"store_addicted" WHERE ("store_addicted"."deleted" = False AND
+"store_addicted"."user_id" = AnonymousUser AND
+"store_addicted"."store_id" = 17 )<br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT "store_line"."id",
+"store_line"."store_id", "store_line"."line",
+"store_line"."category_id" FROM "store_line" WHERE "store_line"."id" =
+16 <br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT "store_store"."id",
+"store_store"."user_id", "store_store"."name",
+"store_store"."location", "store_store"."province_id",
+"store_store"."post_code", "store_store"."country_id",
+"store_store"."phone_area_id", "store_store"."telephone",
+"store_store"."handphone", "store_store"."fax_code_id",
+"store_store"."fax", "store_store"."company_website",
+"store_store"."store_story", "store_store"."picture",
+"store_store"."promotion_text", "store_store"."last_updated",
+"store_store"."deleted" FROM "store_store" WHERE "store_store"."id" =
+18 <br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT
+"store_addicted"."id", "store_addicted"."user_id",
+"store_addicted"."store_id", "store_addicted"."deleted" FROM
+"store_addicted" WHERE ("store_addicted"."deleted" = False AND
+"store_addicted"."user_id" = AnonymousUser AND
+"store_addicted"."store_id" = 18 )<br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT "store_line"."id",
+"store_line"."store_id", "store_line"."line",
+"store_line"."category_id" FROM "store_line" WHERE "store_line"."id" =
+17 <br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT "store_store"."id",
+"store_store"."user_id", "store_store"."name",
+"store_store"."location", "store_store"."province_id",
+"store_store"."post_code", "store_store"."country_id",
+"store_store"."phone_area_id", "store_store"."telephone",
+"store_store"."handphone", "store_store"."fax_code_id",
+"store_store"."fax", "store_store"."company_website",
+"store_store"."store_story", "store_store"."picture",
+"store_store"."promotion_text", "store_store"."last_updated",
+"store_store"."deleted" FROM "store_store" WHERE "store_store"."id" =
+19 <br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT
+"store_addicted"."id", "store_addicted"."user_id",
+"store_addicted"."store_id", "store_addicted"."deleted" FROM
+"store_addicted" WHERE ("store_addicted"."deleted" = False AND
+"store_addicted"."user_id" = AnonymousUser AND
+"store_addicted"."store_id" = 19 )<br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT "store_linecategory"."id", "store_linecategory"."name" FROM "store_linecategory"<br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT "store_line"."id", "store_line"."store_id", "store_line"."line", "store_line"."category_id" FROM "store_line"<br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT "store_linecategory"."id", "store_linecategory"."name" FROM "store_linecategory" ORDER BY "store_linecategory"."name" ASC<br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT "store_linecategory"."id", "store_linecategory"."name" FROM "store_linecategory" WHERE "store_linecategory"."id" = 1 <br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT "store_linecategory"."id", "store_linecategory"."name" FROM "store_linecategory" WHERE "store_linecategory"."id" = 1 <br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT "store_linecategory"."id", "store_linecategory"."name" FROM "store_linecategory" WHERE "store_linecategory"."id" = 1 <br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT "store_linecategory"."id", "store_linecategory"."name" FROM "store_linecategory" WHERE "store_linecategory"."id" = 1 <br>
+</li>
+
+
+
+<li>
+  <b style="font-size: 2em;">0.000</b>SELECT "store_linecategory"."id", "store_linecategory"."name" FROM "store_linecategory" WHERE "store_linecategory"."id" = 1 <br>
+</li>
+
+
+</ol>
+
+<select style="display: none;" id="fake_select"><option name="1" value="1">T-shirt</option><option name="1" value="2">holiday</option><option name="1" value="3">spring</option><option name="1" value="4">fall</option><option name="2" value="5">winter</option><option name="1" value="6">halow</option><option name="2" value="7">vacation</option><option name="1" value="8">hahah</option><option name="1" value="9">anak2 kota</option><option name="1" value="10">anak desa</option><option name="1" value="11">Anak2 tasa</option><option name="2" value="12">Anak2 deskot</option><option name="1" value="13">halow</option><option name="1" value="14">abc</option><option name="1" value="15">Schoolies</option><option name="1" value="16">new 1</option><option name="2" value="17">Jeannnn kamu</option></select></body></html>

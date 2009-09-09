@@ -1,0 +1,62 @@
+<div class="car_list">
+  {% for object in cars %}
+  <div class="car_list_row">
+    <a href="/cars/{{ object.pk }}" class="pic_box">
+        {% ifequal object.product.sold 1 %}
+            <div class="sold_small">
+            </div>
+        {% endifequal %}
+      <div class="top">&nbsp;</div>
+      {% if object.product.default_image.image %}
+        <div class="pic" style="background-image:url({% thumbnail object.product.default_image.image.name 160x120 %})"></div>
+      {% else %}
+        <div class="pic"></div>
+      {% endif %}
+      <div class="bottom">&nbsp;</div>
+      <!--div class="text" style="line-height:30px"><b>{% trans 'View More Detail' %}</b></div-->
+    </a>
+    <div class="car_list_column3">         
+      {% ifequal object.product.sub_user.sub_group.slug "public" %}
+          {% ifequal object.price 0%}
+            <div class="price"> Price On Request </div>
+          {% else %}
+          <div title="{{object.price}}" class="price">Rp {{object.price|intcomma}}</div>
+          {% endifequal%}
+          <div class="seller_info" style="margin-top:10px;">
+            <div style="margin-left:10px;">
+                <b>{% trans 'Info Penjual' %}:</b><br />
+                <a href="{% url view_sub_user_profile object.product.sub_user.slug %}">{{object.product.sub_user.name}}</a><br />
+            {% ifnotequal object.product.sub_user.user_id user2.id %}
+                    <a href="{% url send_message_to_user object.product.sub_user.user.slug %}?subject={{ object.pk }}: {{ object.model.brand }} {{object.model }} {{object.model_year }}" class="small_button_green" style="margin-top:10px;">{% trans 'Message' %}</a>
+            {%endifnotequal%}
+            </div>
+           
+          </div>
+      {%else%}
+            <div class="car_list_column3">
+            {% ifequal object.price 0%}
+                <div class="price"> Price On Request </div>
+            {% else %}
+              <div title="{{object.price}}" class="price">Rp {{object.price|intcomma}}</div>
+            {% endifequal%}
+              <div class="seller_info" style="margin-top:10px;">
+                  <div style="margin-left:10px;">
+                      <b>{% trans 'Name Dealer' %}:</b><br />
+                <a href="{% url showroom_car_list object.product.sub_user.slug %}">{{object.product.sub_user.name|capfirst}}</a><br />
+                {% if object.contact_person_name%}
+                <b>{% trans 'Seller Info' %}:</b><br />
+                      {{object.contact_person_name}}<br/>
+                      {{object.contact_person_phone}}
+                {%endif%}
+                {% ifnotequal object.product.sub_user.user_id user2.id %}
+                    <a href="{% url send_message_to_user object.product.sub_user.user.slug %}?subject={{ object.pk }}: {{ object.model.brand }} {{object.model }} {{object.model_year }}" class="small_button_green" style="margin-top:10px;">{% trans 'Message' %}</a>
+                {%endifnotequal%}
+                  </div>
+               
+              </div>
+            </div>
+      {% endifequal %}
+    </div>
+    <div class="car_list_column2 car_info">
+      <h3>
+        <span class="id">{{object.pk}}</span>

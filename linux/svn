@@ -1,17 +1,37 @@
 #QUICK STEPS TO SETUP NEW SVN+TRAC
-sudo groupadd bbdev
-sudo usermod -a -G bbdev robin
-sudo svnadmin create /svn/b2b --fs-type fsfs
-sudo chgrp -R bbdev /svn/b2b/
-sudo chmod -R g+ws /svn/b2b
-svn import ~/newdjangoproject file:///svn/b2b/trunk -m 'start django project'
+sudo groupadd devgroup
+sudo usermod -a -G devgroup robin
+sudo svnadmin create /svn/projectname --fs-type fsfs
+sudo chgrp -R devgroup /svn/projectname
+sudo chmod -R g+ws /svn/projectname
+svn import ~/newdjangoproject file:///svn/projectname/trunk -m 'start django project'
 
+# look for create_trac.db in the folder of this file and run it
+# OR
+# manually do below
 sudo trac-admin /home/username/trac/projectname initenv
 sudo trac-admin /home/username/trac/projectname/ permission add robin TRAC_ADMIN
-sudo chown www-data:bbdev /home/username/trac/projectname/b2b
-sudo chmod -R g+w /home/username/trac/projectname/b2b
-#copy all [components], [account-manager], [attachment]
-#do sql bottom of page
+sudo chown - R www-data:devgroup /home/username/trac/projectname
+sudo chmod -R g+w /home/username/trac/projectname
+# copy all [components], [account-manager], [attachment], [notification]
+
+[notification]
+smtp_enabled = true
+
+# do sql bottom of page
+
+############
+look for file db_default.py in the directory of this file and replace in
+
+/usr/lib/python2.5/site-packages/Trac-0.11.3-py2.5.egg/trac
+
+db_default.py contains all the desired default settings such as components, milestone, users, emails, staff group
+
+smtp_enabled = true can be added by default notification.py
+same with attachment.py
+
+remember some plugins are egg binaries, you need to setup.py install, everytime you modify the source 
+############
 
 http://wiki.kartbuilding.net/index.php/Trac_and_SVN
 
@@ -93,7 +113,8 @@ OR
 svn update -r 50 file.py #this may be considered old
 
 
-#SQL SCRIPT
+# SQL SCRIPT
+# run script via: sqlite3 data.db < script.sql
 insert into permission values("staff","BROWSER_VIEW");
 insert into permission values("staff","WIKI_CREATE");
 insert into permission values("staff","WIKI_VIEW");
@@ -130,10 +151,11 @@ insert into permission values("marena","staff");
 
 insert into session_attribute values("andy",1,"email","ad1x@hotmail.com");
 insert into session_attribute values("marena",1,"email","Marena.Hartini@empiriamedia.com");
+insert into session_attribute values("mharten",1,"email","methilda.harten@empiriamedia.com");
 insert into session_attribute values("christianus",1,"email","Christianus.hermawan@empiriamedia.com");
 insert into session_attribute values("charles",1,"email","charles.sugio@empiriamedia.com");
 insert into session_attribute values("yoko",1,"email","yoko_halim@yahoo.com");
-insert into session_attribute values("ivan",1,"email","ivan.chandra@gandaerah.com");
+insert into session_attribute values("ivan",2,"email","ivan.chandra@gandaerah.com");
 insert into session_attribute values("martogi",1,"email","craker_devil84@yahoo.com");
 insert into session_attribute values("phillllip",1,"email","min.siung@gmail.com");
 insert into session_attribute values("philip",1,"email","min.siung@gmail.com");

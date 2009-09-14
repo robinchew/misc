@@ -1,0 +1,4 @@
+# vi /etc/default/bootlogd
+BOOTLOGD_ENABLE=Yes
+
+#!! DOESNT WORK IN NEW VERSIONS OF UBUNTU !!

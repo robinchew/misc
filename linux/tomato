@@ -1,0 +1,20 @@
+#REMOTE LOGGING TO SYSLOGD SERVER
+
+# with normal SYSLOGD or SYSKLOGD
+http://www.debuntu.org/how-to-remote-syslog-logging-debian-and-ubuntu
+
+$ vi /etc/default/syslogd
+SYSLOGD="-r"
+
+sudo /etc/init.d/sysklogd restart
+
+# with RSYSLOG
+# uncomment the following:
+$ModLoad imudp
+$UDPServerRun 514
+
+# with SYSLOG-NG
+# uncomment the following:
+udp();
+
+# ! REFER TO syslog-ng for outputing to postgresql !

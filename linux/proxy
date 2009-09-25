@@ -1,0 +1,11 @@
+# tinyproxy & dansguardian
+https://help.ubuntu.com/community/Servers/DansGuardian
+# works with clean ubuntu install
+# have to be tinyproxy NOT squid
+
+#proxy server as part of the dhcp clients
+http://www.kathmannlabs.net/mediawiki/index.php/Dansguardian_Ubuntu_Linux_Install_how-to
+http://www.tgorg.com/main/?q=node/64 
+
+#proxy server as the router as well
+http://www.branchdistrictlibrary.org/professional/ubuntu_and_dansguardian_page_2.php

@@ -1,8 +1,26 @@
+# CREATE VM
+VBoxManage createvm --name newvm --register
+
+VBoxManage openmedium dvd /path/file.ext
+
+VBoxManage createvdi --filename proxy.vdi --size 10000 --register
+
+VBoxManage modifyvm newvm --memory "256MB" -nic1 bridged --bridgeadapter1 eth0 --hda proxy.vdi --boot1 dvd --vrdp on --vrdpport 3399 --memory "256MB"
+
 # CHANGE PORT FOR VRDP REMOTE DESKTOP
 VBoxManage modifyvm 'server' --vrdp on --vrdpport 3399
 
 # START VM #
 su - robin -c 'VBoxManage startvm "SVN Server" -type vrdp'
+
+# SNAPSHOTS
+VBoxManage snapshot Autoritel take 'first snap'  --description 'describe if you want'
+
+# DISCARD CURRENT TO LAST SNAPSHOT 
+VBoxManage snapshot Autoritel discardcurrent --state
+
+# DISCARD OLD SNAPSHOTS THAT YOU DON'T WANT ANYMORE
+VBoxManage snapshot Autoritel discard 'first snap'
 
 # CLONE VDI #
 # source.vdi needs to be FULL PATH sometimes, if not in VDI folder

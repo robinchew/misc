@@ -1,2 +1,1 @@
-update-rc.d -f moblock-nfq remove
-update-rc.d -f moblock-nfq defaults
+init.d

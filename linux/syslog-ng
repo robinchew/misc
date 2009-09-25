@@ -1,0 +1,42 @@
+# Enable remote logging
+# uncomment in etc/syslog-ng/syslog-ng.conf
+udp();
+
+# SQL logging support
+# http://kdough.net/docs/syslog_postgresql/
+# add in etc/syslog-ng/syslog-ng.conf
+
+filter f_filter{
+        match("SRC=([0-9.]+) DST=([0-9.]+).*$");
+};
+destination d_pgsql {
+        pipe("/tmp/pgsql.pipe"
+                template("INSERT INTO logs (host, facility, priority, level, tag, date,
+                          time, program, msg, src, dst) VALUES ( '$HOST', '$FACILITY', '$PRIORITY', '$LEVEL', '$TAG',
+                          '$YEAR-$MONTH-$DAY', '$HOUR:$MIN:$SEC', '$PROGRAM', '$MSG','$1','$2');\n"
+                         )
+                template-escape(yes)
+            );
+};
+log { source(s_all); filter(f_filter); destination(d_pgsql); };
+
+# then run this script somewhere in startup
+
+#!/bin/bash
+#
+# File: syslog-ng-pgsql-pipe.sh
+#
+# Take input from a FIFO and run execute it as a query for
+# a PostgreSQL database.
+#
+# IMPORTANT NOTE:  This could potentially be a huge security hole.
+# You should change permissions on the FIFO accordingly.
+#
+if [ -e /tmp/pgsql.pipe ]; then
+        while [ -e /tmp/pgsql.pipe ]
+                do
+                        psql -q -U robin syslog_ng < /tmp/pgsql.pipe
+        done
+else
+        mkfifo /tmp/pgsql.pipe
+fi

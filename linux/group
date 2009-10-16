@@ -1,0 +1,11 @@
+#file/folder inherits group user from current folder
+chmod g+s ./file-or-folder
+
+#/etc/profile
+#new file created will have group write permission
+umask 002
+
+#try: 
+source /etc/profile
+#instead of reboot
+#to have changes in effect in /etc/profile

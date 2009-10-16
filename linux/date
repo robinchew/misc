@@ -8,3 +8,9 @@ https://help.ubuntu.com/community/UbuntuTime
 OR
 
 maybe just changing /etc/timezone ?
+
+
+# SYNC DATE WITH NTP
+sudo ntpdate pool.ntp.org
+OR
+sudo ntpdate asia.pool.ntp.org

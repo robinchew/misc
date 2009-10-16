@@ -1,0 +1,11 @@
+sudo aptitude install ruby rubygems subversion ruby-pkg-tools ruby1.8-dev build-essential
+
+rubygems maybe be too old, so do:
+sudo gem update --system 
+
+sudo gem install rails
+sudo aptitude install sqlite3 libsqlite3-dev
+sudo gem install sqlite3-ruby
+
+rake db:migrate RAILS_ENV="production"
+rake redmine:load_default_data RAILS_ENV="production"

@@ -18,3 +18,27 @@ $UDPServerRun 514
 udp();
 
 # ! REFER TO syslog-ng for outputing to postgresql !
+
+# BANDWIDTH MONITOR PER IP WITH SNMP
+http://jultech.wordpress.com/2007/01/22/wrt54gl-tomato-firmware-and-bandwidth-monitoring-via-snmp/
+http://www.linksysinfo.org/forums/showthread.php?t=51064
+http://forums.whirlpool.net.au/forum-replies-archive.cfm/963661.html
+http://systembash.com/content/tag/cacti/
+
+# on WRT59GL
+nvram set snmpd_run=1
+nvram commit
+# REBOOT
+
+# ssh into tomato and run below to test first:
+/cifs1/snmpd -s -c /cifs1/snmpd.conf
+
+# then on a remote computer run below:
+snmpwalk -c public -v 2c 192.168.1.1
+# if you get a list of stuff starting with HOST_RESOURCES... then it's working
+
+# if above works
+# place below in tomato: administration > scripts > firewall
+# !! has to be ABSOLUTE PATH !!
+sleep 30
+/cifs1/snmpd -s -c /cifs1/snmpd.conf &

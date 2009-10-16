@@ -13,8 +13,11 @@ su -l _postgresql -c "nohup /usr/local/bin/pg_ctl start -D /var/postgresql/data 
 #ADD USER
 sudo -u postgres createuser -D -A -P -R myuser
 
+OR
+
 in psql: 
-alter user robin with password 'mypassword'
+CREATE USER robin
+ALTER USER robin WITH PASSWORD 'mypassword'
 
 sudo -u postgres createdb -O myuser mydb
 
@@ -28,7 +31,6 @@ The new user is not allowed to create other users (i.e., the new user is a regul
 
 -R, --no-createrole
 
-CREATE USER robin
 
 #ALTER OWNER FOR ALL TABLES
 select 'alter table '|| tablename ||' owner to ar_group;' from pg_tables where schemaname = 'public';
@@ -47,7 +49,7 @@ The psql program's \dg meta-command is also useful for listing the existing grou
 
 #CREATE
 create table mytable(
-  id integer primary key,
+  id serial primary key,
   name varchar(20),
   grup_id integer,
   FOREIGN KEY (grup_id) references grup (id)
@@ -133,17 +135,19 @@ ADD PRIMARY KEY(id) default nextval('registration_indophoneareacode_id_seq');
 
 #PL/PGSQL script
 #for looping, code below needs test to confirm it works
-create or replace function testf() 
+create or replace function testf(argnum integer, argname varchar, argnum2 integer) 
 returns void as $body$
-num integer;
-begin
-for i in 1..15 loop
-insert into group values (i, 'abc');
-end loop;
-end;
+    declare
+        varnum integer;
+    begin
+        for i in 1..argnum loop
+            insert into group values (argnum2, argname);
+        end loop;
+    end;
 $body$
 language plpgsql;
 
+select testf()
 
 #BACKUP AND RESTORE
 http://www.cyberciti.biz/tips/howto-backup-postgresql-databases.html
@@ -153,3 +157,5 @@ pg_dump autoritel | gzip -c > autoritel.out.gz
 #restore
 gunzip autoritel.out.gz
 psql -d autoritel -f autoritel.out
+
+# profie

@@ -1,0 +1,5 @@
+config 'remote_accept' 'ra_22_22'      
+        option 'local_port' '22'       
+        option 'remote_port' '22'      
+        option 'proto' 'tcp' 
+        option 'zone' 'wan'     

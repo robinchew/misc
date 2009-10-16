@@ -5,7 +5,7 @@ VBoxManage openmedium dvd /path/file.ext
 
 VBoxManage createvdi --filename proxy.vdi --size 10000 --register
 
-VBoxManage modifyvm newvm --memory "256MB" -nic1 bridged --bridgeadapter1 eth0 --hda proxy.vdi --boot1 dvd --vrdp on --vrdpport 3399 --memory "256MB"
+VBoxManage modifyvm newvm --memory "256MB" -nic1 bridged --bridgeadapter1 eth0 --hda proxy.vdi --boot1 dvd --vrdp on --vrdpport 3399 
 
 # CHANGE PORT FOR VRDP REMOTE DESKTOP
 VBoxManage modifyvm 'server' --vrdp on --vrdpport 3399

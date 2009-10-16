@@ -1,0 +1,5 @@
+#sticky?
+
+chmod g+s folder/
+
+#so that all NEW files and subfolders created will inherit the parent folder's group

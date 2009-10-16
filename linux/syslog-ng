@@ -35,7 +35,7 @@ log { source(s_all); filter(f_filter); destination(d_pgsql); };
 if [ -e /tmp/pgsql.pipe ]; then
         while [ -e /tmp/pgsql.pipe ]
                 do
-                        psql -q -U robin syslog_ng < /tmp/pgsql.pipe
+                        psql -q syslog_ng < /tmp/pgsql.pipe # make sure sudo -u username is used to execute the script, so that psql has proper permission 
         done
 else
         mkfifo /tmp/pgsql.pipe

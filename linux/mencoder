@@ -1,0 +1,7 @@
+# SYNC VIDEO AND AUDIO
+mencoder input.avi -oac copy -ovc -copy -mc 0  -o output.avi
+
+-mc = a/v sync
+
+# MISC
+mencoder input.avi -oac mp3lame -ovc -copy -mc 0 -ofps 25 -o output.avi

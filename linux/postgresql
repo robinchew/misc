@@ -10,6 +10,11 @@ ssl=true
 #STAT DAEMON
 su -l _postgresql -c "nohup /usr/local/bin/pg_ctl start -D /var/postgresql/data -l /var/postgresql/logfile -o '-D /var/postgresql/data' >/dev/null"
 
+#SHOW USERS/GROUPS
+\dS
+select * from pg_user
+select * from pg_group
+
 #ADD USER
 sudo -u postgres createuser -D -A -P -R myuser
 

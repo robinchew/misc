@@ -1,0 +1,3 @@
+sudo aptitude install vim screen libmod-apache2-wsgi postgresql python-imaging python-xapian python-psycopg2
+
+wget http://www.djangoproject.com/download/1.1/tarball/

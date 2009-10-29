@@ -1,8 +1,8 @@
 set ignorecase
 set smartcase
 syntax on
-set sw=2
-set tabstop=2
+set sw=4
+set tabstop=4
 set smarttab
 set expandtab
 set autoindent

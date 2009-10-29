@@ -25,7 +25,7 @@ VBoxManage snapshot Autoritel discard 'first snap'
 # CLONE VDI #
 # source.vdi needs to be FULL PATH sometimes, if not in VDI folder
 VBoxManage clonevdi source.vdi target.vdi
-#after clone, vbox adds a new line to /dev/udev/rules.d/70-persistent-net.rules:
+#after clone, vbox adds a new line to /etc/udev/rules.d/70-persistent-net.rules:
 SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="00:30:1b:81:70:8e", ATTR{type}=="1", KERNEL=="eth*", NAME="eth1"
 #so i made a vdi file without the line above with eth0, so that vbox will add theline above making the new eth0
 

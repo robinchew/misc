@@ -12,6 +12,7 @@ do:
 sudo aptitude install ssl-cert
 
 create ssl certificate:
+sudo mkdir /etc/apache2/ssl
 sudo make-ssl-cert /usr/share/ssl-cert/ssleay.cnf /etc/apache2/ssl/apache.pem
 
 set the ssl port:

@@ -1,4 +1,4 @@
-sudo useradd -s /bin/bash -n -m paul
+sudo useradd -s /bin/bash -m paul
 sudo passwd paul
 
 -n=have group same as username

@@ -163,4 +163,17 @@ pg_dump autoritel | gzip -c > autoritel.out.gz
 gunzip autoritel.out.gz
 psql -d autoritel -f autoritel.out
 
-# profie
+# QUERY profiling
+EXPLAIN ANALYZE SELECT authors.name, books.title 
+FROM books, authors 
+WHERE books.author_id=16 and authors.id = books.author_id 
+ORDER BY books.title; 
+
+http://www.revsys.com/writings/postgresql-performance.html
+
+# REAL TIME profiling
+use program called: pgtop 
+or: ptop
+
+# RUN SQL FROM COMMAND LINE
+psql -C alter table cars_car rename column product_id to product_ptr_id;

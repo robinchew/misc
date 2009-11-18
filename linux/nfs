@@ -1,0 +1,19 @@
+#SERVER SIDE
+
+sudo aptitude install nfs-kernel-server nfs-common portmap 
+
+#/etc/exports
+/home/robin/music 192.168.1.1/24(rw,no_root_squash,async)
+
+sudo /etc/init.d/nfs-kernel-server restart
+
+#then apparently from then onwards after any modification to /etc/exports do:
+sudo exportfs -a
+
+
+#CLIENT SIDE
+
+sudo aptitude install portmap nfs-common
+
+#/etc/fstab
+server.mydomain.com:/files /files nfs rsize=8192,wsize=8192,timeo=14,intr

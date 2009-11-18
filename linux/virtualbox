@@ -16,7 +16,7 @@ su - robin -c 'VBoxManage startvm "SVN Server" -type vrdp'
 # SNAPSHOTS
 VBoxManage snapshot Autoritel take 'first snap'  --description 'describe if you want'
 
-# DISCARD CURRENT TO LAST SNAPSHOT 
+# DISCARD CURRENT SNAPSHOT, REVERT TO LAST SNAPSHOT 
 VBoxManage snapshot Autoritel discardcurrent --state
 
 # DISCARD OLD SNAPSHOTS THAT YOU DON'T WANT ANYMORE

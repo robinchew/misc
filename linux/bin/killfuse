@@ -1,0 +1,4 @@
+#!/bin/bash
+killall fusesmb
+fusesmb /media/network
+thunar /media/network

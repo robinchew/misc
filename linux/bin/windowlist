@@ -1,0 +1,10 @@
+#!/bin/sh
+if [ "$popped" = "1" ];then
+  echo "pop"
+  popped=0
+  export popped
+else
+  echo "non"
+  popped=1
+  export popped
+fi

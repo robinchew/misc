@@ -1,0 +1,2 @@
+ping robini.com.au -c 1
+echo $PROMPT_COMMAND

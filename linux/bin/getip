@@ -1,0 +1,65 @@
+#!/bin/bash
+export DISPLAY=:0
+
+#CHECK FOR INTERNET CONNECTION
+nm-tool | grep -w connected > /dev/null
+if [ "$?" != "0" ];then
+  notify-send "No internet connection to check webserver!"
+  exit 1
+fi
+
+#CHECK FOR SITE EXISTENCE
+lynx -connect_timeout=20 -dump robin.com.au
+if [ "$?" = "127" ];then
+  zenity --error --text="Lynx not installed! Going to install now."
+  if [ "$?" != "0" ];then
+    kdialog --error "Lynx not installed! Going to install now."
+  fi
+  gksudo 'aptitude -y install lynx'
+fi
+if [ "$?" != "0" ];then
+  zenity --error --text="Dumping robin.com.au FAILED!"
+  if [ "$?" != "0" ];then
+    kdialog --error "Dumping robin.com.au FAILED!"
+  fi
+  exit 1
+fi
+
+#CHECK FOR HOME CONNECTION 
+tree=$(/usr/bin/smbtree -N)
+echo "$tree" | /bin/grep 'NERV'&& echo "$tree" | /bin/grep 'MAC'
+if [ "$?" != "0" ];then
+  notify-send "Dumping robin.com.au works"
+  notify-send "Must be at home to check IP"
+  if [ "$?" != "0" ];then
+    kdialog --title "Dumping robin.com.au works" --passivepopup "Must be at home to check IP" 5
+  fi
+  exit 1
+fi
+
+nslookup robin.com.au | grep SERVFAIL
+if [ "$?" = "0" ];then
+  kdialog --error "cannot nslookup robin.com.au! SERVFAIL!"
+  exit 1
+fi
+
+#CHECK WEBSERVER IP CHANGE
+ip=$(wget -O- http://checkip.dyndns.org/ | egrep -o '[0-9.]+')
+previp=$(nslookup robin.com.au | tail -n2 | grep -o '[0-9.]\+')
+previp=$(nslookup robin.com.au | tail -n2 | grep -o '[0-9.]\+')
+
+if [ "$ip" == "$previp" ];then
+  notify-send "IP" && notify-send "same: $ip"
+  if [ "$?" != "0" ];then
+    kdialog --title "IP" --passivepopup "same: $ip" 5
+  fi
+  echo 'good'
+  exit 0
+fi
+echo $ip > log/previousip.log
+zenity --error --text="IP CHANGED from $previp to $ip !"
+if [ "$?" != "0" ];then
+  kdialog --error "IP CHANGED from $previp to $ip !"
+fi
+echo 'bad'
+exit 0

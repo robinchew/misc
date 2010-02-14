@@ -1,0 +1,5 @@
+#!/bin/bash
+sudo cp /etc/X11/xorg.conf-clone /etc/X11/xorg.conf
+sudo pkill Xorg
+echo
+exit 2

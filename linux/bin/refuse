@@ -1,0 +1,20 @@
+#!/bin/bash
+grep fuse /etc/mtab > /dev/null
+if [ "$?" = "0" ];then
+  fusermount -u /media/network
+  if [ "$?" = "0" ];then
+    fusesmb /media/network
+    export DISPLAY=:0 && zenity --info --text="ReFused\!"
+  else
+    export DISPLAY=:0 && zenity --error --text="Fuse network busy\! Going to remount!"
+    fusermount -u -z /media/network
+  fi
+else
+  export DISPLAY=:0 && zenity --error --text="Fuse network not mounted\! Remounting."
+fi
+ls ~/.smb/fusesmb.cache.pid
+if [ "$?" = 0 ];then
+  rm ~/.smb/fusesmb.cache.pid
+fi
+fusesmb /media/network
+thunar /media/network

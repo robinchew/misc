@@ -1,0 +1,6 @@
+#!/bin/bash
+awk '
+END     { print "STOP" $3 }
+{ print $1 }
+{ print $2 }
+'

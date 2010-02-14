@@ -1,0 +1,2 @@
+#!/bin/bash
+anyremote -f ~/.anyRemote/custom.cfg

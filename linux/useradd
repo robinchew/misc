@@ -13,3 +13,6 @@ usermod -g robin   -G boo,gandadev //other robin
 
 #append group
 usermod -a -G ardev robin
+
+#/etc/profile affects all user profile in linux
+#/etc/skel/.profile is the default profile when new user is added, works for linux and bsd

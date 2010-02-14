@@ -1,0 +1,2 @@
+#!/bin/sh
+ssh -p 2079 robin@robin.com.au $1

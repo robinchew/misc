@@ -1,0 +1,15 @@
+#!/bin/bash
+setxkbmap -print | grep dvorak > /dev/null
+if [ $? == 0 ];then
+  setxkbmap us
+  notify-send 'keyboard layout is QWERTY'
+  if [ $? != 0 ];then
+    kdialog --passivepopup 'keyboard layout is QWERTY'
+  fi
+else
+  setxkbmap dvorak 
+  notify-send 'keyboard layout is DVORAK'
+  if [ $? != 0 ];then
+    kdialog --passivepopup 'keyboard layout is DVORAK'
+  fi
+fi

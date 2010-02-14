@@ -1,0 +1,7 @@
+#!/bin/bash
+#i="tester"
+#content="stuf and sutuff"
+#echo -e "funok \n oeud \n tester \n  deoeu" |  awk -v content="$content" '/'"$i"'/{print content}!/'"$i"'/{print}'
+#echo -e "funok \ntwo too\n tester \n  deoeu\nfive 55\nsix 6\n5 five" |  awk -v content="$content" '/two/,/tooo/{print}'
+
+

@@ -1,0 +1,2 @@
+#!/bin/sh
+modprobe -f -r ipw3945 && modprobe ipw3945

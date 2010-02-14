@@ -1,0 +1,6 @@
+#!/bin/bash
+result=$(ps -A |grep -i $1 |awk '{print $1}')
+for i in "$result"
+do
+  kill -9 $i
+done

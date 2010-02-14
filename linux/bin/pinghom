@@ -1,0 +1,17 @@
+#!/bin/bash
+exit 0
+nm-tool | grep -w connected > /dev/null
+if [ $? = 0 ];then
+  #pingresult=$(ping robin.com.au -c 1 -w 20)
+  if [ $? = 0 ];then
+#  uptimeresult=$(uptime | sed 's:,.*::g' | sed 's:^.*up ::g')
+  #export DISPLAY=:0 && notify-send "uptime: $uptimeresult" "$pingresult"
+  export DISPLAY=:0 && notify-send "$pingresult"
+  else
+    ps -C zenity
+    if [ $? != 0 ];then
+      dateresult=$(date)
+      export DISPLAY=:0 && zenity --error --text="$dateresult \n robin.com.au NOT FOUND!"
+    fi
+  fi
+fi

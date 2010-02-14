@@ -1,0 +1,3 @@
+#!/bin/sh
+/usr/bin/xmodmap /usr/share/apps/kxkb/ubuntu.xmodmap
+#notify-send 'rekey'

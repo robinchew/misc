@@ -1,0 +1,10 @@
+#!/bin/bash
+#podnap name season fromepisode toepisode
+#podnap firefly 1 1 14
+i=$3
+while [ "$i" -le "$4" ]; do
+echo -e "\n#####Getting episode $i from season $2 of $1#####"
+geturl=$(lynx -source "http://www.podnapisi.net/index.php/ppodnapisi/search?tbsl=3&sK=$1&sJ=2&sO=asc&sS=&sT=1&sTS=$2&sTE=$i&sR=&submit2=Search" | sed -n 's:.*\(/index.php/ppodnapisi/download?i[^"]*\).*:http\://www.podnapisi.net\1:p')
+wget -c $geturl
+i=$(($i+1))
+done

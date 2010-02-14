@@ -1,0 +1,2 @@
+#!/bin/sh
+x11vnc -forever -allow 192.168.0. -passwd tor -display :0

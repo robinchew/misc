@@ -1,0 +1,3 @@
+#!/bin/sh
+gksudo "modprobe -f -r ipw3945"
+gksudo "modprobe ipw3945"

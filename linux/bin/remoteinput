@@ -1,0 +1,13 @@
+#!/bin/bash
+param=$(echo $1 | sed -e "s/\s/_/g" -e "s/./&\n/g" |tr [a-z] [A-Z])
+j=0;
+for i in $param 
+do
+  if [ "$i" == "_" ]; then
+    i="space"
+  fi
+  xte "keyup $i"
+done
+if [ "$2" == "-e" ]; then
+  xte "keyup Return" 
+fi

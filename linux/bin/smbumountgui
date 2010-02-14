@@ -1,0 +1,7 @@
+#!/bin/bash
+if [ "$(mount | grep -w $1 | wc -l)" = "1" ]; then
+  gksudo "umount $1"
+  rmdir $1
+  else 
+    zenity --error --text 'This volume is not mounted!'
+fi

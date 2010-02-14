@@ -1,0 +1,5 @@
+#!/bin/bash
+app=$(xprop | grep -i "class" | awk '{print substr($3,2,length($3)-3)}')
+#app=$(zenity --info --text="select this to exit winkill" | xprop | grep -i "class" | awk '{print substr($3,2,length($3)-3)}')
+zenity --info --text="select $app"
+killall $app;

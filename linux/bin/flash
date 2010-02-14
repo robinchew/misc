@@ -1,0 +1,2 @@
+#!/bin/bash
+wine "/home/robin/.wine/drive_c/Program Files/Macromedia/Flash 8/Flash.exe"

@@ -1,0 +1,5 @@
+#!/bin/bash
+sudo cp /etc/X11/xorg.conf-normal /etc/X11/xorg.conf
+sudo killall Xorg
+echo
+exit 2

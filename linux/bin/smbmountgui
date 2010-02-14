@@ -1,0 +1,17 @@
+#!/bin/bash
+mntpoint=~/Desktop
+username=$(zenity --title Username --text Username --entry)
+echo us:${username}
+#if [ "$username" != "" ]; then 
+  password=$(zenity --title Password --text Password --entry --hide-text)
+  echo pw:${password}
+#for SELECTED in $NAUTILUS_SCRIPT_SELECTED_URIS; do
+#    VFSSHARE=$SELECTED
+#    break;
+#done
+
+#network=$1
+network=${1#smb\://}
+mntname=${network#*/}
+mkdir -p $mntpoint/$mntname
+gksudo "mount -t smbfs //$network $mntpoint/$mntname -o iocharset=utf8,codepage=unicode,unicode,uid=$username,gid=$username,username=$username,password=$password,fmask=755,dmask=755"

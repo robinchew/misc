@@ -1,0 +1,16 @@
+#!/bin/bash
+defunct=$(ps -eo pid,comm,ppid | grep -iw '<defunct>')
+ppid=$(echo "$defunct" | awk '{print $4}')
+if [ "$ppid" ];then
+  #ppid=$(echo "$defunct" | awk '{print $3}' | ps h -o comm)
+  #psppid=$(echo "$ppid" | ps h -o comm)
+  psppid=$(ps h -o pid,comm $ppid)
+  echo "$defunct" # | awk '{print $0,'"$psppid"',"boo"}'
+  echo "$psppid"
+  #awk "{printf(%s %s,$defunct,$psppid) }" "$defunct"
+  if [ "$1" == "-k" ];then
+    kill $ppid
+  fi
+else
+  echo "no defunct process"
+fi

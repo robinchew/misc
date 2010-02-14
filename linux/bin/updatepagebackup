@@ -1,0 +1,95 @@
+#!/bin/bash
+#error checking template
+if [ $# != 1 ];then
+  echo Enter only 1 filename as parameter!
+  exit 1    
+fi
+grep -q '<!--template=' $1
+if [ $? != 0 ];then
+  echo No Template Found for $1!
+  exit 1
+else
+  templatefile=$(sed -n 's/<!--template=\(.*\)-->/\1/p' $1) #template/index.html
+fi
+#sed 's:<!--template=\(.*\):\1:g' $1
+#error checking tags of input-file and template-file
+files=$1' '$templatefile
+echo $files
+for i in $files; do
+  echo Checking edit-tag order in $i
+  edittagorder=$(egrep 'edit=|end-edit' $i)
+  #egrep 'edit=|end-edit' $i > tagorder.tmp
+  matchtag=$(echo $edittagorder | perl -p -e 's:(=).*?(-):\1\2:g' | sed -e 's/\s*//g' -e 's:<!--edit=--><!--end-edit-->::g' |wc -w)
+  #matchtag=$(echo "$edittagorder" | sed -e 's/\(=\).*/\1/g')
+  #matchtag=$(echo $matchtag | sed -e 's/[^a-z=]*//g' -e 's/edit=endedit//g' | wc -w)
+  #| perl -p -e 's:(=).*?(-):\1\2:g') | sed 's:<!--edit=--><!--end-edit-->:asd:g'
+  #matchtag=$(echo $edittagorder | sed -e 's/\s*//g' | perl -e -p 's/<!--edit=.*?--><!--end-edit-->/asdfa/g')
+  #matchtag=$(echo $edittagorder | sed -e 's/\s*//g' | sed 's/<!--edit=.*-><!--end-edit-->/asdfa/g')
+  #echo $edittagorder | sed -e 's/\s*//g' | perl -e -p 's/<!--edit=.*?--><!--end-edit-->/asdfas/g'
+  if [ "$matchtag" != "0" ];then
+    echo -ne "\E[31mFAIL! ";tput sgr0
+    echo "$matchtag Start & End tags mismatch for $i"
+    echo "$edittagorder"
+    exit 1
+  fi
+done
+#end error checking
+
+  getedittags=$(sed -n '/edit=/{s/<!--edit=\(.*\)-->/\1/g;p}' $1) #content test spec0
+#template=backup/$1-template #backup/index-tmp
+  echo Backing up $1
+  cat $1 > backup/$1-tmp
+  echo -n "Creating $templatefile variable: "
+template=$(cat $templatefile)
+if [ $? != 0 ]; then
+  echo -e "\E[31mFAIL!";tput sgr0
+  exit 1
+fi
+echo -e '\E[32mdone';tput sgr0
+echo -n "Erasing stuff between edittags from $templatefile: "
+for i in $getedittags; do
+  template=$(echo "$template" | sed "/edit=$i/,/end-edit/{/edit=$i\|end-edit/!d}")
+  if [ $? != 0 ]; then
+  echo -ne "\E[31mFAIL ";tput sgr0
+  echo "at '$i' edit-tag!"
+  fi
+done
+echo -e '\E[32mdone';tput sgr0
+echo -n "Appending content to edit-tags from $templatefile: "
+for i in $getedittags; do
+  #must add \ in front of $ for perl
+  content=$(sed -e "1,/<!--edit=$i/d" -e "/end-edit/,$ d" -e 's/\$/\\&/g' $1) 
+#  content=$(sed -e "1,/<!--edit=$i/d" -e "/end-edit/,$ d" -e 's:$:\\:g' $1)
+  #content=$(sed "1,/<!--edit=$i/d" $1 | sed "/end-edit/,$ d") 
+  #  echo "$content"
+  if [ $? != 0 ]; then
+    echo -ne "\E[31mFAIL ";tput sgr0
+    echo "extracting content at '$i' edit-tag!"
+    exit 1 
+  fi
+    #cat $template | sed "/edit=$i/r backup/content" > $template
+#  template=$(echo "$template" | sed '/edit='"$i"'/a\ '"$content")
+  template=$(echo "$template" | perl -pe "s|edit=$i.*?-->|$&\n$content|")
+#  template=$(echo "$template" | perl -pe 's|edit='"$i"'.*|$&\n'"$content"'|')
+  #template=$(echo "$template" | sed -e "s|(edit=$i.*)|\1\n$content|")
+  
+  #template=$(echo "$template" | perl -p -e "/edit=$i/a $content")
+#  template=$(echo "$template" | perl -p -e "s|edit=$i-->|$content|g")
+  if [ $? != 0 ]; then
+    echo -ne "\E[31mFAIL ";tput sgr0
+    echo "at appending content to '$i' edit-tag!"
+    exit 1 
+  fi
+done
+echo -e '\E[32mdone';tput sgr0
+#removing \ leftover due to appending process
+#final=$(echo "$template" | sed 's/\\$//g')
+#echo "$final" > $1
+#echo "$content" 
+echo "$template" > $1
+if [ $? = 0 ]; then
+  echo Overwritten $1
+  exit 0
+else
+  echo -e "Overwriting $1 \E[31mFAIL!";tput sgr0
+fi

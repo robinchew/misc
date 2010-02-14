@@ -1,0 +1,10 @@
+#!/bin/bash
+param=$(echo $1 | sed "s/./&\n/g" |tr [a-z] [A-Z])
+#echo $param | grep "f 4"
+for i in $param 
+do
+  echo "keyup $i"
+done
+if [ "$2" == "-e" ]; then
+  xte "keyup Return" 
+fi

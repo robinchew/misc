@@ -1,0 +1,10 @@
+#!/bin/bash
+lynx -version > /dev/null
+if [ $? != 0  ]; then #if program is existent
+    echo Going to install Lynx!
+    sudo aptitude install lynx
+fi
+  url=$(echo $1| egrep -o 'http:.*html')
+#  wmvurl=$(lynx -source $url | perl -pe 'http://.*?wmv')
+wmvurl=$(lynx -source $url | egrep -m 1 http://.*wmv | sed 's:.*\(http.*\.wmv\).*:\1:g')
+  wget -c -P ~/Desktop $wmvurl

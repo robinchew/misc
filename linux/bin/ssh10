@@ -1,0 +1,2 @@
+#!/bin/sh
+/usr/bin/ssh robin@192.168.0.$1 -p $2

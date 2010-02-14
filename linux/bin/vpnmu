@@ -1,0 +1,5 @@
+ps -A | grep vpnc
+if [ $? == 0 ]; then
+  sudo killall vpnc 
+fi
+sudo vpnc murdoch

@@ -1,0 +1,10 @@
+#!/bin/bash
+echo Updating templates...
+  pages=$(grep "<!--template=template/$1" *.html *.php | sed 's/:.*//g')
+echo updating: $pages
+for page in $pages; do
+    i=$(($i+1))
+    echo -n $i 
+    updatepage $page
+    echo ""
+done

@@ -1,0 +1,18 @@
+#!/bin/sh
+
+PATH=~/bin:$PATH
+
+ratmenu -style dreary -fg grey -bg blue \
+    "Web Browsing      ->" browsing \
+    "IRC Networks      ->" ircing \
+    "Instant Messaging ->" iming \
+    "Games             ->" gaming \
+    "Terminal/Logins   ->" terming \
+    "Emacs" emacs
+#   "Gaim" gaim \
+#   "Gimp" gimp \
+#   "Yahoo Messenger" ymessenger \
+#   "SSH YYY" "xterm $(cat ~/.xterm_options) -e ssh xxx@yyy.org" \
+#   "Heroes" "heroes-sdl -gJF2" \
+#   "Myth II" "myth2 -f -c -x" \
+#   "SimCity 3000" "sc3u -f -intro:off" 

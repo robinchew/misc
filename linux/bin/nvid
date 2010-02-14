@@ -1,0 +1,2 @@
+#!/bin/sh
+mencoder $1 -oac mp3lame -ovc lavc -lavcopts vcodec=mpeg4 -vf scale=400:240 -ffourcc DIVX -ofps 30 -o $2

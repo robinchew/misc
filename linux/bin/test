@@ -1,0 +1,9 @@
+#!/bin/bash
+boo=$(echo -e "boo jerr\nder purr")
+#echo "poo der" | paste volup voldown
+soo=$(echo -e "1col3 2col4 ar dour");
+echo "$boo" | awk '{tmp='"$soo"';print $1 $2 tmp}'
+#ping robin.com.au &
+sleep 5
+notify-send 'dogo'
+exit 0

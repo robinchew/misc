@@ -1,0 +1,2 @@
+#!/bin/sh
+scp -P 2079 `pwd`/$1 robin@robin.com.au:`pwd`/$1

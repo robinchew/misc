@@ -1,0 +1,6 @@
+#PYTHON SHELL HISTORY
+
+# append below to ~/.profile
+export PYTHONSTARTUP=$HOME/initialize.py
+
+# initialize.py is attached to the folder of this file

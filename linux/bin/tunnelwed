@@ -1,0 +1,3 @@
+#!/bin/sh
+#sftp -oPort=2079 robin@robin.com.au $1
+sudo ssh -N -p 22 robin@wiki.empiriadesign.com -L 88/localhost/80

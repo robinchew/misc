@@ -5,3 +5,5 @@ perl -nle 'print for m:http\://.*?.com:g' *
 perl -nle 'print $1 for m:(http\://[a-z-.]+?back[a-z-.]+?\.(com|org)):g' *
 
 http://sial.org/howto/perl/one-liner/
+
+perl -pe 's/find/replace/g'

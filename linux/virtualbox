@@ -4,6 +4,8 @@ VBoxManage createvm --name newvm --register
 VBoxManage openmedium dvd /path/file.ext
 
 VBoxManage createvdi --filename proxy.vdi --size 10000 --register
+OR
+VBoxManage createhd --format VDI --size 10000 ??? 
 
 VBoxManage modifyvm newvm --memory "256MB" -nic1 bridged --bridgeadapter1 eth0 --hda proxy.vdi --boot1 dvd --vrdp on --vrdpport 3399 
 
@@ -27,7 +29,7 @@ VBoxManage snapshot Autoritel discard 'first snap'
 VBoxManage clonevdi source.vdi target.vdi
 #after clone, vbox adds a new line to /etc/udev/rules.d/70-persistent-net.rules:
 SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="00:30:1b:81:70:8e", ATTR{type}=="1", KERNEL=="eth*", NAME="eth1"
-#so i made a vdi file without the line above with eth0, so that vbox will add theline above making the new eth0
+#so i made a vdi file without the line above with eth0, so that vbox will add the line above making the new eth0
 
 OR
 

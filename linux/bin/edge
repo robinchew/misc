@@ -1,0 +1,36 @@
+#!/bin/sh
+
+#%%.* r the words to cut off
+fname=${1%.*}
+
+name=${fname%-*}
+corner=${fname##*-}
+
+ext=${1#*.}
+echo $fname $name $corner $ext
+
+for i in "1" "2" "3" "4" 
+do
+
+  if [ "$corner" = "t" ];then
+    convert $name"-t."$ext -rotate 90 $name"-r."$ext
+    corner="r"
+    echo $name"-r."$ext
+
+  elif [ "$corner" = "r" ];then
+    convert $name"-r."$ext -rotate 90 $name"-b."$ext
+    corner="b"
+    echo $name"-b."$ext
+
+  elif [ "$corner" = "b" ];then
+    convert $name"-b."$ext -rotate 90 $name"-l."$ext
+    corner="l"
+    echo $name"-l."$ext
+
+  elif [ "$corner" = "l" ];then
+    convert $name"-l."$ext -rotate 90 $name"-t."$ext
+    corner="t"
+    echo $name"-t."$ext
+
+  fi
+done

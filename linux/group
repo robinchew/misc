@@ -1,4 +1,4 @@
-#file/folder inherits group user from current folder
+#newly created file/folder inherits group user from parent folder
 chmod g+s ./file-or-folder
 
 #/etc/profile

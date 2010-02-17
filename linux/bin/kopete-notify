@@ -1,0 +1,5 @@
+#!/bin/sh
+ps -A | grep 'notify-send'
+if [ $? -ne 0 ];then
+  notify-send -t 0 'Kopete Incoming Message'
+fi 

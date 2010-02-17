@@ -18,3 +18,5 @@ caret
 for i in *;do sed '/<form/a\
 <!--edit=form-->
 ' $i > "2$i" && mv "2$i" $i; done                     
+
+sed -n 's/foo/bar/p' myfile.txt

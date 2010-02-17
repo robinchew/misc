@@ -1,0 +1,11 @@
+#!/bin/sh
+if [ $1 ];then
+  while true;do
+    ping -w 60 -c 1 $1 
+    if [ $? -eq 0 ];then
+      notify-send -t 0 'WORKING'
+      exit 0
+    fi
+    sleep 1
+  done
+fi

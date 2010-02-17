@@ -15,6 +15,20 @@ su -l _postgresql -c "nohup /usr/local/bin/pg_ctl start -D /var/postgresql/data 
 select * from pg_user
 select * from pg_group
 
+#GROUPS
+CREATE GROUP name;
+
+ALTER GROUP name ADD USER uname1, ... ;
+ALTER GROUP name DROP USER uname1, ... ;
+
+DROP GROUP name;
+SELECT groname FROM pg_group;
+
+The psql program's \dg meta-command is also useful for listing the existing groups.
+
+#ALTER OWNER FOR ALL TABLES
+select 'alter table '|| tablename ||' owner to ar_group;' from pg_tables where schemaname = 'public';
+
 #ADD USER
 sudo -u postgres createuser -D -A -P -R myuser
 
@@ -36,21 +50,7 @@ The new user is not allowed to create other users (i.e., the new user is a regul
 
 -R, --no-createrole
 
-
-#ALTER OWNER FOR ALL TABLES
-select 'alter table '|| tablename ||' owner to ar_group;' from pg_tables where schemaname = 'public';
 #then copy the lines and paste
-
-#GROUPS
-CREATE GROUP name;
-
-ALTER GROUP name ADD USER uname1, ... ;
-ALTER GROUP name DROP USER uname1, ... ;
-
-DROP GROUP name;
-SELECT groname FROM pg_group;
-
-The psql program's \dg meta-command is also useful for listing the existing groups.
 
 #CREATE
 create table mytable(
@@ -159,7 +159,7 @@ http://www.cyberciti.biz/tips/howto-backup-postgresql-databases.html
 #backup
 pg_dump autoritel | gzip -c > autoritel.out.gz
 
-#restore
+#restore/run script
 gunzip autoritel.out.gz
 psql -d autoritel -f autoritel.out
 
@@ -176,4 +176,6 @@ use program called: pgtop
 or: ptop
 
 # RUN SQL FROM COMMAND LINE
+psql -d autoritel -c "alter table cars_car rename column product_id to product_ptr_id;"
+#below is possibly wrong
 psql -C alter table cars_car rename column product_id to product_ptr_id;

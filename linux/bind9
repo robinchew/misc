@@ -1,0 +1,53 @@
+https://help.ubuntu.com/community/BIND9ServerHowto
+http://ubuntuforums.org/showthread.php?t=236093
+
+# /etc/bind/named.conf.local
+zone "home.com" {
+        type master;
+        file "/etc/bind/zones/home.com.db";
+        };
+
+zone "104.16.172.in-addr.arpa" {
+     type master;
+     file "/etc/bind/zones/rev.104.16.172.in-addr.arpa";
+};
+
+
+# /etc/bind/zones/home.com.db
+home.com.      IN      SOA     ns1.home.com. admin.home.com. (
+                                                        2006081401
+                                                        28800
+                                                        3600
+                                                        604800
+                                                        38400
+ )
+
+home.com.      IN      NS              ns1.home.com.
+home.com.      IN      MX     10       mta.home.com.
+
+trac             IN      A       192.168.1.100
+autoritel        IN      A       192.168.1.105
+rumahritel       IN      A       192.168.1.106
+iklanpendek      IN      A       192.168.1.116
+empiriamedia     IN      A       192.168.1.103
+goldingo         IN      A       192.168.1.107
+fashion          IN      A       192.168.1.120
+b2b              IN      A       192.168.1.123
+ns1              IN      A       172.16.104.2
+
+# /etc/bind/zones/rev.104.16.172.in-addr.arpa
+//replace example.com with yoour domain name, ns1 with your DNS server name.
+// The number before IN PTR example.com is the machine address of the DNS server. in my case, it's 1, as my IP address is 192.168.0.1.
+@ IN SOA ns1.example.com. admin.example.com. (
+                        2006081401;
+                        28800; 
+                        604800;
+                        604800;
+                        86400 
+)
+
+                     IN    NS     ns1.example.com.
+1                    IN    PTR    example.com
+
+
+/etc/init.d/bind9 restart

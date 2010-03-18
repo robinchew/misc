@@ -9,3 +9,62 @@ sudo gem install sqlite3-ruby
 
 rake db:migrate RAILS_ENV="production"
 rake redmine:load_default_data RAILS_ENV="production"
+
+
+
+----------- OR ----------------
+
+
+
+$ sudo apt-get install ruby irb ri rdoc ruby1.8-dev libzlib-ruby libyaml-ruby libreadline-ruby libncurses-ruby libcurses-ruby libruby libruby-extras libfcgi-ruby1.8 build-essential libopenssl-ruby libdbm-ruby libdbi-ruby libdbd-sqlite3-ruby sqlite3 libsqlite3-dev libsqlite3-ruby libxml-ruby libxml2-dev
+
+
+Find and download latest ruby gems, 1.3.5 maybe
+$ tar -xvf rubygems-1.2.0.tgz 
+$ cd rubygems-1.2.0/
+$ ruby setup.rb
+$ sudo ln -s /usr/bin/gem1.8 /usr/bin/gem (use this if /usr/bin/gem link is not created)
+
+$ gem install rails
+
+$ apt-get install apache2-threaded-dev 
+
+$ gem install passenger
+
+$ passenger-install-apache2-module 
+
+8.Apache2 configuration changes:
+$ cd /etc/apache2/sites-available/
+$ sudo mv default default.bkp
+
+
+-------- /etc/apache2/sites-available/default -----------
+-------- configuration for only a single host -----------
+
+LoadModule passenger_module /usr/lib/ruby/gems/1.8/gems/passenger-2.2.11/ext/apache2/mod_passenger.so
+PassengerRoot /usr/lib/ruby/gems/1.8/gems/passenger-2.2.11
+PassengerRuby /usr/bin/ruby1.8
+
+RailsEnv production
+#dont need below i think since this configuration is only for a single host 
+#RailsBaseURI /redmine
+NameVirtualHost *
+
+ServerName  localhost
+
+DocumentRoot /var/www/redmine/public
+
+<Directory /var/www/redmine/public>
+Options Indexes FollowSymLinks MultiViews
+AllowOverride None
+Order allow,deny
+allow from all
+</Directory>
+
+
+ErrorLog /var/log/apache2/error.log
+
+LogLevel warn
+
+CustomLog /var/log/apache2/access.log combined
+ServerSignature On

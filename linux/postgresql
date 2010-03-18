@@ -38,6 +38,10 @@ in psql:
 CREATE USER robin
 ALTER USER robin WITH PASSWORD 'mypassword'
 
+OR
+
+CREATE ROLE robn LOGIN ENCRYPTED PASSWORD 'my_password' NOINHERIT VALID UNTIL 'infinity';
+
 sudo -u postgres createdb -O myuser mydb
 
 -D, --no-createdb

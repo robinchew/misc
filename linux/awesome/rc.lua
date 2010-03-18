@@ -23,7 +23,7 @@ theme_path = "/usr/share/awesome/themes/default/theme.lua"
 beautiful.init(theme_path)
 
 -- This is used later as the default terminal and editor to run.
-terminal = "x-terminal-emulator"
+terminal = "konsole"
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -41,9 +41,10 @@ layouts =
 --    awful.layout.suit.tile.top,
 --    awful.layout.suit.fair.horizontal,
     awful.layout.suit.max,
-    --awful.layout.suit.fair,
+--    awful.layout.suit.fair,
 --    awful.layout.suit.columns,
     awful.layout.suit.special,
+    awful.layout.suit.gimp,
 --    awful.layout.suit.tile,
 --    awful.layout.suit.max.fullscreen,
 --    awful.layout.suit.magnifier,
@@ -57,9 +58,9 @@ layouts =
 floatapps =
 {
     -- by class
-    ["MPlayer"] = true,
+--    ["MPlayer"] = true,
     ["pinentry"] = true,
-    ["gimp"] = true,
+--    ["gimp"] = true,
     -- by instance
     ["mocp"] = true
 }
@@ -83,7 +84,7 @@ total_tags=5
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
     tags[s] = {}
-    -- Create 9 tags per screen.
+    -- Create (total_tags) tags per screen.
     for tagnumber = 1, total_tags do
         tags[s][tagnumber] = tag(tagnumber)
         -- Add tags to screen one by one
@@ -93,8 +94,16 @@ for s = 1, screen.count() do
     -- I'm sure you want to see at least one tag.
     tags[s][1].selected = true
 end
--- }}}
+awful.layout.set(layouts[3], tags[1][3])
+--require("awful.rules")
+--awful.rules.rules={
+--    {
+--        rule = { name = "Gimp"},
+--        properties = { tag = tags[1][3] }
+--    }
+--}
 
+-- }}}
 -- {{{ Wibox
 -- Create a textbox widget
 mytextbox = widget({ type = "textbox", align = "right" })
@@ -233,17 +242,17 @@ end
 tagkeys = {
 }
 --GET THIS BACK
---for i=0,total_tags do 
---    tagkeys[i]=myrc.keybind.key({}, i, "Test action", function(c)
---        --mytextbox.text='bleh'..i
---        awful.client.movetotag(tags[client.focus.screen][i])
---        myrc.keybind.pop()
---    end) 
---end
+for i=0,total_tags do 
+    tagkeys[i]=myrc.keybind.key({}, i, "Test action", function(c)
+        mytextbox.text='bleh'..i
+        awful.client.movetotag(tags[client.focus.screen][i])
+        myrc.keybind.pop()
+    end) 
+end
 
---table.insert(tagkeys,myrc.keybind.key({}, 'Escape', "Cancel", function(c)
---    myrc.keybind.pop()
---end))
+table.insert(tagkeys,myrc.keybind.key({}, 'Escape', "Cancel", function(c)
+    myrc.keybind.pop()
+end))
 
 --for i=1,9 do
 --	table.insert(tagkeys, 
@@ -356,13 +365,12 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, ".",      awful.client.movetoscreen                        ),
     awful.key({ modkey, "Shift"   }, "e",      awful.client.movetoscreen                        ),
     awful.key({ modkey, "Shift"   }, "r",      function (c) c:redraw()                       end),
-    awful.key({ modkey }, "t", awful.client.togglemarked)
---    awful.key({ modkey }, "t", awful.client.togglemarked),
---    awful.key({ modkey,}, "m",
---        function (c)
---            c.maximized_horizontal = not c.maximized_horizontal
---            c.maximized_vertical   = not c.maximized_vertical
---        end)
+    awful.key({ modkey }, "t", awful.client.togglemarked),
+    awful.key({ modkey,}, "m",
+        function (c)
+            c.maximized_horizontal = not c.maximized_horizontal
+            c.maximized_vertical   = not c.maximized_vertical
+        end)
 )
 
 -- Compute the maximum number of digit we need, limited to 9
@@ -539,7 +547,8 @@ function run_once(prg)
     end
     os.execute("x=" .. prg .. "; pgrep -u $USER -x " .. prg .. " || (" .. prg .. " &)")
 end
-run_once("kopete")
+run_once("akonaditray")
+--run_once("kopete")
 --run_once("pidgin")
 run_once("klipper")
 --run_once("firefox")

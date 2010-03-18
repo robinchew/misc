@@ -22,3 +22,4 @@ xrandr --newmode $modeline
 name=`echo $modeline |grep -o '[0-9x_.]*'|line`
 xrandr --addmode VGA1 $name
 xrandr --output VGA1 --mode $name --pos 0x0  --output LVDS1 --mode 1280x800 --pos 0x900
+#xrandr --output VGA1 --mode 1280x960 --pos 0x0  --output LVDS1 --mode 1280x800 --pos 0x960

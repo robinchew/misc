@@ -1,1 +1,0 @@
-/usr/share/awesome/lib/awful/layout/suit/special.lua

@@ -1,1 +1,0 @@
-/home/robin3/.config/awesome/rc.lua

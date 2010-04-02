@@ -2,7 +2,7 @@ http://www.wikihow.com/Change-the-Timezone-in-Linux
 
 OR
 
-dpkg-reconfigure tzdata
+sudo dpkg-reconfigure tzdata
 https://help.ubuntu.com/community/UbuntuTime
 
 OR

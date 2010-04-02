@@ -1,3 +1,8 @@
+#SETUP SVN ONLY
+sudo svnadmin create /svn/projectname --fs-type fsfs
+svn import ~/newdjangoproject file:///svn/projectname/trunk -m 'start django project'
+
+
 #QUICK STEPS TO SETUP NEW SVN+TRAC
 sudo groupadd devgroup
 sudo usermod -a -G devgroup robin

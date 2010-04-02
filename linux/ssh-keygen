@@ -17,3 +17,5 @@ PubkeyAuthentication yes
 sudo /etc/init.d/ssh restart
 #if all is well then do below in sshd_config
 PasswordAuthentication no #not default to user/pass login, must have rsa
+
+# ON WINDOWS PUTTY

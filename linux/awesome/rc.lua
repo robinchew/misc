@@ -199,22 +199,95 @@ for s = 1, screen.count() do
 end
 
 -- {{{ Key bindings
+local function move_to_tag_focus_raise(tag)
+    for k,marked in pairs(awful.client.getmarked()) do
+        awful.client.movetotag(tag,marked)
+        --awful.client.setslave(marked)
+        client.focus = marked
+        client.focus:raise()
+    end
+end
+move_tag_actions={
+--    CANNOT DO BELOW!
+--    myrc.keybind.key({ modkey }, "t","Cancel",function(c)
+--        awful.client.unmark(c)
+--        myrc.keybind.pop()
+--    end),
+    myrc.keybind.key({},"Escape","Cancel",function(c)
+        awful.client.unmark(c)
+        myrc.keybind.pop()
+    end),
+    myrc.keybind.key({},"t",'Attach to Current Tag ',function(c)
+        --mytextclock.text = 'not done '..mouse.screen
+        --mytextclock.text = 'done '..mouse.screen
+        --c:raise()
+        --awful.tag.viewonly(tags[mouse.screen][1])
+        --if client.focus then client.focus:raise() end
+        --client.focus=mouse.screen.client
+        --awful.client.focus.byidx(1)
+        --mouse.screen.client:raise()
+        --client.focus:raise()
+        --awful.client.visible(mouse.screen)[1]:raise()
+        move_to_tag_focus_raise(awful.tag.selected())
+        --awful.client.swap.bydirection("right",c)
+        --mytextclock.text='abc'..mouse.screen..'|'
+        myrc.keybind.pop()
+    end),
+    myrc.keybind.key({},".",'Move to Next Screen',function(c)
+        for k,marked in pairs(awful.client.getmarked()) do
+            awful.client.movetoscreen(marked)
+            client.focus = marked
+            client.focus:raise()
+        end
+        myrc.keybind.pop()
+    end),
+    myrc.keybind.key({},"e",'Move to Previous Screen',function(c)
+        for k,marked in pairs(awful.client.getmarked()) do
+            awful.client.movetoscreen(marked)
+            client.focus = marked
+            client.focus:raise()
+        end
+        myrc.keybind.pop()
+    end),
+    myrc.keybind.key({},"u",'Move to Next Tag',function(c)
+        --b=client.focus:tags()
+        local tags = tags[client.focus.screen]
+        local next_tag_i = awful.tag.selected().name % #tags + 1
+        local next_tag = tags[next_tag_i]
+        move_to_tag_focus_raise(next_tag)
+        myrc.keybind.pop()
+    end),
+    myrc.keybind.key({},"o",'Move to Previous Tag',function(c)
+        local tags = tags[client.focus.screen]
+        local prev_tag_i = (awful.tag.selected().name-2) % #tags + 1
+        local prev_tag = tags[prev_tag_i]
+        move_to_tag_focus_raise(prev_tag)
+        myrc.keybind.pop()
+    end)
+}
+for i = 1, keynumber do
+    table.insert(move_tag_actions,myrc.keybind.key({},i,'Tag '..i,function(c)
+        move_to_tag_focus_raise(tags[client.focus.screen][i])
+        myrc.keybind.pop()
+    end))
+end
 globalkeys = awful.util.table.join(
 
 --    awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
 --    awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
 --    awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
-
+    awful.key({ modkey }, "t", 
+        function(c)
+            awful.client.togglemarked(c)
+            myrc.keybind.push("Move to Tag",move_tag_actions)
+        end
+    ),
     awful.key({ modkey,           }, "g",
         function ()
-            mytextclock.text='glob'
             myrc.keybind.push("Global Action",{
                 myrc.keybind.key({},"Escape","Cancel",function(c)
                     myrc.keybind.pop()
-                end),
-                myrc.keybind.key({},"g","test",function(c)
-                    mytextclock.text='gg'    
-                end),
+                end)
             })
             --awful.client.focus.byidx( 1)
             --if client.focus then client.focus:raise() end
@@ -230,14 +303,38 @@ globalkeys = awful.util.table.join(
             awful.client.focus.byidx(-1)
             if client.focus then client.focus:raise() end
         end),
+--    awful.key({ modkey,           }, ".",
+--        function ()
+--            awful.client.focus.bydirection("up")
+--            if client.focus then client.focus:raise() end
+--        end),
+--    awful.key({ modkey,           }, "e",
+--        function ()
+--            awful.client.focus.bydirection("down")
+--            if client.focus then client.focus:raise() end
+--        end),
+    awful.key({ modkey,           }, "o",
+        function ()
+            awful.client.focus.bydirection("left")
+            if client.focus then client.focus:raise() end
+        end),
+    awful.key({ modkey,           }, "u",
+        function ()
+            awful.client.focus.bydirection("right")
+            if client.focus then client.focus:raise() end
+        end),
     awful.key({ }, "F12", function () mymainmenu:show(true)        end),
 
     -- Layout manipulation
-    awful.key({ modkey, "Shift"   }, "p", function () awful.client.swap.byidx(  1)    end),
-    awful.key({ modkey, "Shift"   }, ",", function () awful.client.swap.byidx( -1)    end),
+--    awful.key({ modkey, "Shift"   }, "p", function (c) 
+--        clients = awful.client.visible(c.screen)
+--        awful.client.swap.byidx(  1)    
+--        mytextclock.text='m'
+--    end),
+    --awful.key({ modkey, "Shift"   }, ",", function () awful.client.swap.byidx( -1)    end),
     awful.key({ modkey,  }, ".", function () awful.screen.focus_relative( 1) end),
     awful.key({ modkey,  }, "e", function () awful.screen.focus_relative(-1) end),
-    awful.key({ modkey,           }, "u", awful.client.urgent.jumpto),
+    awful.key({ modkey,           }, "j", awful.client.urgent.jumpto),
     awful.key({ modkey,           }, "Tab",
         function ()
             awful.client.focus.history.previous()
@@ -271,13 +368,13 @@ globalkeys = awful.util.table.join(
         awful.layout.inc(layouts,  1) 
     end),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(alllayouts, -1) end),
-    awful.key({ modkey,    }, "z", function ()
+    --awful.key({ modkey,    }, "z", function ()
     --    local next_tag = awful.tag.selected
         --mytextclock.text('ac')
         --mytextclock.text='ac'
         --awful.client.movetotag(tags[client.focus.screen][2])
         --awful.tag.viewnext()
-    end),
+    --end),
 
     -- Prompt
     awful.key({ modkey },            "F2",     function () mypromptbox[mouse.screen]:run() end),
@@ -291,32 +388,48 @@ globalkeys = awful.util.table.join(
               end)
 )
 
-move_tag_actions={
-    myrc.keybind.key({},"Escape","Cancel",function(c)
-        myrc.keybind.pop()
-    end)
-}
-for i = 1, keynumber do
-    table.insert(move_tag_actions,myrc.keybind.key({},i,'Tag '..i,function(c)
-        if client.focus and tags[client.focus.screen][i] then
-            awful.client.movetotag(tags[client.focus.screen][i])
+local function setmaster(c)
+    clients = awful.client.visible(c.screen)
+    cl = {}
+    for i,v in pairs(clients) do
+        if v == c then
+            break
+        else
+            table.insert(cl,v)
         end
-        myrc.keybind.pop()
-    end))
+    end
+    for i = #cl, 1, -1 do
+        c:swap(cl[i])
+    end
 end
+
 clientkeys = awful.util.table.join(
-    awful.key({ modkey,  }, "t", function () 
-        mytextclock.text='client'
-        myrc.keybind.push("Move to Tag",move_tag_actions)
-        --awful.client.movetotag(tags[client.focus.screen][awful.tag.selected(2)])
+    awful.key({ modkey, "Shift"   }, "p", function (c) 
+        clients = awful.client.visible(c.screen)
+        last_client = clients[#clients]
+        if  last_client == c then 
+            setmaster(c)
+        else
+            awful.client.swap.byidx(1) 
+        end
+        mytextclock.text='m'
     end),
-    --awful.key({ modkey }, "t", awful.client.togglemarked),
+    awful.key({ modkey, "Shift"   }, ",", function (c) 
+        clients = awful.client.visible(c.screen)
+        first_client = clients[1]
+        if  first_client == c then 
+            awful.client.setslave(c)
+        else
+            awful.client.swap.byidx(-1)
+        end
+        mytextclock.text='m'
+    end),
     awful.key({ modkey,           }, "Return",      function (c) c.fullscreen = not c.fullscreen  end),
     awful.key({ modkey,   }, "q",      function (c) c:kill()                         end),
     awful.key({ modkey,   }, "m",  awful.client.floating.toggle                     ),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
-    awful.key({ modkey, "Shift"   }, "e",      awful.client.movetoscreen                        ),
-    awful.key({ modkey, "Shift"   }, ".",      awful.client.movetoscreen                        ),
+--    awful.key({ modkey, "Shift"   }, "e",      awful.client.movetoscreen                        ),
+--    awful.key({ modkey, "Shift"   }, ".",      awful.client.movetoscreen                        ),
     awful.key({ modkey, "Shift"   }, "r",      function (c) c:redraw()                       end),
     awful.key({ modkey,           }, "n",      function (c) c.minimized = not c.minimized    end),
     awful.key({ modkey, "Control" }, "m",
@@ -344,15 +457,15 @@ for i = 1, keynumber do
                           awful.tag.viewtoggle(tags[screen][i])
                       end
                   end),
-        awful.key({ modkey, "Shift" }, "#" .. i + 9,
-                  function ()
-
-
-
-                      if client.focus and tags[client.focus.screen][i] then
-                          awful.client.movetotag(tags[client.focus.screen][i])
-                      end
-                  end),
+--        awful.key({ modkey, "Shift" }, "#" .. i + 9,
+--                  function ()
+--
+--
+--
+--                      if client.focus and tags[client.focus.screen][i] then
+--                          awful.client.movetotag(tags[client.focus.screen][i])
+--                      end
+--                  end),
         awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9,
                   function ()
                       if client.focus and tags[client.focus.screen][i] then
@@ -437,16 +550,22 @@ client.add_signal("manage", function (c, startup)
         -- i.e. put it at the end of others instead of setting it master.
         awful.client.setslave(c)
 
-        -- Put windows in a smart way, only if they does not set an initial position.
+        -- Put windows in a smart way, only if they des not set an initial position.
         if not c.size_hints.user_position and not c.size_hints.program_position then
             awful.placement.no_overlap(c)
             awful.placement.no_offscreen(c)
         end
     end
+    c:add_signal("marked", function (cl)
+         cl.border_color = "#00ff00" 
+    end)
+    c:add_signal("unmarked", function (cl)
+         cl.border_color = beautiful.border_normal 
+    end)
 end)
 
-client.add_signal("focus", function(c) c.border_color = beautiful.border_focus end)
-client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+--client.add_signal("focus", function(c) c.border_color = beautiful.border_focus end)
+--client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 
 -- AUTOSTART
@@ -458,4 +577,4 @@ function run_once(prg)
 end
 run_once("klipper")
 run_once("wicd-client")
-run_once("konsole -e /home/robin3/gmail_notify/check_gmail.py")
+--os.execute("konsole -e /home/robin3/gmail_notify/check_gmail.py &")

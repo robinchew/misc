@@ -1,6 +1,6 @@
 crontab -e
-01,20 04,05 1-15 1,6 * /usr/bin/somedirectory/somecommand
-01 and 20 min past the hours of 4:00am and 5:00am on the 1st through the 15th of every January and June.
+01,59 0,23 1-31 10,12 * /usr/bin/somedirectory/somecommand
+01 and 59 minutes past the hours of 0AM and 23PM on the 1st through to the 31st of every October and December.
 
 minute (0-59), hour (0-23, 0 = midnight), day (1-31), month (1-12), weekday (0-6, 0 = Sunday), command
 

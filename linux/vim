@@ -10,6 +10,32 @@
 #copy register to clipboard
   let @+ = @a
 
+# Copy matches of the last search to a register (default is the clipboard).
+# Accepts a range (default is whole file).
+# 'CopyMatches'   copies matches to clipboard (each match has \n added).
+# 'CopyMatches x' copies matches to register x (clears register first).
+# 'CopyMatches X' appends matches to register x.
+command! -range=% -register CopyMatches call s:CopyMatches(<line1>, <line2>, '<reg>')
+function! s:CopyMatches(line1, line2, reg)
+  let reg = empty(a:reg) ? '+' : a:reg
+  if reg =~# '[A-Z]'
+    let reg = tolower(reg)
+  else
+    execute 'let @'.reg.' = ""'
+  endif
+  for line in range(a:line1, a:line2)
+    let txt = getline(line)
+    let idx = match(txt, @/)
+    while idx >= 0
+      execute 'let @'.reg.' .= matchstr(txt, @/, idx) . "\n"'
+      let end = matchend(txt, @/, idx)
+      let idx = match(txt, @/, end)
+    endwhile
+  endfor
+endfunction
+
+
+
 #Quantifier
 *          matches 0 or more of the preceding characters, ranges or
            metacharacters .* matches everything including empty line

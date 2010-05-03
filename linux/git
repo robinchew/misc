@@ -1,0 +1,23 @@
+# CREATE NEW REPOSITORY IN FOLDER WITH EXISTING CODE
+git init
+# for single file 
+git add <file>
+# for everything in folder 
+git add .
+git commit -a
+
+# REMOTE REPOSITORY
+http://toolmantim.com/thoughts/setting_up_a_new_remote_git_repository
+
+# on the REMOTE server
+$ mkdir /var/git/myapp.git && cd /var/git/myapp.git
+$ git --bare init
+Initialized empty Git repository in /var/git/myapp.git
+$ exit
+Bye!
+
+# on the CLIENT computer
+# Add the remote repository to your existing local git repo and push:
+$ cd ~/Sites/myapp
+$ git remote add origin ssh://myserver.com/var/git/myapp.git
+$ git push origin master

@@ -1,0 +1,4 @@
+xmodmap -e "keycode 108 = Alt_R"
+
+# run below to put above in effect
+xmodmap -pke

@@ -114,8 +114,8 @@ mytaglist.buttons = awful.util.table.join(
                     awful.button({ modkey }, 1, awful.client.movetotag),
                     awful.button({ }, 3, awful.tag.viewtoggle),
                     awful.button({ modkey }, 3, awful.client.toggletag),
-                    awful.button({ }, 4, awful.tag.viewnext),
-                    awful.button({ }, 5, awful.tag.viewprev)
+                    awful.button({ }, 4, awful.tag.viewprev),
+                    awful.button({ }, 5, awful.tag.viewnext)
                     )
 mytasklist = {}
 mytasklist.buttons = awful.util.table.join(
@@ -135,11 +135,11 @@ mytasklist.buttons = awful.util.table.join(
                                               end
                                           end),
                      awful.button({ }, 4, function ()
-                                              awful.client.focus.byidx(1)
+                                              awful.client.focus.byidx(-1)
                                               if client.focus then client.focus:raise() end
                                           end),
                      awful.button({ }, 5, function ()
-                                              awful.client.focus.byidx(-1)
+                                              awful.client.focus.byidx(1)
                                               if client.focus then client.focus:raise() end
                                           end))
 
@@ -152,8 +152,8 @@ for s = 1, screen.count() do
     mylayoutbox[s]:buttons(awful.util.table.join(
                            awful.button({ }, 1, function () awful.layout.inc(layouts, 1) end),
                            awful.button({ }, 3, function () awful.layout.inc(layouts, -1) end),
-                           awful.button({ }, 4, function () awful.layout.inc(layouts, 1) end),
-                           awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end)))
+                           awful.button({ }, 4, function () awful.layout.inc(layouts, -1) end),
+                           awful.button({ }, 5, function () awful.layout.inc(layouts, 1) end)))
     -- Create a taglist widget
     mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.label.all, mytaglist.buttons)
 
@@ -184,8 +184,8 @@ end
 -- {{{ Mouse bindings
 root.buttons(awful.util.table.join(
     awful.button({ }, 3, function () mymainmenu:toggle() end),
-    awful.button({ }, 4, awful.tag.viewnext),
-    awful.button({ }, 5, awful.tag.viewprev)
+    awful.button({ }, 4, awful.tag.viewprev),
+    awful.button({ }, 5, awful.tag.viewnext)
 ))
 -- }}}
 
@@ -234,19 +234,25 @@ move_tag_actions={
         myrc.keybind.pop()
     end),
     myrc.keybind.key({},".",'Move to Next Screen',function(c)
+        local next_screen_id = client.focus.screen+1
         for k,marked in pairs(awful.client.getmarked()) do
-            awful.client.movetoscreen(marked)
+            awful.client.movetoscreen(marked,next_screen_id)
             client.focus = marked
             client.focus:raise()
+            --move back to previous screen
         end
+        awful.screen.focus_relative(-1)
         myrc.keybind.pop()
     end),
     myrc.keybind.key({},"e",'Move to Previous Screen',function(c)
+        local previous_screen_id = client.focus.screen-1
         for k,marked in pairs(awful.client.getmarked()) do
-            awful.client.movetoscreen(marked)
+            awful.client.movetoscreen(marked,previous_screen_id)
             client.focus = marked
             client.focus:raise()
+            --move back to previous screen
         end
+        awful.screen.focus_relative(1)
         myrc.keybind.pop()
     end),
     myrc.keybind.key({},"u",'Move to Next Tag',function(c)
@@ -412,7 +418,6 @@ clientkeys = awful.util.table.join(
         else
             awful.client.swap.byidx(1) 
         end
-        mytextclock.text='m'
     end),
     awful.key({ modkey, "Shift"   }, ",", function (c) 
         clients = awful.client.visible(c.screen)
@@ -422,7 +427,6 @@ clientkeys = awful.util.table.join(
         else
             awful.client.swap.byidx(-1)
         end
-        mytextclock.text='m'
     end),
     awful.key({ modkey,           }, "Return",      function (c) c.fullscreen = not c.fullscreen  end),
     awful.key({ modkey,   }, "q",      function (c) c:kill()                         end),
@@ -514,7 +518,7 @@ awful.rules.rules = {
     },
     { 
       rule = { name = "robin3 : python" },
-      properties = { tag = tags[screen.count()][4] } 
+      properties = { tag = tags[1][4] } 
     },
     { 
       rule = { class = "Firefox" },
@@ -577,4 +581,4 @@ function run_once(prg)
 end
 run_once("klipper")
 run_once("wicd-client")
---os.execute("konsole -e /home/robin3/gmail_notify/check_gmail.py &")
+os.execute("konsole -e /home/robin3/gmail_notify/check_gmail.py 30 &")

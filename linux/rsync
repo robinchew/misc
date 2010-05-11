@@ -1,4 +1,6 @@
-rsync -avzu -e ssh remoteuser@remotehost:/remote/dir /this/dir/
+rsync -avzu -e ssh remoteuser@remotehost:/remote/dir/ /this/dir
+
+#! note the missing slash on one and not the other is on purpose
 
 a=default
 z=compress

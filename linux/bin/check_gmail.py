@@ -42,10 +42,11 @@ while True:
                 print 'last saved %s' % saved_mail_id_str 
                 print 'latest     %s' % latest_mail_id_str
 
-                notify_in_file = latest_mail_id - saved_mail_id > 15
+                notify_in_file = latest_mail_id - saved_mail_id > 20
 
                 if notify_in_file:
-                    notify_file_path = os.path.join(this_dir,'long_notifications')
+                    today=datetime.now().strftime('%y%m%d_%H:%M')
+                    notify_file_path = os.path.join(this_dir,'long_notifications_%s' % today)
                     notify_file = open(notify_file_path,'w')
 
                 for i in xrange(saved_mail_id+1,latest_mail_id+1):
@@ -57,10 +58,10 @@ while True:
                     except AttributeError:
                         subject = 'No Subject'
                     if not notify_in_file:
-                        # use notify-send if only notifying less than 15 messages
+                        # use notify-send if only notifying less than 20 messages
                         os.popen('/usr/bin/notify-send -t 0 "%s"' % subject)
                     else:
-                        # write to file if notifying more than 15 messages
+                        # write to file if notifying more than 20 messages
                         notify_file.write(subject+'\n')
 
                 if notify_in_file:

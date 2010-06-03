@@ -1,2 +1,2 @@
 #!/bin/sh
-rsync --exclude=".svn" -avzu ./media/ -e ssh robin@autoritel.com:/var/www/autoritel/media/
+rsync --exclude=".svn" -avzu `dirname $0`/media/ -e ssh robin@autoritel.com:/var/www/autoritel/media/

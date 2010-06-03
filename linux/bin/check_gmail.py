@@ -19,8 +19,11 @@ while True:
         M = imaplib.IMAP4_SSL('imap.gmail.com',993)
         #M.login('robinchew', getpass.getpass())
         M.login('robinchew', 'zer0c212')
+        """
         M.select('[Gmail]/All Mail')
-        latest_mail_id_str = int(M.search(None,"UNSEEN")[1][0].split()[-1])
+        latest_mail_id_str = M.search(None,"UNSEEN")[1][0].split()[-1]
+        """
+        latest_mail_id_str = M.select('[Gmail]/All Mail')[1][0]
         latest_mail_id = int(latest_mail_id_str) 
 
         this_dir = os.path.dirname(__file__)
@@ -38,10 +41,8 @@ while True:
             # file has content
             saved_mail_id = int(saved_mail_id_str) 
 
+            print 'last saved %s | latest %s' % (saved_mail_id,latest_mail_id_str)
             if latest_mail_id > saved_mail_id:
-                print 'last saved %s' % saved_mail_id_str 
-                print 'latest     %s' % latest_mail_id_str
-
                 notify_in_file = latest_mail_id - saved_mail_id > 20
 
                 if notify_in_file:
@@ -49,6 +50,7 @@ while True:
                     notify_file_path = os.path.join(this_dir,'long_notifications_%s' % today)
                     notify_file = open(notify_file_path,'w')
 
+                #for i in xrange(saved_mail_id+1,33806):
                 for i in xrange(saved_mail_id+1,latest_mail_id+1):
                     last_mail_content = M.fetch(i,'RFC822')[1][0][1]
 
@@ -83,6 +85,7 @@ while True:
             file = open(mail_file_path,'w')
             file.write(saved_mail_id_str)
             file.close()
+        print 'done'
 
     except (KeyboardInterrupt,SystemExit):
         sys.exit(0)

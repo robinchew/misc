@@ -1,6 +1,9 @@
 #!/bin/sh
 #ssh autoritel.com -x 'if [ ! -d production_data ];then;mkdir production_data;fi; python /var/www/autoritel/manage.py dumpdata --indent 2 > /var/www/autoritel/production_data/`date +%y%m%d-%H:%M`.json'
 
-ssh robin@autoritel.com -x 'python /var/www/autoritel/manage.py dumpdata --indent 2 > /var/www/autoritel/production_data/`date +%y%m%d-%H%M`.json'
-ssh robin@autoritel.com -x 'pg_dump autoritel | gzip -c > /var/www/autoritel/production_data/`date +%y%m%d-%H%M`.out.gz'
-rsync --exclude=".svn" -avzu -e ssh robin@autoritel.com:/var/www/autoritel/production_data ./
+#ssh robin@autoritel.com -x 'python /var/www/autoritel/manage.py dumpdata --indent 2 > /var/www/autoritel/production_data/`date +%y%m%d-%H%M`.json'
+
+#REMEMBER to make sure postgresql has user 'robin' and the correct permissions
+filename=`date +%y%m%d-%H%M`.out.gz
+ssh $1 -x "pg_dump -Fp -b -U $3 $4 | gzip -c > $2$filename"
+rsync --exclude=".svn" -avzu -e ssh $1:$2$filename `dirname $0`

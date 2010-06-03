@@ -7,7 +7,7 @@ VBoxManage createvdi --filename proxy.vdi --size 10000 --register
 OR
 VBoxManage createhd --format VDI --size 10000 ??? 
 
-VBoxManage modifyvm newvm --memory "256MB" -nic1 bridged --bridgeadapter1 eth0 --hda proxy.vdi --boot1 dvd --vrdp on --vrdpport 3399 
+VBoxManage modifyvm newvm --memory "256MB" --nic1 bridged --bridgeadapter1 eth0 --hda proxy.vdi --boot1 dvd --vrdp on --vrdpport 3399 
 # ! --hda SEEMS TO NOT WORK IN v3.*
 
 # CHANGE PORT FOR VRDP REMOTE DESKTOP
@@ -40,6 +40,11 @@ VBoxManage internalcommands setvdiuuid Clone.vdi
 VBoxManage modifyvm newvm --memory 256 --nic1 bridged --bridgeadapter1 eth0 --boot1 dvd --vrdp on --vrdpport 3399 
 VBoxManage storagectl spielwiese --name "IDE Controller" --add ide
 VBoxManage storageattach spielwiese --storagectl "IDE Controller" --port 0 --device 0 --type hdd --medium /media/hdd/VMs/spielwiese/spielwiese.vdi
+
+# MOUNT CD/DVD
+VBoxManage storageattach spielwiese --storagectl "IDE Controller" --port 1 --device 0 --type dvddrive --medium ~/win.iso 
+# --medium needs absolute path 
+
 
 # BRIDGE NETWORKING
 VBoxManage modifyvm 'server' --nic1 bridged --bridgeadapter1 eth0

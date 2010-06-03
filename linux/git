@@ -21,3 +21,33 @@ Bye!
 $ cd ~/Sites/myapp
 $ git remote add origin ssh://myserver.com/var/git/myapp.git
 $ git push origin master
+
+# CONVERT SVN TO GIT REPO
+cat > authors.txt << EOF
+robin = Robin Chew <robin.chew@empiriamedia.com>
+robinc = Robin Chew <robin.chew@empiriamedia.com>
+yoko = Yoko Halim <yoko_halim@yahoo.com>
+handy = Handy Lie <handy@empiriamedia.com>
+martogi = Martogi Parulian Sitanggang <craker_devil84@yahoo.com>
+paul = Paul Cartwright <skinnyware@gmail.com>
+edward = Edward <no@email.com>
+root = Rooter <robin.chew@empiriamedia.com>
+EOF
+git svn clone svn+ssh://svn.empiriamedia.com/svn/autoritel --no-metadata -A authors.txt -T trunk ./autoritel 
+git remote add origin ssh://robin@svn.empiriamedia.com/git/autoritel.git
+git push origin master
+
+# EXTRACT SUBDIR FROM OLD REPO AS NEW REPO
+http://www.pither.com/articles/2009/02/04/extracting-a-subdirectory-from-git-as-a-new-git-repository
+cd big-old-repo
+git branch to-extract
+git filter-branch --subdirectory-filter path/to/extract to-extract
+cd ..
+mkdir tmp-new-repo
+cd tmp-new-repo
+git init
+git pull ../big-old-repo to-extract
+git remote add real-new-repo gitosis@my-server:real-new-repo.git
+git push real-new-repo master
+cd ..
+git clone gitosis@my-server:real-new-repo.git

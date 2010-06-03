@@ -16,3 +16,5 @@ find ~ -name '* *' | while read FILE
 do
         echo $FILE rocks.
 done
+
+# use getopts for dashed arguments eg, runthis -h boo -v

@@ -42,3 +42,9 @@ snmpwalk -c public -v 2c 192.168.1.1
 # !! has to be ABSOLUTE PATH !!
 sleep 30
 /cifs1/snmpd -s -c /cifs1/snmpd.conf &
+
+
+# IP to URL DNS LOOKUP
+http://www.dslreports.com/forum/r23197832-Tomato-Enable-DNS-lookup-logging
+# advanced > DHCP/DNS -> dnsmasq
+log-queries

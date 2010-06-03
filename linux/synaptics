@@ -14,23 +14,30 @@
 # again, run the following command:
 #   sudo dpkg-reconfigure -phigh xserver-xorg
 
+# IN LUCID LYNX
+# add following to:
+# /usr/lib/X11/xorg.conf.d/10-synaptics.conf
+# put under Section "InputClass"
+
 Section "InputDevice"
 	Identifier	"Synaptics Touchpad"
 	Driver		"synaptics"
 	Option		"SendCoreEvents"	"true"
 	Option		"Device"		"/dev/psaux"
 	Option		"Protocol"		"auto-dev"
-  Option    "RightEdge"   "5350"
-  Option    "AccelFactor" "0.002"
-  Option    "MinSpeed"    "0.1"
-  Option    "RTCornerButton" "0"
-  Option    "RBCornerButton" "0"
+#  Option    "RightEdge"   "5400"
+#  Option    "BottomEdge"  "4500"
+#  Option    "AccelFactor" "0.002"
+#  Option    "MinSpeed"    "0.1"
+#  Option    "RTCornerButton" "0"
+#  Option    "RBCornerButton" "0"
   Option    "HorizEdgeScroll"  "1"
   Option    "HorizScrollDelta"  "100"
   Option    "SingleTapTimeout"  "100"
   Option    "MaxDoubleTapTime"  "60"
   Option       "FingerLow"     "60"#untouch when lower default 25
   Option       "FingerHigh"    "60"#touch when higher default 30
+#  Option       "FingerPress"   "256"
 #Option       "MaxTapTime"    "300"
 #Option       "MaxTapMove"    "110"
 #option       "VertScrollDelta" "100"
@@ -48,8 +55,10 @@ Section "ServerLayout"
 	InputDevice	"Synaptics Touchpad"
 EndSection
 
-#FORGOT HOW TO GET BELOW TO WORK
-#/usr/share/hal/fdi/policy/20thirdparty/11-x11-synaptics.fdi
+# FORGOT HOW TO GET BELOW TO WORK
+# probably only works in karmic
+# NOT work in lucid
+# /usr/share/hal/fdi/policy/20thirdparty/11-x11-synaptics.fdi
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <deviceinfo version="0.2">
   <device>

@@ -11,7 +11,8 @@ http://toolmantim.com/thoughts/setting_up_a_new_remote_git_repository
 
 # on the REMOTE server
 $ mkdir /var/git/myapp.git && cd /var/git/myapp.git
-$ git --bare init
+$ git --bare init --shared=group
+# --shared=group allows group write access
 Initialized empty Git repository in /var/git/myapp.git
 $ exit
 Bye!

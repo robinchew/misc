@@ -3,6 +3,10 @@
        $ mkdir /var/postgresql/data
        $ initdb -D /var/postgresql/data -U postgres -A md5 -W
 
+# Allow LAN connection 
+#edit /etc/postgresql/..../postgresql.conf
+listen_addresses = '*' # allow all connections
+
 #SSL
 #edit /etc/postgresql/..../postgresql.conf
 ssl=true

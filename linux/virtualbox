@@ -17,12 +17,22 @@ VBoxManage modifyvm 'server' --vrdp on --vrdpport 3399
 su - robin -c 'VBoxManage startvm "SVN Server" -type vrdp'
 
 # SNAPSHOTS
-VBoxManage snapshot Autoritel take 'first snap'  --description 'describe if you want'
+VBoxManage snapshot Autoritel take 'first snap'  --description 'describe if you want' --pause
+
+# RESTORE MOST RECENT SNAPSHOT
+VBoxManage snapshot Autoritel restorecurrent
+
+# RESTORE SPECIFIC SNAPSHOT
+VBoxManage snapshot Autoritel restore 2nd
+
+# then resume the snapshot with startvm
 
 # DISCARD CURRENT SNAPSHOT, REVERT TO LAST SNAPSHOT 
+# old
 VBoxManage snapshot Autoritel discardcurrent --state
 
 # DISCARD OLD SNAPSHOTS THAT YOU DON'T WANT ANYMORE
+# old
 VBoxManage snapshot Autoritel discard 'first snap'
 
 # CLONE VDI #

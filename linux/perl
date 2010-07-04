@@ -4,6 +4,12 @@
 perl -nle 'print for m:http\://.*?.com:g' *
 perl -nle 'print $1 for m:(http\://[a-z-.]+?back[a-z-.]+?\.(com|org)):g' *
 
+#  -e program        one line of program (several -e's allowed, omit programfile)
+#  -l[octal]         enable line ending processing, specifies line terminator
+#  -n                assume "while (<>) { ... }" loop around program
+#  -p                assume loop like -n but print line also, like sed
+
+
 http://sial.org/howto/perl/one-liner/
 
 perl -pe 's/find/replace/g'

@@ -1,0 +1,25 @@
+http://blog.tuxcoder.com/2008/06/configure-tftp-server-in-ubuntu.html
+https://help.ubuntu.com/community/Installation/LocalNet
+
+sudo apt-get install tftp-hpa tftpd-hpa bootp
+
+# may need to enable 'universe' for bootp
+
+vi /etc/default/tftpd-hpa
+#Defaults for tftpd-hpa
+RUN_DAEMON="yes"
+OPTIONS="-l -s /var/lib/tftpboot"
+
+sudo /etc/init.d/tftpd-hpa start
+
+# do below to check tftpd is running
+netstat -a |grep tftp
+
+
+vi /etc/bootptab
+client:\
+ha="00:00:39:2B:54:B5":\
+ip=192.168.1.42:\
+gw=192.168.1.1:\
+sm=255.255.255.0:\
+td=/: hd=/: bf=pxelinux.0

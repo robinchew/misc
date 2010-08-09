@@ -4,6 +4,7 @@ sudo passwd paul
 -n=have group same as username
 -m=create home dir
 -d=home dir path
+-g=group
 
 #look up $HOME_DIR to change from /home/
 

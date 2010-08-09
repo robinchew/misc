@@ -11,6 +11,7 @@ v=verbose
 
 #transfer/resume
 #seems to work only on one file
+rsync --partial --progress -e ssh robin.com.au:~/vid/At\ The\ Movies/*39* .
 rsync --partial --progress -e "ssh -p2083" robin.com.au:"~/vid/At\ The\ Movies/*39*" .
 
 --exclude=PATTERN exclude files matching PATTERN

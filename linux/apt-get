@@ -1,6 +1,10 @@
-#HOLD
+# HOLD
 echo 'map hold' | dpkg --set-selections
 
 OR
 
 aptitude hold
+
+# ADD GPG KEY
+gpg --keyserver keyserver.ubuntu.com --recv 2836CB0A8AC93F7A
+gpg --export --armor 2836CB0A8AC93F7A | sudo apt-key add -

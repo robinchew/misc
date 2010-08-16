@@ -27,7 +27,7 @@ $ git push origin master
 cat > authors.txt << EOF
 robin = Robin Chew <robin.chew@empiriamedia.com>
 robinc = Robin Chew <robin.chew@empiriamedia.com>
-yoko = Yoko Halim <yoko_halim@yahoo.com>
+yoko = Yoko Halim <yoko@empiriamedia.com>
 handy = Handy Lie <handy@empiriamedia.com>
 martogi = Martogi Parulian Sitanggang <craker_devil84@yahoo.com>
 paul = Paul Cartwright <skinnyware@gmail.com>

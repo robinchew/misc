@@ -1,5 +1,6 @@
 http://blog.tuxcoder.com/2008/06/configure-tftp-server-in-ubuntu.html
 https://help.ubuntu.com/community/Installation/LocalNet
+http://www.techienote.com/2010/06/pxe-booting-lucid-lynx-ubuntu-10-04.html
 
 sudo apt-get install tftp-hpa tftpd-hpa bootp
 

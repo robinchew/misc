@@ -8,3 +8,11 @@ setup (hd0)
 quit
 
 #!! Watch the SPACES and remember to SUDO
+
+# For NEWER ubuntu version like lucid lynx
+# mount the partition with the ubuntu root install first
+# then:
+
+sudo grub-setup -d /media/XXXXX/boot/grub /dev/sda
+
+# source: http://www.hackourlives.com/restore-grub-2-0-after-windows-7-install-ubuntu-10-04-or-9-10/

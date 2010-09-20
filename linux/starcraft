@@ -1,0 +1,29 @@
+#!/bin/sh
+if mount|grep Starcraft;then
+    echo already mounted
+else
+    sudo mount -o loop -t iso9660 ~/app/win/Starcraft/broodwar.iso ~/app/win/Starcraft/mount
+fi
+
+if [ "$?" -ne 0 ];then
+    exit 1
+fi
+
+setxkbmap us
+xmodmap -e "keycode 67 = 5"
+xmodmap -e "keycode 68 = 6"
+xmodmap -e "keycode 69 = 7"
+xmodmap -e "keycode 70 = 8"
+
+# tab
+xmodmap -e "keycode 23 = Control_L"
+# shift
+xmodmap -e "keycode 50 = Control_L"
+# shift
+xmodmap -e "clear shift"
+xmodmap -e "keycode 50 = Shift_L"
+
+wine ~/.wine/drive_c/Program\ Files/Starcraft/StarCraft.exe
+
+# this will reset all the changes done by xmodmap
+setxkbmap dvorak 

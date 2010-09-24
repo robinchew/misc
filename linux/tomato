@@ -48,3 +48,39 @@ sleep 30
 http://www.dslreports.com/forum/r23197832-Tomato-Enable-DNS-lookup-logging
 # advanced > DHCP/DNS -> dnsmasq
 log-queries
+
+# IP activity tracking
+# catch.sh
+#!/bin/sh
+if [ $# -ne 2 ];then
+    echo 'need 2 arguments'
+    exit 1
+fi  
+ssh root@192.168.1.1 -x 'cat /proc/net/ip_conntrack > /cifs1/ip_conntrack'
+#64.233.181 is google
+cat ./ip_conntrack | grep 'ESTABLISH' | grep -v '64.233.181' | sort | awk '{print $5,$6,$8,$11,$12}' > $1
+if [ -f $2 ];then  
+    lines=`comm -1 -2 $1 $2 | awk '{ print $1,$2,$3,$4 }'|sort|uniq|grep -v '192.168.1.122'`
+    echo "$lines"
+    for line in `echo "$lines"|sed -e 's/.*dst=\([0-9.]*\) .*/\1/g'`; do
+        echo -n "$line \t"
+        addr=`grep -o reply.*"$line" dnsmasq.log`
+        if [ $? -eq 0 ];then
+            echo "$addr"|tail -n 1
+        else
+            echo ''
+        fi  
+    done
+fi  
+cat $1 > $2 
+
+# catch_loop.sh
+while [ 1 ];do
+    ./catch.sh current last;
+    echo '--------------------------';
+    if [ $1 ];then
+        sleep $1
+    else
+        sleep 3;
+    fi  
+done

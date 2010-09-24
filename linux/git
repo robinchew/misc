@@ -33,9 +33,12 @@ martogi = Martogi Parulian Sitanggang <craker_devil84@yahoo.com>
 paul = Paul Cartwright <skinnyware@gmail.com>
 edward = Edward <no@email.com>
 root = Rooter <robin.chew@empiriamedia.com>
+edwin = Edwin <edwin@empiriamedia.com>
+vitrio = Vitrio <vitrio@empiriamedia.com>
 EOF
 git svn clone svn+ssh://svn.empiriamedia.com/svn/autoritel --no-metadata -A authors.txt -T trunk ./autoritel 
 git remote add origin ssh://robin@svn.empiriamedia.com/git/autoritel.git
+# make sure /git/autoritel.git in remote server has been initiated with: git init --bare
 git push origin master
 
 # EXTRACT SUBDIR FROM OLD REPO AS NEW REPO

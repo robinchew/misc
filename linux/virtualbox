@@ -51,10 +51,19 @@ VBoxManage modifyvm newvm --memory 256 --nic1 bridged --bridgeadapter1 eth0 --bo
 VBoxManage storagectl spielwiese --name "IDE Controller" --add ide
 VBoxManage storageattach spielwiese --storagectl "IDE Controller" --port 0 --device 0 --type hdd --medium /media/hdd/VMs/spielwiese/spielwiese.vdi
 
-# MOUNT CD/DVD
+# ATTACH CD/DVD
 VBoxManage storageattach spielwiese --storagectl "IDE Controller" --port 1 --device 0 --type dvddrive --medium ~/win.iso 
 # --medium needs absolute path 
 
 
 # BRIDGE NETWORKING
 VBoxManage modifyvm 'server' --nic1 bridged --bridgeadapter1 eth0
+
+# INSTALL GUEST ADDITIONS ON LINUX
+# must get matching headers of current kernel version
+# sometimes your kernel is too old and cannot install the old headers, so install the latest kernel image and its headers 
+sudo aptitude install linux-headers-2.6.24-28 linux-headers-2.6.24-28-virtual linux-image-2.6.24-28-virtual
+# read ATTACH CD/DVD above to attach the guest addition iso, then mount
+sudo mount /media/cdrom
+# then run
+sudo ./VBoxGuestAddition.run

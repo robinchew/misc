@@ -63,5 +63,5 @@ git clone gitosis@my-server:real-new-repo.git
 git push -f origin cc4b63bebb6:master
 
 # if cannot, then
-git push origin :master # WARNING: emptying the remote master repo first
+git push origin :master # WARNING: this empties the master repo
 git push origin cc4b63bebb6:refs/heads/master # then push specific commit

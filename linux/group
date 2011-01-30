@@ -1,6 +1,13 @@
 #newly created file/folder inherits group user from parent folder
 chmod g+s ./file-or-folder
 
+# add group to user
+gpasswd -a robin audio
+# normally you need to logout for group assignment to take effect
+# alternatively, you can run the following in a terminal for the effect to take place immediately
+# but the effect is only within that terminal only 
+newgrp audio 
+
 #/etc/profile
 #new file created will have group write permission
 umask 002

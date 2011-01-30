@@ -9,7 +9,7 @@ SYSLOGD="-r"
 sudo /etc/init.d/sysklogd restart
 
 # with RSYSLOG
-# uncomment the following:
+# uncomment the following in /etc/rsyslog.conf
 $ModLoad imudp
 $UDPServerRun 514
 

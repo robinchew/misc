@@ -31,12 +31,15 @@ Section "InputDevice"
 #  Option    "MinSpeed"    "0.1"
 #  Option    "RTCornerButton" "0"
 #  Option    "RBCornerButton" "0"
+
+  Option	"VertEdgeScroll" "1" 
   Option    "HorizEdgeScroll"  "1"
   Option    "HorizScrollDelta"  "100"
   Option    "SingleTapTimeout"  "100"
   Option    "MaxDoubleTapTime"  "60"
   Option       "FingerLow"     "60"#untouch when lower default 25
   Option       "FingerHigh"    "60"#touch when higher default 30
+
 #  Option       "FingerPress"   "256"
 #Option       "MaxTapTime"    "300"
 #Option       "MaxTapMove"    "110"
@@ -44,6 +47,7 @@ Section "InputDevice"
 #Option       "MinSpeed"      "0.09"
 #Option       "MaxSpeed"      "0.18"
 #Option       "AccelFactor"   "0.0015"
+
   Option    "ClickTime"     "0"
   Option      "FastTaps" "1"
   Option    "TapButton2" "3" #two-finger right-click tap

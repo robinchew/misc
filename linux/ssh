@@ -1,0 +1,2 @@
+# set umask on ssh?
+Subsystem sftp /bin/sh -c 'umask 0002; /usr/lib/openssh/sftp-server'

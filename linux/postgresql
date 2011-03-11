@@ -41,6 +41,7 @@ OR
 in psql: 
 CREATE USER robin
 ALTER USER robin WITH PASSWORD 'mypassword'
+ALTER USER robin WITH CREATEDB
 
 OR
 

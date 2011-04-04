@@ -68,3 +68,39 @@ LogLevel warn
 
 CustomLog /var/log/apache2/access.log combined
 ServerSignature On
+
+
+SUBMITING ISSUES BY EMAIL
+log in as admin
+go to admin > settings > incoming email
+enable WS email and generate and copy key 
+install postfix
+
+# /etc/aliases
+root:   robin
+issue:  "|/var/www/redmine/extra/mail_handler/rdm-mailhandler.rb --url http://redmine.empiriamedia.com --key G93FmPu3SGVKjBPwuCXi --project autoritel"
+
+# /etc/postfix/main.cf
+alias_maps = hash:/etc/aliases # to forward local email to user
+inet_interfaces = all # for remote access
+virtual_alias_domains = redmine.empiriamedia.com # to forward remote email
+virtual_alias_maps = hash:/etc/postfix/virtual # to forward remote email
+transport_maps = hash:/etc/postfix/transport # explained in Redmine Receiving Emails 
+
+# /etc/postfix/virtual
+issue@redmine.empiriamedia.com issue
+
+# /etc/postfix/transport
+issue@redmine.empiriamedia.com local:
+
+# REMEMBER TO DO THE FOLLOWING
+# as root
+
+postmap virtual
+postmap transport
+
+# virtual.db and transport.db will be created and make sure they are inside /etc/postfix/
+
+REFERENCE
+https://help.ubuntu.com/community/PostfixBasicSetupHowto
+http://www.redmine.org/projects/redmine/wiki/RedmineReceivingEmails

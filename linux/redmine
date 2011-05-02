@@ -93,11 +93,15 @@ issue@redmine.empiriamedia.com issue
 # /etc/postfix/transport
 issue@redmine.empiriamedia.com local:
 
-# REMEMBER TO DO THE FOLLOWING
+# REMEMBER TO DO THE FOLLOWING !!
 # as root
 
-postmap virtual
-postmap transport
+newaliases # updates /etc/aliases
+postmap virtual # convert to a readable format for postfix
+postmap transport # convert to a readable format for postfix
+
+sudo /etc/init.d/postfix restart
+
 
 # virtual.db and transport.db will be created and make sure they are inside /etc/postfix/
 

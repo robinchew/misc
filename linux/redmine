@@ -105,6 +105,32 @@ sudo /etc/init.d/postfix restart
 
 # virtual.db and transport.db will be created and make sure they are inside /etc/postfix/
 
+TROUBLESHOOTING
+If getting Mail Return errors with errors such as:
+    
+    permission denied. Command
+    output: Request was denied by your Redmine server. Possible reasons: email
+    is sent from an invalid email address or is missing some information.
+
+Go to /var/www/redmine/config/environments/production.rb
+Comment out:
+#config.action_mailer.logger = nil
+
+And check logs at /var/www/redmine/log/production.log
+You might come across a block of information such as:
+
+    Message-ID: <BANLkTimGDaGc86q4h4Cm=+ThKAU+HYpN7Q@mail.gmail.com>
+    Subject: issee
+    From: Robin Chew <robinchew@gmail.com>
+    To: autoritel-issue@redmine.empiriamedia.com
+    Content-Type: text/plain; charset=ISO-8859-1
+
+    Validation failed: Browser can't be blank
+    Completed in 281ms (View: 0, DB: 45) | 422 Unprocessable Entity [http://redmine.empiriamedia.com/mail_handler]
+
+Which tells you that the Mail Return error is caused by the Browser field being required but the mail body does not include.
+Solution was to make Browser field not required, or has a default value already set.
+
 REFERENCE
 https://help.ubuntu.com/community/PostfixBasicSetupHowto
 http://www.redmine.org/projects/redmine/wiki/RedmineReceivingEmails

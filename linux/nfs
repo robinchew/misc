@@ -1,3 +1,7 @@
+#########
+# LINUX #
+#########
+
 #SERVER SIDE
 
 sudo aptitude install nfs-kernel-server nfs-common portmap 
@@ -17,3 +21,21 @@ sudo aptitude install portmap nfs-common
 
 #/etc/fstab
 server.mydomain.com:/files /files nfs rsize=8192,wsize=8192,timeo=14,intr
+
+###########
+# OPENBSD #
+###########
+
+# SERVER SIDE
+
+# /etc/exports
+/home/robin/share -ro 192.168.0.14
+
+# further modification to /etc/exports, will need to do:
+kill -HUP `cat /var/run/mountd.pid`
+
+http://www.openbsd.org/faq/faq6.html#NFS
+
+# CLIENT SIDE
+
+nothing

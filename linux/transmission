@@ -1,0 +1,2 @@
+# Example script to loop and see download status in near real-time
+while [ true ];do echo -ne "`transmission-remote -n transmission:transmission -t 1 -l|grep Good`";echo -ne '\033[0K\r';sleep 3; done

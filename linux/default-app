@@ -1,0 +1,5 @@
+vim ~/.local/share/applications/default.list
+
+# editing ~/.local/share/applications/mimeapps.list is NOT recommended
+
+https://wiki.archlinux.org/index.php/Default_Applications#Changing_a_default_application

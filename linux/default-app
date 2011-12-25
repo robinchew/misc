@@ -1,5 +1,10 @@
-vim ~/.local/share/applications/default.list
-
 # editing ~/.local/share/applications/mimeapps.list is NOT recommended
+
+cat >> ~/.local/share/applications/default.list << EOF
+text/html=google-chrome.desktop
+application/pdf=okular.desktop
+EOF
+
+# the desktop files must be created in ~/.local/share/applications/
 
 https://wiki.archlinux.org/index.php/Default_Applications#Changing_a_default_application

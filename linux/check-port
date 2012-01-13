@@ -1,0 +1,17 @@
+http://www.linuxwebblog.com/application-port
+
+$ netstat -tulpn
+
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program n
+tcp        0      0 0.0.0.0:10809           0.0.0.0:*               LISTEN      - 
+
+$ fuser 10809/tcp
+10809/tcp:  27609
+
+$ ps -fp 27601
+UID        PID  PPID  C STIME TTY          TIME CMD
+root     27601     1  0 01:49 ?        00:00:00 nbd-server -C /tmp/archiso-pxe-server/nbd-server.conf
+
+
+# NOTE!
+# try sudo if fuser gives nothing

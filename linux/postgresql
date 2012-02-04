@@ -165,8 +165,10 @@ select testf()
 
 #BACKUP AND RESTORE
 http://www.cyberciti.biz/tips/howto-backup-postgresql-databases.html
-#backup
+# backup a db
 pg_dump autoritel | gzip -c > autoritel.out.gz
+# or backup all dbs
+pg_dumpall
 
 #restore/run script
 gunzip autoritel.out.gz

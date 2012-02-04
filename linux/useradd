@@ -1,10 +1,16 @@
 sudo useradd -s /bin/bash -m paul
-sudo passwd paul
 
 -n=have group same as username
 -m=create home dir
 -d=home dir path
 -g=group
+
+# SET PASSWORD
+sudo passwd paul
+OR
+# SET PASSWORDLESS
+# login can occur without a password
+sudo passwd -d paul
 
 #look up $HOME_DIR to change from /home/
 

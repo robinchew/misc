@@ -1,0 +1,7 @@
+# Setup alsa 
+# alsaconf seems to detect the sound card and load the appropriate drivers 
+
+run: alsaconf
+then reboot computer
+or else you need to unload and load modules and who knows what
+so just reboot

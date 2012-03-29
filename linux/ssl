@@ -23,3 +23,16 @@ sudo sed -i "3a\\\tSSLEngine On\n\tSSLCertificateFile /etc/ssl/private/localhost
 
 sudo a2ensite ssl
 sudo a2enmod ssl
+
+#######################################
+# set up ssl certificate in ARCHLINUX #
+#######################################
+
+cd /etc/httpd/conf
+openssl genrsa -des3 -out server.key 1024
+openssl req -new -key server.key -out server.csr
+cp server.key server.key.org
+openssl rsa -in server.key.org -out server.key
+openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
+
+https://wiki.archlinux.org/index.php/LAMP#SSL

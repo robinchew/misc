@@ -2,6 +2,9 @@
 vi /etc/mysql/my.cnf
 bind-address=192.168.2.100
 
+# GRANTING PERMISSIONS
+
+grant all on ratemy_Trade.* to robin@localhost;
 
 GRANT
 SELECT,INSERT,UPDATE,DELETE,INDEX,ALTER,CREATE,DROP,RELOAD,SHUTDOWN,PROCESS,
@@ -14,3 +17,21 @@ FILE,
 OR
 
 eg. mysql> GRANT ALL ON foo.* TO bar@'202.54.10.20' IDENTIFIED BY 'PASSWORD';
+
+# RESET ROOT
+# stop server then run with 
+mysqld_safe --skip-grant-tables
+# then just login with root
+http://www.howtoforge.com/reset-forgotten-mysql-root-password    
+
+# CREATE/UPDATE USER
+create user 'robin'@'localhost' identified by 'password'
+update mysql.user set Password=PASSWORD('abc') where User='robin'
+
+# LOGIN 
+mysql -u ratemy_Sam27 --password='l+aRM!]HTMGd%#+sEl'
+
+# BACKUP/RESTORE
+http://www.cyberciti.biz/faq/import-mysql-dumpfile-sql-datafile-into-my-database/
+
+Requires restart eg. /etc/rc.d/mysqld restart

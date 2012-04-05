@@ -35,3 +35,7 @@ mysql -u ratemy_Sam27 --password='l+aRM!]HTMGd%#+sEl'
 http://www.cyberciti.biz/faq/import-mysql-dumpfile-sql-datafile-into-my-database/
 
 Requires restart eg. /etc/rc.d/mysqld restart
+
+# ALTER TABLE
+
+alter table employee change name name varchar(100);

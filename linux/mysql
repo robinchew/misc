@@ -32,6 +32,15 @@ update mysql.user set Password=PASSWORD('abc') where User='robin'
 mysql -u ratemy_Sam27 --password='l+aRM!]HTMGd%#+sEl'
 
 # BACKUP/RESTORE
+
+# Backup
+mysqldump -u user -p db_name > dump.sql
+
+http://www.mydigitallife.info/how-to-backup-and-restore-export-and-import-mysql-databases-tutorial/
+
+# Restore 
+mysql -u user -p db_name < dump.sql
+
 http://www.cyberciti.biz/faq/import-mysql-dumpfile-sql-datafile-into-my-database/
 
 Requires restart eg. /etc/rc.d/mysqld restart

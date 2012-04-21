@@ -7,8 +7,8 @@ https://help.ubuntu.com/community/UbuntuTime
 
 OR
 
-maybe just changing /etc/timezone ?
-
+# works at for Arch Linux
+cp /usr/share/zoneinfo/America/Chicago /etc/localtime
 
 # SYNC DATE WITH NTP
 sudo ntpdate pool.ntp.org

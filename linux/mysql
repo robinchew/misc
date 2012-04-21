@@ -32,6 +32,41 @@ update mysql.user set Password=PASSWORD('abc') where User='robin'
 mysql -u ratemy_Sam27 --password='l+aRM!]HTMGd%#+sEl'
 
 # BACKUP/RESTORE
+
+# Backup
+mysqldump -u user -p db_name > dump.sql
+
+http://www.mydigitallife.info/how-to-backup-and-restore-export-and-import-mysql-databases-tutorial/
+
+# Restore 
+mysql -u user -p db_name < dump.sql
+
 http://www.cyberciti.biz/faq/import-mysql-dumpfile-sql-datafile-into-my-database/
 
 Requires restart eg. /etc/rc.d/mysqld restart
+
+# ALTER TABLE
+
+alter table employee change name name varchar(100);
+
+# CREATE TABLE
+
+CREATE TABLE example(
+	id INT NOT NULL AUTO_INCREMENT, 
+	PRIMARY KEY(id),
+	name VARCHAR(30), 
+	age INT
+)
+
+# IF ENGINE = INNODB
+# Foreign keys only work in innodb engine
+
+# ! NOTE
+# syntax below is untested
+
+CREATE TABLE example(
+	id INT NOT NULL AUTO_INCREMENT, 
+	PRIMARY KEY(id),
+	other_id INT,
+	FOREIGN KEY (other_id) REFERENCES other_table(id)
+)

@@ -25,8 +25,22 @@ mysqld_safe --skip-grant-tables
 http://www.howtoforge.com/reset-forgotten-mysql-root-password    
 
 # CREATE/UPDATE USER
-create user 'robin'@'localhost' identified by 'password'
-update mysql.user set Password=PASSWORD('abc') where User='robin'
+
+# create
+create user robin@localhost identified by 'passwordabc'
+# which returns: Query OK, 0 rows affected (0.00 sec)
+# and thats' suppose to mean either success or fail
+
+# rememeber to grant db tables if neccessary
+GRANT ALL ON db_name.* TO robin@localhost
+# which returns: Query OK, 0 rows affected (0.00 sec)
+# and thats' suppose to mean either success or fail also
+
+# update & flush privileges
+# flushing seems to be necessary
+# or else old password will still work and newo one doesn't
+update mysql.user set Password=PASSWORD('passwordabc') where User='robin';
+flush privileges;
 
 # LOGIN 
 mysql -u ratemy_Sam27 --password='l+aRM!]HTMGd%#+sEl'

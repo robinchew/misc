@@ -3,6 +3,18 @@ https://help.ubuntu.com/community/Installation/LocalNet
 http://www.techienote.com/2010/06/pxe-booting-lucid-lynx-ubuntu-10-04.html
 http://tjworld.net/wiki/Linux/Ubuntu/NetbootPxeLiveCDMultipleReleases
 
+# BOOT COMPUTER
+just make sure the computer boots with PXE
+
+
+# ROUTER SETUP
+# dnsmasq configuration should contain the following line:
+dhcp-boot=pxelinux.0,,192.168.1.148
+
+# 192.168.1.148 is the BOOTER COMPUTER that will contain the live cd to boot from
+
+
+# BOOTER COMPUTER SETUP
 sudo apt-get install tftp-hpa tftpd-hpa bootp
 
 # may need to enable 'universe' for bootp
@@ -14,14 +26,45 @@ OPTIONS="-l -s /var/lib/tftpboot"
 
 sudo /etc/init.d/tftpd-hpa start
 
+# OR
+# lucid lynx won't work with above so,
+# run manually without init with:
+/usr/sbin/in.tftpd -l -s /var/lib/tftpboot
+
 # do below to check tftpd is running
 netstat -a |grep tftp
 
-
-vi /etc/bootptab
+cat > /etc/bootptab << EOF
 client:\
 ha="00:00:39:2B:54:B5":\
 ip=192.168.1.42:\
 gw=192.168.1.1:\
 sm=255.255.255.0:\
 td=/: hd=/: bf=pxelinux.0
+EOF
+
+# 00:00:39:2B:54:B5 is the mac address of the BOOT COMPUTER 
+# you can find it when you boot with PXE
+
+# the BOOT COMPUTER has no IP when first booted with PXE 
+# so we assign 192.168.1.42 to it
+# but this may not be necessary, because before I booted with PXE, and it was assigned a different IP 
+
+cd /var/lib/tftpboot/
+mkdir mnt
+mount -o loop -t iso9660 /path/to/file.iso /var/lib/tftpboot/mnt
+mkdir pxelinux.cfg 
+cat > pxelinux.cfg/default << EOF
+LABEL linux
+    menu label go
+    kernel mnt/casper/vmlinuz
+    append boot=casper netboot=nfs nfsroot=192.168.1.148:/var/lib/tftpboot/mnt initrd=mnt/casper/initrd.lz --
+EOF
+
+# it seems that you MUST mount /var/lib/tftpboot/mnt with nfs 
+# so refer to the 'nfs' doc
+# it could be possible without, but don't know how yet
+
+# should be FINISHED
+now boot 
+

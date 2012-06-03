@@ -1,0 +1,28 @@
+pacman -S devtools base-devel git --needed
+mkarchroot /home/youruser/archlive base base-devel sudo git rsync
+
+Get from AUR
+OR 
+git clone git://projects.archlinux.org/archiso.git
+
+# I believe you can do below within chroot or out
+# DESTDIR must be an absolute path
+
+# outside chroot
+cd archiso-git/src
+make -C archiso/archiso DESTDIR=/home/youruser/archlive install 
+
+# inside chroot
+cd archiso-git/src
+make -C archiso/archiso DESTDIR=/ install 
+
+# TROUBLESHOOTING
+
+# Problem:
+[mkarchiso] INFO: Mounting 'play/root-image.fs' on 'play/mnt/root-image'
+mount: you must specify the filesystem type
+
+# Solution
+Make sure mknod /dev/loop0 b 7 0 runs first
+and NOT getting /home/robin/iso/live5/root/archiso-git/src/archiso/configs/baseline/work/root-image.fs (deleted) on /home/robin/iso/live5/root/archiso-git/src/archiso/configs/baseline/work/mnt/root-image type ext4 (rw,relatime,user_xattr,barrier=1)
+Note the (deleted)

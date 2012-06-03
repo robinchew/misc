@@ -12,3 +12,6 @@ sudo passwd -l root
 #grant sudo to specific group with permission to run specific file
 User_Alias FM_GROUP = %fm_group
 FM_GROUP ALL=(root) NOPASSWD: /etc/init.d/apache2
+
+# robin can run reboot as root without needing a password
+robin ALL=NOPASSWD:/sbin/reboot

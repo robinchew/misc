@@ -1,16 +1,28 @@
 # CREATE VM
 VBoxManage createvm --name newvm --register
 
+# if you want to use existing vdi
+# SKIP to clone vdi section
+
 VBoxManage openmedium dvd /path/file.ext
 
 VBoxManage createvdi --filename proxy.vdi --size 10000 --register
 OR
 VBoxManage createhd --format VDI --size 10000 ??? 
 
+# OSE DON'T HAVE VRDP !!!
+# --hda --vrdp does not work anymore 
 VBoxManage modifyvm newvm --memory "256MB" --nic1 bridged --bridgeadapter1 eth0 --hda proxy.vdi --boot1 dvd --vrdp on --vrdpport 3399 
 # ! --hda SEEMS TO NOT WORK IN v3.*
 
+VBoxManage  storagectl win --name controller --add ide
+VBoxManage  storageattach win --storagectl controller --port 0 --device 0 --type hdd --medium proxy.vdi
+
 # CHANGE PORT FOR VRDP REMOTE DESKTOP
+# for 4.0
+VBoxManage modifyvm 'server' --vrde on --vrdeport 3399
+
+# for 3.2, DON'T GET OSE VERSION!!!! 
 VBoxManage modifyvm 'server' --vrdp on --vrdpport 3399
 
 # START VM #
@@ -20,9 +32,11 @@ su - robin -c 'VBoxManage startvm "SVN Server" -type vrdp'
 VBoxManage snapshot Autoritel take 'first snap'  --description 'describe if you want' --pause
 
 # RESTORE MOST RECENT SNAPSHOT
+# must shutdown vm first
 VBoxManage snapshot Autoritel restorecurrent
 
 # RESTORE SPECIFIC SNAPSHOT
+# must shutdown vm first
 VBoxManage snapshot Autoritel restore 2nd
 
 # then resume the snapshot with startvm
@@ -64,6 +78,7 @@ VBoxManage modifyvm 'server' --nic1 bridged --bridgeadapter1 eth0
 # sometimes your kernel is too old and cannot install the old headers, so install the latest kernel image and its headers 
 sudo aptitude install linux-headers-2.6.24-28 linux-headers-2.6.24-28-virtual linux-image-2.6.24-28-virtual
 # read ATTACH CD/DVD above to attach the guest addition iso, then mount
-sudo mount /media/cdrom
+# or copy the iso from the host's .Virtualbox/ folder to the vm and mount it there
+sudo mount -o loop VBoxGuestAdditions_1.5.6.iso /somewhere/
 # then run
 sudo ./VBoxGuestAddition.run

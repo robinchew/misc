@@ -3,3 +3,10 @@ ssh -N -p 22 will@roib.noc.amu -L 88/localhost/888
 88 is local
 888 is remote
 http://www.engadget.com/2006/03/21/how-to-ssh-tunnels-for-secure-network-access/
+
+EASIER WAY!
+http://webcache.googleusercontent.com/search?q=cache:sfYqknpFihwJ:https://fermilinux.fnal.gov/documentation/tips/ssh-tunnel.web+linux+ssh+tunnel+web+browse&cd=7&hl=en&ct=clnk&gl=id&client=firefox-a&source=www.google.co.id
+
+ssh -D 8888 robin@robin.com.au
+
+open firefox go find proxy settings, choose Manual and add localhost under SOCKS add host 'localhost' and port '8888'

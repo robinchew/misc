@@ -1,5 +1,5 @@
 pacman -S devtools base-devel git --needed
-mkarchroot /home/youruser/archlive base base-devel sudo git rsync
+mkarchroot /home/youruser/archlive base base-devel sudo git rsync squashfs-tools libisoburn
 
 Get from AUR
 OR 
@@ -7,14 +7,15 @@ git clone git://projects.archlinux.org/archiso.git
 
 # I believe you can do below within chroot or out
 # DESTDIR must be an absolute path
+# Run the make command in the folder that contains:
+# .git  archiso  configs  README  TODO
 
 # outside chroot
-cd archiso-git/src
-make -C archiso/archiso DESTDIR=/home/youruser/archlive install 
+make -C archiso DESTDIR=/home/youruser/archlive install 
 
 # inside chroot
 cd archiso-git/src
-make -C archiso/archiso DESTDIR=/ install 
+make -C archiso DESTDIR=/ install 
 
 # TROUBLESHOOTING
 

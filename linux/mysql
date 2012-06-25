@@ -42,6 +42,9 @@ GRANT ALL ON db_name.* TO robin@localhost
 update mysql.user set Password=PASSWORD('passwordabc') where User='robin';
 flush privileges;
 
+
+select * from mysql.user
+
 # LOGIN 
 mysql -u ratemy_Sam27 --password='l+aRM!]HTMGd%#+sEl'
 

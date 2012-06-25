@@ -1,0 +1,25 @@
+#!/bin/sh
+dir=/srv/http/$2
+if [ ! -d "$dir" ];then
+    mkdir $dir
+fi
+web=root@web0${1}.pwd.net.au
+rsync -avzu --exclude '*.zip' $web:/home/$2/public_html/ $dir 
+
+chmod 755 $dir
+
+db=`grep DB_NAME $dir/wp-config.php|sed "s/.*,.*'\(.*\)'.*/\1/g"`
+user=`grep DB_USER $dir/wp-config.php|sed "s/.*,.*'\(.*\)'.*/\1/g"`
+password=`grep DB_PASSWORD $dir/wp-config.php|sed "s/.*,.*'\(.*\)'.*/\1/g"`
+
+mysql -u root --password=root -e "create database $db"
+mysql -u root --password=root -e "create user $user@localhost identified by '$password'"
+mysql -u root --password=root -e "grant all on $db.* to $user@localhost"
+
+echo $user $password $db
+
+ssh $web "mysqldump -u '$user' --password='$password' '$db' > dump.sql"
+scp $web:dump.sql $dir
+sed -i "s|www.$3|$2.dev|g" $dir/dump.sql
+sed -i "s|$3|$2.dev|g" $dir/dump.sql
+mysql -u root --password=root "$db" < $dir/dump.sql

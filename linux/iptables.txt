@@ -60,3 +60,5 @@ pre-up iptables-restore < /etc/default/ipconfig
 -A OUTPUT -p tcp -m tcp --dport 22 -j ACCEPT 
 -A OUTPUT -j DROP                                                              
 COMMIT 
+
+http://www.thegeekstuff.com/2011/06/iptables-rules-examples/

@@ -62,3 +62,10 @@ pre-up iptables-restore < /etc/default/ipconfig
 COMMIT 
 
 http://www.thegeekstuff.com/2011/06/iptables-rules-examples/
+
+DROP IP TABLE RULE
+==================
+# 5 represents the line number
+
+iptables -L INPUT --line-numbers
+iptables -D INPUT 5

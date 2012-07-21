@@ -18,3 +18,7 @@ Exec=google-chrome
 EOF
 
 https://wiki.archlinux.org/index.php/Default_Applications#Changing_a_default_application
+
+# IF ABOVE DOES NOT WORK, DO BELOW:
+
+xdg-mime default mplayer.desktop video/mp4

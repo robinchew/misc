@@ -1,0 +1,19 @@
+# Download mail from Gmail with POP3
+
+pacman -S fetchmail procmail
+
+# ~/.procmail
+
+PATH=$HOME/bin:/usr/bin:/bin:/usr/local/bin:.
+MAILDIR=$HOME/mail/
+DEFAULT=$HOME/mail/
+LOGFILE=$MAILDIR/procmail.log
+
+# ~/.fetchmailrc
+
+poll pop.gmail.com with proto POP3 and options no dns
+user 'me@robin.com.au' there with password 'password' is 'folder_name' here  options ssl
+mda '/usr/bin/procmail -d %s'
+
+#  Then run:
+fetchmail

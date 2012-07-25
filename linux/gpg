@@ -1,0 +1,7 @@
+# Encrypt via password
+
+gpg -c file.txt
+
+# Decrypt file
+
+gpg file.txt

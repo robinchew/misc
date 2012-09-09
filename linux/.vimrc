@@ -12,6 +12,7 @@ au! BufRead,BufNewFile *.module    set filetype=php
 au! BufRead,BufNewFile *.ctp    set filetype=html
 command W w
 command E e
+command SSFS syntax sync fromstart
 noremap Q <Esc>
 noremap q <Esc>
 set iskeyword-=_

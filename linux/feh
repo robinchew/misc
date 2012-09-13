@@ -1,0 +1,24 @@
+# grid of images
+feh -t .
+feh -m .
+
+# give transparent bg for grid of images
+feh -t -b trans .
+feh -m -b trans .
+
+# open all images in each individual window
+feh -w .
+
+Keyboard Shortcut Configuration
+===============================
+
+cat > ~/.config/feh/keys << EOF
+scroll_down  Down
+scroll_up    Up
+scroll_left  Left
+scroll_right Right
+scroll_up_page Prior
+scroll_down_page Next
+zoom_in plus equal
+zoom_out minus
+EOF

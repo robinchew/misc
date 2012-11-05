@@ -87,3 +87,11 @@ CREATE TABLE example(
 	other_id INT,
 	FOREIGN KEY (other_id) REFERENCES other_table(id)
 )
+
+# LOG SQL QUERIES
+vim /etc/mysql/my.cnf
+
+[mysqld]
+log = /tmp/mysql.log
+
+http://www.howtogeek.com/howto/database/monitor-all-sql-queries-in-mysql/

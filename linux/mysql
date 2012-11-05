@@ -89,7 +89,9 @@ CREATE TABLE example(
 )
 
 # LOG SQL QUERIES
-vim /etc/mysql/my.cnf
+# Add below in the approriate section in /etc/mysql/my.cnf
+# You need to to restart mysqld afterwards
+# You may also need to restart apache
 
 [mysqld]
 log = /tmp/mysql.log

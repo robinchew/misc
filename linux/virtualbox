@@ -1,3 +1,30 @@
+################
+# INSTALLATION #
+################
+# 1. Packages
+pacman -S virtualbox virtualbox-host-modules
+
+OR
+
+pacman -S virtualbox virtualbox-host-source
+dkms install vboxhost/$(pacman -Q virtualbox|awk {'print $2'}|sed 's/\-.\+//') -k $(uname -rm|sed 's/\ /\//')
+
+# 2. Modprobe
+modprobe vboxdrv
+
+# 3. Bridge
+modprobe -a vboxnetadp vboxnetflt
+
+# Misc.
+Modprobe modules can be added to /etc/modules-load.d/virtualbox.conf as:
+
+vboxdrv
+vboxnetadp
+vboxnetflt
+
+https://wiki.archlinux.org/index.php/VirtualBox
+
+
 # CREATE VM
 VBoxManage createvm --name newvm --register
 

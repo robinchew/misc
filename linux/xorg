@@ -1,0 +1,3 @@
+.xinitrc is for when startx starts
+.xsession is for when kdm starts
+.xsession must be executable

@@ -1,0 +1,16 @@
+Install: cups
+Install PPD drivers: gutenprint foomatic-db foomatic-db-engine foomatic-db-nonfree foomatic-filters hplip splix cups-pdf
+
+Run cups daemon
+
+/etc/cups/cupsd.conf contains the following line:
+
+SystemGroup sys root 
+
+Which means only use under sys or root group
+can configure printer in localhost:631.
+So you need to add your user to one of those groups
+
+usermod -aG sys robin
+
+https://wiki.archlinux.org/index.php/CUPS

@@ -5,6 +5,10 @@ Get from AUR
 OR 
 git clone git://projects.archlinux.org/archiso.git
 
+#####################
+# BUILD ENVIRONMENT #
+#####################
+
 # I believe you can do below within chroot or out
 # DESTDIR must be an absolute path
 # Run the make command in the folder that contains:
@@ -13,11 +17,17 @@ git clone git://projects.archlinux.org/archiso.git
 # outside chroot
 make -C archiso DESTDIR=/home/youruser/archlive install 
 
-# inside chroot
+# inside chroot, using: mkarchroot -r bash /home/user/archlive
 cd archiso-git/src
 make -C archiso DESTDIR=/ install 
 
-# TROUBLESHOOTING
+#############
+# BUILD ISO #
+#############
+
+###################
+# TROUBLESHOOTING #
+###################
 
 # Problem:
 [mkarchiso] INFO: Mounting 'play/root-image.fs' on 'play/mnt/root-image'

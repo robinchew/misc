@@ -1,0 +1,29 @@
+
+#############
+# IN CHROOT #
+#############
+
+install: syslinux
+
+# maybe you don't need to run below 
+mkinitcpio -p linux
+
+# Boot flag
+fdisk /dev/sda 
+
+# GRUB
+# Apparently you need to 'modprobe dm-mod' first. Not sure.
+# Maybe remove /boot/grub first
+grub-install --target=i386-pc --recheck --debug /dev/sda
+grub-mkconfig -o /boot/grub/grub.cfg
+
+
+# Networking
+dhcpcd eth0
+
+OR 
+
+systemctl start dhcpcd@eth0
+
+# start on boot
+systemctl enable dhcpcd@eth0

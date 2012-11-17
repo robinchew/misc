@@ -1,0 +1,27 @@
+
+(1/1) checking package integrity                   [#####################] 100%
+warning: Public keyring not found; have you run 'pacman-key --init'?
+error: linux: key "771DF6627EDF681F" is unknown
+error: key "771DF6627EDF681F" could not be looked up remotely
+error: failed to commit transaction (invalid or corrupted package (PGP signature))
+Errors occurred, no packages were upgraded.
+
+
+sudo pacman-key --init
+
+
+if you still see:
+
+(1/1) checking package integrity                   [#####################] 100%
+error: linux: key "771DF6627EDF681F" is unknown
+:: Import PGP key 7EDF681F, "Tobias Powalowski <tpowa@archlinux.org>", created 2011-07-18? [Y/n] y
+(1/1) checking package integrity                   [#####################] 100%
+error: linux: signature from "Tobias Powalowski <tobias.powalowski@googlemail.com>" is unknown trust
+error: failed to commit transaction (invalid or corrupted package (PGP signature))
+Errors occurred, no packages were upgraded.
+
+# Set up in pacman.conf under [options]
+SigLevel = Optional TrustAll
+
+# if importing key is slow, change the keyserver from /etc/pacman.d/gnupg/gpg.conf to hkp://pgp.mit.edu
+# https://bbs.archlinux.org/viewtopic.php?id=128682

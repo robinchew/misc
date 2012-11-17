@@ -1,0 +1,6 @@
+sudo aptitude install solr-jetty
+# make sure it includes jdk
+
+JAVA_HOME=/usr/lib/jvm/java-6-openjdk >> /etc/default/jetty
+# OR
+JAVA_HOME=/usr/lib/jvm/java-6-openjdk >> /etc/environment

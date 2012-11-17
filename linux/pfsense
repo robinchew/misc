@@ -1,0 +1,49 @@
+system - advance - admin access (tab) - webConfigurator/Disable webConfigurator redirect rule ON (default:off) 
+
+# FOR REMOTE ACCESS TO ROUTER THROUGH HTTPS
+
+firewall - rules -
+
+interface: WAN
+source/type: any
+source/address: none
+destination/type: any
+destination/address: none
+destination port range: HTTPS
+
+# PORT FORWARD
+firewall - nat - port forward (tab) - add
+
+source: none
+destination/type: WAN address
+destination port range: 80
+redirect target ip: 192.168.1.144
+redirect target port: 80 
+NAT reflection: enable # if you want redmine.empiriamedia.com to open up inside local network
+
+########################
+# DOESN'T FUCKING WORK!!
+# DNS forwarder -  skip to next section with DNSMASQ
+# MAYBE need to do following if you can actually map a domain to an IP with DNS Forwarder
+# but since you can't do any mapping, because nothing happens, who gives a fuck
+system - general setup
+DNS Server: 202.43.160.50
+use gateway: None
+Allow DNS server list to be overridden by DHCP/PPP on WAN UNTICKED (default: TICKED)
+
+# if wanting to continue trying to get above to work,
+# When fucking with DNS Forwarder, make sure the domain overrides appear in
+/var/etc/hosts
+# i THINK You don't need to add DNS server manually in general setup for DNS forwarder to work
+# problem could be the 'Apply Anyway' doesn't always show up, it needs to be pressed
+# for changes to take effect, maybe restart the service?
+#########################
+
+# SINCE DNS FORWARDER DOESN'T DO SHIT, CREATE DNSMASQ.CONF
+vim /usr/local/etc/dnsmasq.conf
+address=/redmine.emi/192.168.1.144
+address=/autoritel.emi/192.168.1.105
+address=/fashion.emi/192.168.1.120
+
+# then restart dnsmasq service from
+Status - Services 

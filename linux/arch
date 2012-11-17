@@ -1,0 +1,136 @@
+# GET LATEST ARCHISO FROM GIT
+# Use config found in 
+archiso/configs/syslinux-iso/ 
+# which contains
+boot-files
+download-repo.sh
+instructions
+isomounts
+Makefile
+mkinitcpio.conf
+overlay
+packages.i686
+packages.x86_64
+# replace the above files with files from
+# the BASE PROFILE found in
+https://wiki.archlinux.org/index.php/Talk:Archiso#baseline_profile_.28for_current_archiso.git_.5B20101218.5D.29
+# but does it actually work? 
+# maybe just need a clean environment
+# I DON'T THINK THE BASE PROFILE IS NECESSARY !!!!
+
+############################
+# create clean environment #
+# for building isos        #
+############################
+
+pacman -S devtools --needed
+mkarchroot /tmp/somedir base
+mkarchroot -r bash /tmp/somedir
+
+######################################
+# from now onwards, WE ARE IN CHROOT #
+######################################
+# get latest ARCHISO-GIT AGAIN
+# and maybe put in /root/
+makepkg -s
+pacman -U arch*.pkg.tar.xz
+pacman -S make
+
+###################
+# mkinitcpio.conf #
+###################
+
+$ vim mkinitcpio.conf
+# Make sure COMPRESSION is "gzip"
+# so you won't get errors like:
+# ERROR: modinfo: could not open work/root-image/lib/modules/2.6.37-ARCH/kernel/drivers/cdrom/cdrom.ko.gz: Exec format error
+# actually maybe this doesn't work
+
+HOOKS="base udev archiso pata scsi sata usb fw pcmcia filesystems usbinput"
+#COMPRESSION="lzma"
+COMPRESSION="gzip"
+##
+
+############
+# packages #
+############
+
+# IMPORTANT!!! 
+# if 'make' has been executed and you changed the package list after,
+# you have to delete work/iso and work/root-image also
+# remember to backup downloaded packages so don't have to download again
+# then make again
+
+# include following EXTRA packages
+vim
+ttf-ms-fonts
+python2
+gparted
+xorg
+ssh
+firefox
+awesome
+nm-applet
+parcellite
+gnome-terminal
+
+############
+# Makefile #
+############
+
+# make sure the indentation of Makefile are TABS.
+
+$ cp -R /root/archiso-git/src/archiso/configs/syslinux-iso /root/
+$ cd /root/syslinux-iso
+$ make core-iso
+
+# the process of 'make' is to download and install packages into work/root-image/
+# then later squashed into squashfs format for use as installation medium
+
+# BACKUP PACKAGE
+# notes below is NOT using base profile
+# when running 'make all' or 'make core-iso'
+# /var/cache/pacman/pkg/ on this machine is mounted on work/root-image/var/cache/pacman/pkg/ ???
+# 'make' download packages to work/core-pkgs/src/core/pkg/
+
+# If any problem with make, just delete everything in work/
+# BUT make sure all packages downloaded in work/core-pkg/src/core/pkg/ is backed up and copied to /var/cache/pacman/pkg/,
+# then make again,
+# maybe pacman -Syu
+
+
+# you can get out of chroot at this point
+
+######################
+# convert iso to usb #
+######################
+dd if=image.iso of=/dev/sdb
+
+# BOOTING USB
+# if usb is /dev/sdc
+# you may need to ln -sf /dev/sdc /dev/archiso
+
+
+# WHAT SHOULD LOOK LIKE AFTER MAKE IS EXECUTED
+./download-repo.sh core work/core-pkgs/src/core/pkg
+:: Synchronizing package databases...
+ core is up to date
+ extra is up to date
+ community is up to date
+mkarchiso -D arch -p base create work
+mkarchiso : Configuration Settings
+        working directory:   work
+               image name:   none
+====> Creating working directory: work
+====> Installing packages to 'work/root-image/'
+Cleaning up what we can
+mkarchiso -D arch -p "aif aufs2 aufs2-util b43-fwcutter btrfs-progs-unstable crda curl ddrescue dhclient dialog dmraid dnsutils dosfstools elinks gnu-netcat gparted hdparm inetutils ipw2100-fw ipw2200-fw lftp lilo memtest86+ ndiswrapper ndiswrapper-utils netcfg nfs-utils nilfs-utils nmap ntfs-3g ntfsprogs ntp openssh openvpn parted pptpclient rsync speedtouch squashfs-tools syslinux tcpdump tiacx tiacx-firmware vim wireless_tools wpa_actiond wpa_supplicant xorg zd1211-firmware" create work
+mkarchiso : Configuration Settings
+        working directory:   work
+               image name:   none
+====> Creating working directory: work
+====> Installing packages to 'work/root-image/'
+
+# comment
+# at the point when additionaly packages are being downloaded and install should be clear to see above
+# and it seems to do this silently with no indication whether it is downloading anything

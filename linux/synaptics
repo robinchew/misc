@@ -50,6 +50,7 @@ Section "InputDevice"
 
   Option    "ClickTime"     "0"
   Option      "FastTaps" "1"
+  Option    "TapButton1" "1"
   Option    "TapButton2" "3" #two-finger right-click tap
   Option    "TapButton3" "2" #three-finger right-click tap
   Option    "SHMConfig"     "on"

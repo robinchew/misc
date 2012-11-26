@@ -1,0 +1,1 @@
+zip -r archive.zip file1 folder1 file2

@@ -92,6 +92,13 @@ VBoxManage modifyvm newvm --memory 256 --nic1 bridged --bridgeadapter1 eth0 --bo
 VBoxManage storagectl spielwiese --name "IDE Controller" --add ide
 VBoxManage storageattach spielwiese --storagectl "IDE Controller" --port 0 --device 0 --type hdd --medium /media/hdd/VMs/spielwiese/spielwiese.vdi
 
+###########################
+# RESIZE VDI              #
+# 1000 represents ~1000mb #
+###########################
+
+VBoxManage modifyhd VirtualBox\ VMs/dev/treeio.vdi --resize 1000
+
 # ATTACH CD/DVD
 VBoxManage storageattach spielwiese --storagectl "IDE Controller" --port 1 --device 0 --type dvddrive --medium ~/win.iso 
 # --medium needs absolute path 

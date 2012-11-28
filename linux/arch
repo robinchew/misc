@@ -134,3 +134,16 @@ mkarchiso : Configuration Settings
 # comment
 # at the point when additionaly packages are being downloaded and install should be clear to see above
 # and it seems to do this silently with no indication whether it is downloading anything
+
+###################
+# TROUBLESHOOTING #
+###################
+
+# Problem:
+[mkarchiso] INFO: Mounting 'play/root-image.fs' on 'play/mnt/root-image'
+mount: you must specify the filesystem type
+
+# Solution
+Make sure mknod /dev/loop0 b 7 0 runs first
+and NOT getting /home/robin/iso/live5/root/archiso-git/src/archiso/configs/baseline/work/root-image.fs (deleted) on /home/robin/iso/live5/root/archiso-git/src/archiso/configs/baseline/work/mnt/root-image type ext4 (rw,relatime,user_xattr,barrier=1)
+Note the (deleted)

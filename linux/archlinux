@@ -5,6 +5,9 @@
 
 install: syslinux
 
+# Wifi
+install: dialog wpa_supplicant
+
 # maybe you don't need to run below 
 mkinitcpio -p linux
 

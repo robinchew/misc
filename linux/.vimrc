@@ -20,3 +20,10 @@ au Syntax python source ~/.vim/syntax/mine.vim
 hi Search ctermfg=White
 set list
 set listchars=tab:▸\ ,
+
+"Jump n lines and down the page without moving the cursor 
+nnoremap <PageUp> 10<C-y>
+nnoremap <PageDown> 10<C-e>
+
+" Explain map, remap, noremap, nnoremap
+" http://stackoverflow.com/questions/3776117/vim-what-is-the-difference-between-the-remap-noremap-nnoremap-and-vnoremap-ma

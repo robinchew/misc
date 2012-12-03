@@ -12,6 +12,8 @@ install: dialog wpa_supplicant
 mkinitcpio -p linux
 
 # Boot flag
+sfdisk -A1 /dev/sda # make partition 1 of sda bootable
+# OR use fdisk which is more manual
 fdisk /dev/sda 
 
 # GRUB

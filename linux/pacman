@@ -9,6 +9,15 @@ Errors occurred, no packages were upgraded.
 
 sudo pacman-key --init
 
+init can take forever if you do it through SSH or Virtualmachine because it needs mouse movement to create entropy,
+so:
+
+    pacman -S haveged
+    haveget -w 1024
+    pacman-key --init
+    pkill haveged
+    pacman -Rs haveged
+
 
 if you still see:
 

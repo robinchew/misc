@@ -190,3 +190,14 @@ or: ptop
 psql -d autoritel -c "alter table cars_car rename column product_id to product_ptr_id;"
 #below is possibly wrong
 psql -C alter table cars_car rename column product_id to product_ptr_id;
+
+# UPGRADE POSTGRESQL
+
+sudo pacman -S --needed postgresql-old-upgrade
+
+# Do the following commands as user 'postgres'
+sudo su postgres
+mv /var/lib/postgres/data /var/lib/postgres/data-9.1
+mkdir /var/lib/postgres/data
+initdb -D /var/lib/postgres/data
+pg_upgrade -b /opt/pgsql-9.1/bin/ -B /usr/bin/ -d /var/lib/postgres/data-9.1 -D /var/lib/postgres/data

@@ -1,2 +1,24 @@
+sudo cp /usr/lib/systemd/system/transmission.service /etc/systemd/system/
+sudo vim /etc/systemd/system/transmission.service
+[Service]
+User=robin
+
+sudo cp /usr/lib/tmpfiles.d/transmission.conf /etc/tmpfiles.d/
+sudo sh -c "cat > /etc/tmpfiles.d/transmission.conf << EOF
+d /run/transmission - robin4 transmission -
+EOF"
+
+systemctl daemon-reload
+
+# Start and stop so that ~/.config/transmissio-daemon/ gets created
+systemctl start transmission
+systemctl stop transmission
+
+# vim /home/robin/.config
+"rpc-whitelist-enabled": false
+"download-dir": "/srv/share"
+
+systemctl start transmission
+
 # Example script to loop and see download status in near real-time
 while [ true ];do echo -ne "`transmission-remote -n transmission:transmission -t 1 -l|grep Good`";echo -ne '\033[0K\r';sleep 3; done

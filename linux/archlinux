@@ -1,27 +1,138 @@
-
 #############
-# IN CHROOT #
+# PARTITION #
 #############
 
-install: syslinux
+# Create separate small partition for /boot
+# to avoid bios limitation, which gives following
+# grub error on boot:
+
+error: attempt to read or write outside of disk 'hd0'
+
+# http://forums.opensuse.org/english/get-technical-help-here/pre-release-beta/476780-boot-failure-mkinitrd-does-not-understand-dev-sdx-has-become-dev-sde-2.html
+
+
+
+# Partition with fdisk
+# Create 100M for /boot in partition 1
+# Create large space for / in partition 2
+# Create the remaining space for swap
+fdisk /dev/sdx
+
+# make partition 1 of sdx bootable
+sfdisk -A1 /dev/sdx # 
+
+# Format /boot
+mkfs.ext2 /dev/sdx1
+
+# Format / 
+mkfs.ext4 /dev/sdx2
+
+# SHRINK FS
+# to 10G as example 
+resize2fs /dev/sdx2 10G
+
+# SHRINK PARTITION
+# delete parition and re-add partition 
+# which is 10G or more,
+# more is safest, so lets resize to 12G
+fdisk
+
+# Run resizefs again but without size argument
+# to make sure the FS takes up the whole 12G
+resize2fs /dev/sdx2
+
+#######################
+# INSTALL BASE SYSTEM #
+#######################
+
+# Scripts will contain pacstracp, arch-chroot , genfstab, etc.
+# requires make and m4 at least
+git clone https://github.com/falconindy/arch-install-scripts.git
+cd arch-install-scripts
+make
+make install
+
+mkdir /mnt/boot
+mount /dev/sdx2 /mnt
+mount /dev/sdx1 /mnt/boot
+pacstrap /mnt base base-devel
+
+# Check if mkinitcpio initializes on pacstrap completion.
+# f it does, try to skip the mkinitcpio step below
+# and see if it works
+
+#########
+# FSTAB #
+#########
+
+# -p = do not print pseudofs mounts
+
+genfstab -p /mnt >> /mnt/etc/fstab
+
+# You can edit /etc/fstab manually
+# You can use disk UUID and can be
+# determined with:
+
+sudo blkid
+
+
+# Run command outside of chroot 
+arch-chroot /mnt pacman -S grub-bios
+
+# ENTER CHROOT...
+arch-chroot /mnt
+
+################
+# SETUP PACMAN #
+################
+
+# vim /etc/pacman.conf
+SigLevel = Optional TrustAll
+
+# Uncomment mirrors in /etc/pacman.d/mirrolist
+
+# You may still need to run
+pacman-key --init
+# Even though it will fail
+# or else pacman will still compalin about
+# unkown keys when install packages
+
+# If packages still gives 'signature from ___ is invalid' errors, 
+# delete those packages:
+rm /var/cache/pacman/pkg/___tar.xz
+
+# Not sure what syslinux is for, didn't need it
 
 # Wifi
-install: dialog wpa_supplicant
+pacman -S dialog wpa_supplicant
 
 # maybe you don't need to run below 
-mkinitcpio -p linux
+# mkinitcpio -p linux
 
 # Boot flag
-sfdisk -A1 /dev/sda # make partition 1 of sda bootable
-# OR use fdisk which is more manual
-fdisk /dev/sda 
+sfdisk -A1 /dev/sdx # make partition 1 of sdx bootable if not done during partition already
 
 # GRUB
-# Apparently you need to 'modprobe dm-mod' first. Not sure.
+# Apparently you need to 'modprobe dm-mod' first but you can't do it within chroot.
+# Not sure if you need it
 # Maybe remove /boot/grub first
-grub-install --target=i386-pc --recheck --debug /dev/sda
+pacman -S grub-bios
+grub-install --target=i386-pc --recheck --debug /dev/sdx
 grub-mkconfig -o /boot/grub/grub.cfg
 
+#############################
+# ARCHLINUX IS NOW BOOTABLE #
+#############################
+
+# Add sudo user
+pacman -S sudo
+usermod -m robin
+passwd robin
+groupadd admin
+usermod -a -G admin robin
+
+# edit /etc/sudoers
+%admin ALL=(ALL) ALL
 
 # Networking
 dhcpcd eth0

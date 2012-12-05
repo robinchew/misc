@@ -6,14 +6,14 @@ error: key "771DF6627EDF681F" could not be looked up remotely
 error: failed to commit transaction (invalid or corrupted package (PGP signature))
 Errors occurred, no packages were upgraded.
 
-
 sudo pacman-key --init
+pacman-key --populate archlinux
 
 init can take forever if you do it through SSH or Virtualmachine because it needs mouse movement to create entropy,
 so:
 
     pacman -S haveged
-    haveget -w 1024
+    haveged -w 1024
     pacman-key --init
     pkill haveged
     pacman -Rs haveged

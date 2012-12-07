@@ -134,7 +134,19 @@ usermod -a -G admin robin
 # edit /etc/sudoers
 %admin ALL=(ALL) ALL
 
-# Networking
+####################
+# LOCALE           #
+# so unicode shows #
+####################
+
+sed -i 's/^#en_AU/en_AU/g' /etc/locale.gen
+echo "LANG=en_AU.UTF-8" > /etc/locale.conf
+locale-gen
+
+##############
+# NETWORKING #
+##############
+
 dhcpcd eth0
 
 OR 

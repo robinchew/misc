@@ -1,3 +1,54 @@
+Arch Linux
+==========
+
+useradd -m redmine2
+passwd
+su redmine2
+cd
+
+svn co http://svn.redmine.org/redmine/branches/2.2-stable/ redmine-2.2
+
+# These packages are needed for bundle installation
+pacman -Syu --needed sudo git wget curl checkinstall libxml2 libxslt base-devel mysql++ zlib icu redis openssh python2 python2-pygments python2-pip libyaml ruby subversion imagemagick
+
+pacman -S passenger ruby-rack
+
+ruby-bundler https://aur.archlinux.org/packages/ruby-bundler/
+
+
+# vim .bashrc
+export PATH=/home/redmine2/.gem/ruby/1.9.1/bin:$PATH
+
+# Temporarily give sudo access to redmine2
+cd redmine-2.2
+bundle install
+
+# Remove sudo access and password
+
+# Setup configuration based on example files
+config/database.yml
+config/configuration
+
+RAILS_ENV=production rake db:migrate 
+RAILS_ENV=production rake redmine:load_default_data
+
+Setup email
+/config/configuration.yml::
+
+    default:
+      email_delivery:
+        delivery_method: :smtp
+        smtp_settings:
+          address: smtp.example.net
+          port: 25
+          domain: example.net
+          authentication: :login
+          user_name: "redmine@example.net"
+          password: "redmine"
+
+Debian
+======
+
 sudo aptitude install ruby rubygems subversion ruby-pkg-tools ruby1.8-dev build-essential
 
 rubygems maybe be too old, so do:

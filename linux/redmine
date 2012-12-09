@@ -46,6 +46,13 @@ Setup email
           user_name: "redmine@example.net"
           password: "redmine"
 
+Log email
+---------
+
+Comment out the following line in config/environments/production.rb::
+
+    # config.action_mailer.logger = nil
+
 Debian
 ======
 

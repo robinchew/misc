@@ -53,6 +53,29 @@ Comment out the following line in config/environments/production.rb::
 
     # config.action_mailer.logger = nil
 
+From: Email Header
+------------------
+
+See **emission-email.png** in folder of this file.
+
+Change Administration > Settings > Email Notification > Emission email address::
+    
+    OBSI Redmine <redmine@obsi.com.au>
+
+However, if config/configuration.yml contains::
+
+    default:
+      email_delivery:
+        delivery_method: :smtp
+        smtp_settings:
+          ...
+          user_name: "mailer@obsi.com.au"
+          ...
+
+Then the 'From:' header will replace 'redmine@obsi.com.au' with 'mailer@obsi.com.au' resulting with::
+
+    OBSI Redmine <mailer@obsi.com.au>
+
 Debian
 ======
 

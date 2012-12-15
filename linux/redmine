@@ -152,62 +152,90 @@ ServerSignature On
 
 
 SUBMITING ISSUES BY EMAIL
+=========================
+
+MX Server
+---------
+
+You must set the MX server at wherever your DNS is hosted. For example, in Webfaction, assuming you have created a domain called, 'team.obsi.com.au', you have to go to that domain, and set Email as:
+
+- External
+- Priority: 1
+- Mail Server: team.obsi.com.au
+
+See attached screenshot it this file's folder named, **redmine-mx-server.png**
+
+Postfix
+-------
+
 log in as admin
 go to admin > settings > incoming email
 enable WS email and generate and copy key 
 install postfix
 
-# /etc/aliases
-root:   robin
-issue:  "|/var/www/redmine/extra/mail_handler/rdm-mailhandler.rb --url http://redmine.empiriamedia.com --key G93FmPu3SGVKjBPwuCXi --project autoritel"
+Mail handler needs to be root executable because postfix daemon only runs as root::
 
-# /etc/postfix/main.cf
-alias_maps = hash:/etc/aliases # to forward local email to user
-inet_interfaces = all # for remote access
-virtual_alias_domains = redmine.empiriamedia.com # to forward remote email
-virtual_alias_maps = hash:/etc/postfix/virtual # to forward remote email
-transport_maps = hash:/etc/postfix/transport # explained in Redmine Receiving Emails 
+    chmod 755 /srv/http/redmine-2.2/extra/mail_handler/rdm-mailhandler.rb
 
-# /etc/postfix/virtual
-issue@redmine.empiriamedia.com issue
+/etc/postfix/aliases::
 
-# /etc/postfix/transport
-issue@redmine.empiriamedia.com local:
+    issue:  "|/srv/http/redmine-2.2/extra/mail_handler/rdm-mailhandler.rb --url http://team.obsi.com.au --key G93FmPu3SGVKjBPwuCXi --project bookings"
 
-# REMEMBER TO DO THE FOLLOWING !!
-# as root
+/etc/postfix/main.cf::
 
-newaliases # updates /etc/aliases
-postmap virtual # convert to a readable format for postfix
-postmap transport # convert to a readable format for postfix
+    alias_maps = hash:/etc/aliases # to forward local email to user
+    inet_interfaces = all # for remote access
+    virtual_alias_domains = team.obsi.com.au # to forward remote email
+    virtual_alias_maps = hash:/etc/postfix/virtual # to forward remote email
+    transport_maps = hash:/etc/postfix/transport # explained in Redmine Receiving Emails 
 
-sudo /etc/init.d/postfix restart
+/etc/postfix/virtual::
 
+    issue@team.obsi.com.au issue
 
-# virtual.db and transport.db will be created and make sure they are inside /etc/postfix/
+/etc/postfix/transport::
+
+    issue@team.obsi.com.au local:
+
+REMEMBER TO DO THE FOLLOWING!!
+------------------------------
+
+::
+
+    sudo newaliases # updates aliases specified in 'alias_maps'
+    sudo postmap /etc/postfix/virtual # convert to a postfix readable format in /etc/postfix/virtual.db
+    sudo postmap /etc/postfix/transport # convert to a postfix readable format in /etc/postfix/transport.db
+
+    sudo /etc/init.d/postfix restart
 
 TROUBLESHOOTING
-If getting Mail Return errors with errors such as:
+---------------
+
+Go to /var/www/redmine/config/environments/production.rb and comment out::
+
+    #config.action_mailer.logger = nil
+
+Test mail handler is working::
+
+    echo 'message body'|mail -s 'Subject' user@mail.com|/srv/http/redmine-2.2/extra/mail_handler/rdm-mailhandler.rb --url http://team.obsi.com.au --key xxxxxxxxx --project bookings
+
+If getting Mail Return errors with errors such as::
     
     permission denied. Command
     output: Request was denied by your Redmine server. Possible reasons: email
     is sent from an invalid email address or is missing some information.
 
-Go to /var/www/redmine/config/environments/production.rb
-Comment out:
-#config.action_mailer.logger = nil
-
 And check logs at /var/www/redmine/log/production.log
-You might come across a block of information such as:
+You might come across a block of information such as::
 
     Message-ID: <BANLkTimGDaGc86q4h4Cm=+ThKAU+HYpN7Q@mail.gmail.com>
     Subject: issee
     From: Robin Chew <robinchew@gmail.com>
-    To: autoritel-issue@redmine.empiriamedia.com
+    To: issue@team.obsi.com.au
     Content-Type: text/plain; charset=ISO-8859-1
 
     Validation failed: Browser can't be blank
-    Completed in 281ms (View: 0, DB: 45) | 422 Unprocessable Entity [http://redmine.empiriamedia.com/mail_handler]
+    Completed in 281ms (View: 0, DB: 45) | 422 Unprocessable Entity [http://team.obsi.com.au/mail_handler]
 
 Which tells you that the Mail Return error is caused by the Browser field being required but the mail body does not include.
 Solution was to make Browser field not required, or has a default value already set.

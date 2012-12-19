@@ -17,3 +17,8 @@ sudo ntpdate asia.pool.ntp.org
 
 # FORMAT TODAY'S DATE
 date +%Y%m%d
+
+# Date not remembered after reboot
+# so do the following AFTER ntpd has been syncd
+sudo hwclock --systohc --utc
+https://bbs.archlinux.org/viewtopic.php?id=144895

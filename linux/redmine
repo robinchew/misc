@@ -206,7 +206,11 @@ REMEMBER TO DO THE FOLLOWING!!
     sudo postmap /etc/postfix/virtual # convert to a postfix readable format in /etc/postfix/virtual.db
     sudo postmap /etc/postfix/transport # convert to a postfix readable format in /etc/postfix/transport.db
 
-    sudo /etc/init.d/postfix restart
+    sudo systemctl restart postfix
+
+OR::
+
+    sudo sh -c "newaliases;postmap virtual;postmap transport;systemctl restart postfix"
 
 TROUBLESHOOTING
 ---------------

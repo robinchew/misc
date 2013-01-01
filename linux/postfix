@@ -35,7 +35,7 @@ ehlo localhost
 mail from: root@localhost
 rcpt to: robin@localhost
 data
-Subjet: My first mail on Postfix
+Subject: My first mail on Postfix
 Hi,
 Are you there?
 regards,

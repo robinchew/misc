@@ -14,7 +14,7 @@ systemctl daemon-reload
 systemctl start transmission
 systemctl stop transmission
 
-# vim /home/robin/.config
+# vim /home/robin/.config/transmission-daemon/settings.json
 "rpc-whitelist-enabled": false
 "download-dir": "/srv/share"
 

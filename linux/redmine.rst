@@ -203,6 +203,26 @@ Mail handler needs to be root executable because postfix daemon only runs as roo
 
     issue@team.obsi.com.au local:
 
+Issue Attributes
+----------------
+
+When you mail a content with::
+    
+    This is the body text. Imagine this is the body that you send by email, including the text below, which are issue attributes.
+    
+    Tracker: Support
+    Status: Resolved
+    Priority: Low
+    Project: obsi
+
+then only Status will take effect by default. To get the other attributes working, you need to add the --allow-override argument to rdm-mailhandler.rb::
+
+    rdm-mailhandler.rb --url http://team.obsi.com.au --key G93FmPu3SGVKjBPwuCXi --project bookings --allow-override project,tracker,category,priority,status
+
+Remember to **restart postfix daemon** after you add the above change to /etc/postfix/aliases
+
+Refer to `issue attributes`_
+
 REMEMBER TO DO THE FOLLOWING!!
 ------------------------------
 
@@ -257,3 +277,4 @@ REFERENCES
 
 .. _postfix: https://help.ubuntu.com/community/PostfixBasicSetupHowto
 .. _redmine: http://www.redmine.org/projects/redmine/wiki/RedmineReceivingEmails
+.. _issue attributes: http://www.redmine.org/projects/redmine/wiki/RedmineReceivingEmails#Issue-attributes

@@ -1,3 +1,8 @@
+Main Goal
+=========
+
+To create and update issues using Redmine_ and Postfix_.
+
 Arch Linux
 ==========
 
@@ -172,6 +177,7 @@ log in as admin
 go to admin > settings > incoming email
 enable WS email and generate and copy key 
 install postfix
+enable postfix daemon
 
 Mail handler needs to be root executable because postfix daemon only runs as root::
 
@@ -244,6 +250,10 @@ You might come across a block of information such as::
 Which tells you that the Mail Return error is caused by the Browser field being required but the mail body does not include.
 Solution was to make Browser field not required, or has a default value already set.
 
-REFERENCE
-https://help.ubuntu.com/community/PostfixBasicSetupHowto
-http://www.redmine.org/projects/redmine/wiki/RedmineReceivingEmails
+REFERENCES
+----------
+
+.. target-notes::
+
+.. _postfix: https://help.ubuntu.com/community/PostfixBasicSetupHowto
+.. _redmine: http://www.redmine.org/projects/redmine/wiki/RedmineReceivingEmails

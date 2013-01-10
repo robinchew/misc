@@ -214,14 +214,29 @@ When you mail a content with::
     Status: Resolved
     Priority: Low
     Project: obsi
+    Assigned to: robin
 
-then only Status will take effect by default. To get the other attributes working, you need to add the --allow-override argument to rdm-mailhandler.rb::
+then only 'Status' and 'Assigned to' will take effect by default. To get the other attributes working, you need to add the --allow-override argument to rdm-mailhandler.rb::
 
-    rdm-mailhandler.rb --url http://team.obsi.com.au --key G93FmPu3SGVKjBPwuCXi --project bookings --allow-override project,tracker,category,priority,status
+    rdm-mailhandler.rb --url http://team.obsi.com.au --key G93FmPu3SGVKjBPwuCXi --project bookings --allow-override project,tracker,category,priority
 
-Remember to **restart postfix daemon** after you add the above change to /etc/postfix/aliases
+Other attributes include, however not all has been tested:: 
+
+    project, tracker, status, priority, category, assigned to, fixed version (aka. Target version), start date, due date, estimated hours, done ratio.
+
+Attributes can be written as the following with no problems::
+     
+     assigned to:robin
+     Assigned To: robin
+
+However 'robin' will have to be **exact** in its lowercase and uppercase::
+    
+    priority:Low // Correct
+    priority:low // Wrong!
 
 Refer to `issue attributes`_
+
+Read REMEMBER TO DO THE FOLLOWING
 
 REMEMBER TO DO THE FOLLOWING!!
 ------------------------------
@@ -236,7 +251,7 @@ REMEMBER TO DO THE FOLLOWING!!
 
 OR::
 
-    sudo sh -c "newaliases;postmap virtual;postmap transport;systemctl restart postfix"
+    sudo sh -c "cd /etc/postfix;newaliases;postmap virtual;postmap transport;systemctl restart postfix"
 
 TROUBLESHOOTING
 ---------------

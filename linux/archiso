@@ -1,40 +1,41 @@
-# GET LATEST ARCHISO FROM GIT
-# Use config found in 
-archiso/configs/syslinux-iso/ 
-# which contains
-boot-files
-download-repo.sh
-instructions
-isomounts
-Makefile
-mkinitcpio.conf
-overlay
-packages.i686
-packages.x86_64
-# replace the above files with files from
-# the BASE PROFILE found in
-https://wiki.archlinux.org/index.php/Talk:Archiso#baseline_profile_.28for_current_archiso.git_.5B20101218.5D.29
-# but does it actually work? 
-# maybe just need a clean environment
-# I DON'T THINK THE BASE PROFILE IS NECESSARY !!!!
+https://wiki.archlinux.org/index.php/Archiso
 
-############################
-# create clean environment #
-# for building isos        #
-############################
+# START
 
-pacman -S devtools --needed
-mkarchroot /tmp/somedir base
-mkarchroot -r bash /tmp/somedir
+pacman -S archiso
+mkarchiso init
 
-######################################
-# from now onwards, WE ARE IN CHROOT #
-######################################
-# get latest ARCHISO-GIT AGAIN
-# and maybe put in /root/
-makepkg -s
-pacman -U arch*.pkg.tar.xz
-pacman -S make
+# INSTALL PACKAGES
+# check pacman is not locked 
+# and if mkarchiso -p refuses to run
+# then check that the packages are working
+# by using: pacman -S
+
+rm work/var/lib/pacman/db.lck
+mkarchiso -p "
+alsa-utils
+e2fsprogs
+openssh
+sudo
+git
+patch
+fuse
+mplayer
+sshfs
+xorg
+xorg-xinit
+xterm
+wicd
+wicd-gtk
+blackbox
+chromium
+flashplugin
+vim
+xfce4-terminal" install
+
+# ENTER CHROOT
+
+mkarchiso -r "bash" run
 
 ###################
 # mkinitcpio.conf #

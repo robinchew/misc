@@ -1,0 +1,6 @@
+#!/bin/sh
+`dirname $0.`/pngcrush $1 $1.crush
+encode=`dirname $0`/encode.py
+data=`$encode  "$1.crush"`
+echo -n -e $data|xsel -i -b
+rm "$1.crush"

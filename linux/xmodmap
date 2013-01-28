@@ -1,4 +1,12 @@
 xmodmap -e "keycode 108 = Alt_R"
 
-# run below to put above in effect
+# run below to put above in effect, pk = print keymap table, e = execute
 xmodmap -pke
+
+# Right-handed mouse
+# Spacing is important
+xmodmap -e "pointer = 1 2 3"
+
+# Left-handed mouse
+# Spacing is important
+xmodmap -e "pointer = 3 2 1"

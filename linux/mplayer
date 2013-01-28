@@ -2,6 +2,14 @@ http://www.mplayerhq.hu/DOCS/HTML/en/control.html
 mplayer -input keylist
 mplayer -input cmdlist
 
+cat > ~/.mplayer/input.conf << EOF
+LEFT seek -3
+RIGHT seek 3
+PGUP seek -60
+PGDWN seek 60
+UP volume 1
+DOWN volume -1
+EOF
 
 #other
 mplayer -dumpstream file

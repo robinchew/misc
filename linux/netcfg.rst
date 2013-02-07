@@ -31,3 +31,10 @@ Connect on ethernet detection
 sed -i 's/^WIRE_INTERFACE.*/WIRE_INTERFACE="eth0"/' /etc/conf.d/netcfg
 sudo pacman -S ifplugd
 sudo systemctl enable net-auto-wired
+
+Troubleshoot
+============
+
+Perhaps dhcpcd must be off::
+    
+    sudo systemctl stop dhcpcd;systemctl disable dhcpcd;

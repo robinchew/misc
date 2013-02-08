@@ -41,7 +41,16 @@ https://wiki.archlinux.org/index.php/LAMP#SSL
 # ALTERNATE #
 #############
 
+.csr and .cer are the same
+.key and .pem are the same
+
 openssl genrsa -out privatekey.pem 1024
-openssl req -new x509 -key privatekey.pem -out publickey.cer -days 365
+openssl req -new -x509 -key privatekey.pem -out publickey.cer -days 365
 
 http://blog.xero.com/developer/api-overview/creating-a-publicprivate-key-pair/
+
+##################################
+# MULTIPLE SSL DOMAINS WITH 1 IP #
+##################################
+
+http://serverfault.com/questions/109800/multiple-ssl-domains-on-the-same-ip-address-and-same-port

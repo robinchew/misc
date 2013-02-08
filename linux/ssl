@@ -49,6 +49,20 @@ openssl req -new -x509 -key privatekey.pem -out publickey.cer -days 365
 
 http://blog.xero.com/developer/api-overview/creating-a-publicprivate-key-pair/
 
+##########
+# APACHE #
+##########
+
+The following shoud be the bare minimum configuration for SSL to work.
+
+Listen 443
+<VirtualHost 123.123.123.123:443>
+    ...
+    SSLEngine on
+    SSLCertificateFile "/srv/http/web/server.cer"
+    SSLCertificateKeyFile "/srv/http/web/server.pem"
+</VirtualHost>
+
 ##################################
 # MULTIPLE SSL DOMAINS WITH 1 IP #
 ##################################

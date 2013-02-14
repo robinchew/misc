@@ -3,7 +3,7 @@ https://wiki.archlinux.org/index.php/Archiso
 # START
 
 pacman -S archiso
-mkarchiso init
+sudo mkarchiso -v init
 
 # INSTALL PACKAGES
 # check pacman is not locked 
@@ -12,8 +12,10 @@ mkarchiso init
 # by using: pacman -S
 
 rm work/var/lib/pacman/db.lck
-mkarchiso -p "
+mkarchiso -v -p "
 alsa-utils
+archiso
+awesome
 e2fsprogs
 openssh
 sudo
@@ -31,23 +33,83 @@ blackbox
 chromium
 flashplugin
 vim
+python2
 xfce4-terminal" install
 
-# ENTER CHROOT
+# Initcpio files
+# this step may not be necessary
+# if archiso is installed
 
-mkarchiso -r "bash" run
+sudo sh -c 'ls -d work && cp /usr/lib/initcpio/hooks/archiso work/root-image/usr/lib/initcpio/hooks && cp /usr/lib/initcpio/install/archiso work/root-image/usr/lib/initcpio/install
+
+sudo mkarchiso -r 'cat > /etc/mkinitcpio-archiso.conf << EOF
+HOOKS="base udev archiso pata scsi sata usb fw filesystems usbinput"
+COMPRESSION="xz"
+EOF
+mkdir /boot/i686
+mkinitcpio -c /etc/mkinitcpio-archiso.conf -k /boot/vmlinuz-linux -g /boot/i686/archiso.img
+' run
+
+# Syslinux, isolinux, aitab
+
+sudo sh -c '
+# syslinux
+mkdir -p work/iso/arch/boot/syslinux
+cat > work/iso/arch/boot/syslinux/syslinux.cfg << EOF
+DEFAULT menu.c32
+PROMPT 0
+MENU TITLE Arch Linux
+TIMEOUT 300
+
+LABEL arch
+MENU LABEL Arch Linux
+LINUX /arch/boot/i686/vmlinuz
+INITRD /arch/boot/i686/archiso.img
+APPEND archisolabel=MY_ARCH
+
+ONTIMEOUT arch
+EOF
+# isolinux
+mkdir -p work/iso/isolinux
+cp work/root-image/usr/lib/syslinux/isolinux.bin work/iso/isolinux/
+cp work/root-image/usr/lib/syslinux/isohdpfx.bin work/iso/isolinux/
+cat > work/iso/isolinux/isolinux.cfg << EOF
+DEFAULT loadconfig
+
+LABEL loadconfig
+    CONFIG /arch/boot/syslinux/syslinux.cfg
+    APPEND /arch/boot/syslinux/
+EOF
+# aitab
+cat > work/iso/arch/aitab << EOF
+# <img>         <mnt>                 <arch>   <sfs_comp>  <fs_type>  <fs_size>
+root-image      /                     i686     xz          ext4       50%
+EOF
+'
+
+# ENTER CHROOT
+# For further configuration
+
+sudo mkarchiso -r "bash" run
+
+# Use git to track configuration changes
+cd /
+git config --global user.email "me@robin.com.au"
+git config --global user.name "Robin" 
+git init
+git add /etc
+git commit -m 'First'
 
 ###################
 # mkinitcpio.conf #
 ###################
 
-$ vim mkinitcpio.conf
+sed -i 's/HOOKS="base udev autodetect modconf block filesystems usbinput fsck"/HOOKS="base udev archiso pata scsi sata usb fw pcmcia filesystems usbinput"/' /etc/mkinitcpio.conf
 # Make sure COMPRESSION is "gzip"
 # so you won't get errors like:
 # ERROR: modinfo: could not open work/root-image/lib/modules/2.6.37-ARCH/kernel/drivers/cdrom/cdrom.ko.gz: Exec format error
 # actually maybe this doesn't work
 
-HOOKS="base udev archiso pata scsi sata usb fw pcmcia filesystems usbinput"
 #COMPRESSION="lzma"
 COMPRESSION="gzip"
 ##

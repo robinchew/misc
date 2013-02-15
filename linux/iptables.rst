@@ -41,31 +41,49 @@ vim /etc/default/ipconfig::
     :INPUT DROP [0:0]
     :FORWARD DROP [0:0]
     :OUTPUT DROP [0:0]
-    -A INPUT -i lo -j ACCEPT
-    -A INPUT -d 202.78.203.18/32 -p tcp -m tcp --sport 513:65535 --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT  
-    -A INPUT -d 202.78.203.18/32 -p tcp -m tcp --sport 513:65535 --dport 80 -m state --state NEW,ESTABLISHED -j ACCEPT 
-    -A INPUT -d 202.78.203.18/32 -p tcp -m tcp --sport 513:65535 --dport 5432 -m state --state NEW,ESTABLISHED -j ACCEPT 
-    -A INPUT -d 202.78.203.19/32 -p tcp -m tcp --sport 513:65535 --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT 
-    -A INPUT -d 202.78.203.19/32 -p tcp -m tcp --sport 513:65535 --dport 80 -m state --state NEW,ESTABLISHED -j ACCEPT  
-    -A INPUT -d 202.78.203.19/32 -p tcp -m tcp --sport 513:65535 --dport 5432 -m state --state NEW,ESTABLISHED -j ACCEPT 
-    -A INPUT -p tcp -m tcp --sport 53 -j ACCEPT                                    
-    -A INPUT -p udp -m udp --sport 53 -j ACCEPT
-    -A INPUT -p tcp -m tcp --sport 80 -j ACCEPT                                    
-    -A INPUT -p tcp -m tcp --sport 22 -j ACCEPT
-    -A INPUT -j DROP                                                               
-    -A OUTPUT -o lo -j ACCEPT            
-    -A OUTPUT -s 202.78.203.18/32 -p tcp -m tcp --sport 22 --dport 513:65535 -m state --state ESTABLISHED -j ACCEPT 
-    -A OUTPUT -s 202.78.203.18/32 -p tcp -m tcp --sport 80 --dport 513:65535 -m state --state ESTABLISHED -j ACCEPT 
-    -A OUTPUT -s 202.78.203.18/32 -p tcp -m tcp --sport 5432 --dport 513:65535 -m state --state ESTABLISHED -j ACCEPT 
-    -A OUTPUT -s 202.78.203.19/32 -p tcp -m tcp --sport 22 --dport 513:65535 -m state --state ESTABLISHED -j ACCEPT 
-    -A OUTPUT -s 202.78.203.19/32 -p tcp -m tcp --sport 80 --dport 513:65535 -m state --state ESTABLISHED -j ACCEPT
-    -A OUTPUT -s 202.78.203.19/32 -p tcp -m tcp --sport 5432 --dport 513:65535 -m state --state ESTABLISHED -j ACCEPT
-    -A OUTPUT -p tcp -m tcp --dport 53 -j ACCEPT                                   
-    -A OUTPUT -p udp -m udp --dport 53 -j ACCEPT
-    -A OUTPUT -p tcp -m tcp --dport 80 -j ACCEPT                                   
-    -A OUTPUT -p tcp -m tcp --dport 22 -j ACCEPT 
-    -A OUTPUT -j DROP                                                              
-    COMMIT 
+
+    ############################################
+    # Other computers can ssh to this computer #
+    ############################################
+
+    -A INPUT  -p tcp --dport 22 -j ACCEPT
+    -A OUTPUT -p tcp --sport 22 -j ACCEPT
+
+    ############################################
+    # This computer can ssh to other computers #
+    ############################################
+
+    -A INPUT  -p tcp --sport 22 -j ACCEPT
+    -A OUTPUT -p tcp --dport 22 -j ACCEPT
+
+    #######################################################
+    # Other computers can visit this web server's website #
+    #######################################################
+
+    # We do NOT need to open port 53 to other computers 
+    # because they they will be querying the DNS server 
+    # from elsewhere because the DNS server isn't on 
+    # this computer
+    #
+    # -A INPUT  -p udp --dport 53 -j ACCEPT
+    # -A OUTPUT -p udp --sport 53 -j ACCEPT
+
+    -A INPUT  -p tcp --dport 80 -j ACCEPT
+    -A OUTPUT -p tcp --sport 80 -j ACCEPT
+
+    ##########################################
+    # This computer can visit other websites #
+    ##########################################
+
+    -A INPUT  -p udp --sport 53 -j ACCEPT
+    -A OUTPUT -p udp --dport 53 -j ACCEPT
+
+    -A INPUT  -p tcp --sport 80 -j ACCEPT
+    -A OUTPUT -p tcp --dport 80 -j ACCEPT
+
+    -A INPUT  -p tcp --sport 443 -j ACCEPT
+    -A OUTPUT -p tcp --dport 443 -j ACCEPT
+    COMMIT
 
 Save iptables rules
 -------------------

@@ -100,6 +100,17 @@ vim /etc/network/interfaces::
 
 http://www.thegeekstuff.com/2011/06/iptables-rules-examples/
 
+LOG PACKETS
+===========
+
+Example::
+
+    iptables -A OUTPUT -j LOG --log-prefix anything
+
+In Arch Linux, you can see the log with 'dmesg' or 'tail' dmesg by running::
+
+    cat /dev/kmsg
+
 DROP IP TABLE RULE
 ==================
 # 5 represents the line number

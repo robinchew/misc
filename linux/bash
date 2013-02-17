@@ -18,3 +18,19 @@ do
 done
 
 # use getopts for dashed arguments eg, runthis -h boo -v
+
+###############
+# COLOUR BASH #
+###############
+
+# Can be added to ~/.bashrc
+
+red='\[\e[0;31m\]'
+cyan='\[\e[0;36m\]'
+cyanbg='\[\e[46m\]'
+whitebg='\[\e[47m\]'
+yellow='\[\e[0;33m\]'
+blue='\[\e[0;34m\]'
+end='\[\e[0m\]'
+
+PS1="\u$cyan\h$end\n\w$"

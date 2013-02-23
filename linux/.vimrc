@@ -16,7 +16,7 @@ command SSFS syntax sync fromstart
 noremap Q <Esc>
 noremap q <Esc>
 set iskeyword-=_
-au Syntax python source ~/.vim/syntax/mine.vim
+"au Syntax python source ~/.vim/syntax/mine.vim
 hi Search ctermfg=White
 set list
 set listchars=tab:▸\ ,
@@ -27,3 +27,13 @@ nnoremap <PageDown> 10<C-e>
 
 " Explain map, remap, noremap, nnoremap
 " http://stackoverflow.com/questions/3776117/vim-what-is-the-difference-between-the-remap-noremap-nnoremap-and-vnoremap-ma
+
+" For some reason home and end keys are not mapping properly.
+" Home key
+imap <esc>OH <esc>0i
+cmap <esc>OH <home>
+nmap <esc>OH 0
+" End key
+nmap <esc>OF $
+imap <esc>OF <esc>$a
+cmap <esc>OF <end>

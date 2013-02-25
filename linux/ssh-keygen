@@ -1,7 +1,6 @@
 #create from CLIENT computer
 #do not name pubkey other than id_rsa!!!
-ssh-keygen -t dsa
-ssh-keygen -t rsa //recommended
+ssh-keygen
 #put in ~/.ssh
 #CLIENT can just have only the private key OR ELSE CLIENT must have BOTH private and public key
 

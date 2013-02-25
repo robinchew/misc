@@ -118,6 +118,13 @@ DROP IP TABLE RULE
 iptables -L INPUT --line-numbers
 iptables -D INPUT 5
 
+BLOCK URL
+=========
+
+Example::
+
+    sudo iptables -I OUTPUT -p tcp --dport 80 -m string --string "http://localhost:8000/basic" --algo kmp -j DROP
+
 aMule
 =====
 

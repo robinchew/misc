@@ -1,20 +1,39 @@
 
 sudo a2enmod rewrite
 
+#################
+# HTTP to HTTPS #
+#################
 
-#turn all http to https
 RewriteEngine On
 RewriteCond %{SERVER_PORT} !^443$
 RewriteRule ^(.*) https://%{SERVER_NAME}$1 [L,
 
+L = Last
+NC = No Case
 
-#NameVirtualHost *:80 has no VirtualHosts
-#is caused by the asterix
-#shud replace with NameVirtualHost 192.168.1.67:80
-#may cause error like 'data transfer interrupted' when SSL
-#comment everything in in /etc/apache2/sites-enabled/default
-#
-#############
+http://httpd.apache.org/docs/current/rewrite/flags.html
+
+# NameVirtualHost *:80 has no VirtualHosts
+# is caused by the asterix
+# Should replace with NameVirtualHost 192.168.1.67:80
+# May cause error like 'data transfer interrupted' when SSL
+# Comment everything in /etc/apache2/sites-enabled/default
+
 Could not reliably determine the server's fully qualified domain name, using 127.0.1.1 for ServerName
 
 is caused by namevirtualhost??
+
+############
+# HTACCESS #
+############
+
+# Check if .htaccess works
+
+redirect 301 /file http://www.google.com 
+
+# Allow .htaccess file
+
+<Directory>
+AllowOverride All
+</Directory>

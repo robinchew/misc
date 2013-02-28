@@ -1,0 +1,27 @@
+# Example Service
+
+cat > /etc/systemd/system/vdown.service << EOF
+[Unit]
+Description=VDown Celery
+
+[Service]
+Type=simple
+User=http
+Group=http
+
+Environment=PYTHONPATH=${PYTHONPATH}:/srv/http DJANGO_SETTINGS_MODULE=robin.settings_production
+
+ExecStart=/usr/bin/celery -A vdown.tasks worker
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# After creating a service file
+sudo systemd daemon-reload
+
+# List status log of service
+sudo journalctl -f -u vdown
+
+-f = follow
+-u = unit

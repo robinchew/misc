@@ -22,3 +22,8 @@ https://wiki.archlinux.org/index.php/Default_Applications#Changing_a_default_app
 # IF ABOVE DOES NOT WORK, DO BELOW:
 
 xdg-mime default mplayer.desktop video/mp4
+
+# Determine mime type of file
+file --mime-type -b file.png
+
+-b means brief

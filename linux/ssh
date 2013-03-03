@@ -1,2 +1,14 @@
 # set umask on ssh?
 Subsystem sftp /bin/sh -c 'umask 0002; /usr/lib/openssh/sftp-server'
+
+###############
+# sshfs fstab #
+###############
+
+# https://wiki.archlinux.org/index.php/Sshfs
+
+# /etc/fstab
+robin@192.168.0.29:/srv/share /home/robin/share29 fuse.sshfs defaults,_netdev,allow_other,IdentityFile=/home/robin/.ssh/id_rsa 0 0
+
+# _netdev ensures the network is available before trying to mount.
+# allow_other ensures that the mounted sshfs directory is accessible

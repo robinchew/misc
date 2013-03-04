@@ -1,0 +1,17 @@
+#!/bin/sh
+# Comparison operators - http://tldp.org/LDP/abs/html/comparison-ops.html
+# Check argument - http://stackoverflow.com/questions/6482377/bash-shell-script-check-input-argument
+
+if [ $# -eq 0 ];then
+    echo Need argument. eg. 192.168.0
+    exit
+fi
+
+for i in {2..254};do
+    ping -W 0 -c 1 $1.$i |grep '100% packet loss' > /dev/null
+    case $? in
+        0) ;;
+        1) echo got $i;;
+        *) break ;; # catches ctrl+c interrupt
+    esac
+done;

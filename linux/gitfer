@@ -1,0 +1,19 @@
+#!/bin/sh
+
+c=''
+while read f;do
+
+    localpath=`realpath $0`
+    localdir=`dirname $localpath`
+
+    c=$c"cd /httpsdocs/`dirname $f`
+    lcd $localdir/`dirname $f`
+    put `basename $f`
+    "
+done
+
+(ftp -inv playistheway.com.au << EOF
+user playistheway ImBMY0CP#7va
+$c
+EOF
+)|grep -v '200 PORT'|grep -v 'bytes sent'|grep -v '150 Opening'|grep -v ' lcd '

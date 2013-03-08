@@ -24,6 +24,10 @@ $ git remote add origin ssh://myserver.com/var/git/myapp.git
 $ git push origin master
 
 # CONVERT SVN TO GIT REPO
+
+sudo pacman -S perl-term-readkey
+git svn clone https://example.com/svn/project/
+
 cat > authors.txt << EOF
 robin = Robin Chew <robin.chew@empiriamedia.com>
 robinc = Robin Chew <robin.chew@empiriamedia.com>

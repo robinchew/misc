@@ -2,10 +2,6 @@
 vi /etc/mysql/my.cnf
 bind-address=192.168.2.100
 
-# GRANTING PERMISSIONS
-
-grant all on ratemy_Trade.* to robin@localhost;
-
 GRANT
 SELECT,INSERT,UPDATE,DELETE,INDEX,ALTER,CREATE,DROP,RELOAD,SHUTDOWN,PROCESS,
 FILE,
@@ -16,7 +12,6 @@ FILE,
 
 OR
 
-eg. mysql> GRANT ALL ON foo.* TO bar@'202.54.10.20' IDENTIFIED BY 'PASSWORD';
 
 # RESET ROOT
 # stop server then run with 
@@ -35,6 +30,8 @@ create user robin@localhost identified by 'passwordabc'
 GRANT ALL ON db_name.* TO robin@localhost
 # which returns: Query OK, 0 rows affected (0.00 sec)
 # and thats' suppose to mean either success or fail also
+
+GRANT ALL ON foo.* TO bar@'202.54.10.20' IDENTIFIED BY 'PASSWORD';
 
 # update & flush privileges
 # flushing seems to be necessary

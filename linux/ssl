@@ -53,8 +53,8 @@ http://blog.xero.com/developer/api-overview/creating-a-publicprivate-key-pair/
 # Rackspace #
 #############
 
-openssl genrsa -out ~/domain.com.ssl/domain.com.key 2048
-openssl req -new -key ~/domain.com.ssl/domain.com.key -out ~/domain.com.ssl/domain.com.csr
+openssl genrsa -out domain.com.key 2048
+openssl req -new -key domain.com.key -out domain.com.csr
 
 http://www.rackspace.com/knowledge_center/article/generate-a-csr-with-openssl
 

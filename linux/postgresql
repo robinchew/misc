@@ -1,7 +1,12 @@
 #AFTER 1st INSTALL
-       # su - _postgresql
-       $ mkdir /var/postgresql/data
-       $ initdb -D /var/postgresql/data -U postgres -A md5 -W
+sudo mkdir -p /srv/postgres/data
+sudo chown postgres /srv/postgres/data
+sudo -u postgres initdb -D /srv/postgres/data
+
+Change to the following line in /usr/lib/systemd/system/postgresql.service
+
+    Environment=PGROOT=/srv/postgres
+    PIDFile=/srv/postgres/data/postmaster.pid
 
 # Allow LAN connection 
 #edit /etc/postgresql/..../postgresql.conf

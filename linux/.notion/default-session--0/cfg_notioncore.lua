@@ -144,6 +144,8 @@ defbindings("WMPlex.toplevel", {
     bdoc("Run a terminal emulator."),
     kpress(CTRLALT.."t", "ioncore.exec_on(_, XTERM or 'xterm')"),
 
+    bdoc("Run a ALERT terminal emulator."),
+    kpress(CTRLALT.."Shift+t", "ioncore.exec_on(_,'gnome-terminal --window-with-profile=ALERT')"),
 
     bdoc("Run Clipman."),
     kpress(CTRLALT.."v", "ioncore.exec_on(_, 'xfce4-popup-clipman')"),

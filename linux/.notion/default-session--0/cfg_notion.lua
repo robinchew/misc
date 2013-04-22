@@ -21,6 +21,10 @@ CTRLALT="Mod1+Control+"
 --ALTMETA=""
 
 -- Terminal emulator
+-- 'konsole' is shit because it cuts off filenames, see http://i.imgur.com/T8OaalB.png
+-- 'xfce4-terminal' is not good because it does not support profiles
+-- 'gnome-terminal 3.8' is shit because new windows won't remember last path
+-- 'gnome-terminal 3.6' is best so far, but must find alternative because of 3.8
 XTERM="gnome-terminal"
 
 -- Some basic settings

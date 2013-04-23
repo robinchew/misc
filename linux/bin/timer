@@ -1,0 +1,2 @@
+#!/bin/bash
+while true;do echo -en `date`"\033[0K\r";sleep 1;done;

@@ -1,0 +1,15 @@
+Useful Tools
+============
+
+iwconfig wlan0
+
+
+Restart WIFI
+============
+
+ip link set dev wlan0 down
+https://github.com/joukewitteveen/netctl/issues/11#issuecomment-13028593
+
+sudo netctl stop 'wlan0-poopy' # You need the inverted comma to escape the dash
+sudo netctl start 'wlan0-poopy'
+sudo netctl reenable 'wlan0-poopy'

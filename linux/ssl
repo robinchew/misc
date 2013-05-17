@@ -28,6 +28,8 @@ sudo a2enmod ssl
 # set up ssl certificate in ARCHLINUX #
 #######################################
 
+# Below goes from KEY to CSR to CRT
+
 cd /etc/httpd/conf
 openssl genrsa -des3 -out server.key 1024
 openssl req -new -key server.key -out server.csr
@@ -41,8 +43,10 @@ https://wiki.archlinux.org/index.php/LAMP#SSL
 # XERO #
 ########
 
-.csr and .cer are the same
+.crt and .cer are the same
 .key and .pem are the same
+
+# Below goes from KEY to CRT, bypassing CSR 
 
 openssl genrsa -out privatekey.pem 1024
 openssl req -new -x509 -key privatekey.pem -out publickey.cer -days 365
@@ -52,6 +56,10 @@ http://blog.xero.com/developer/api-overview/creating-a-publicprivate-key-pair/
 #############
 # Rackspace #
 #############
+
+# Below goes from KEY to CSR 
+# CSR must be sent to rackspace in order
+# to receive a CRT from them
 
 openssl genrsa -out domain.com.key 2048
 openssl req -new -key domain.com.key -out domain.com.csr

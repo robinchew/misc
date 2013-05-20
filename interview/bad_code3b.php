@@ -5,6 +5,7 @@
         $cache_ladder = $cache->get("ladder-obj-by-competition-" . $competition);
         
         if (!$cache_ladder) {
+        $all = 1;
         $competitionId = $competition;
         $count = 1;
         $arr = Array();

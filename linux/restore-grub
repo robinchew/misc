@@ -1,3 +1,28 @@
+Arch Linux
+----------
+
+mount /dev/sda1 /mnt
+arch-chroot /mnt
+
+# Within chroot
+modprobe dm-mod # Not sure if this step is necessary, worked before without it
+
+grub-install --recheck /dev/sda 
+grub-mkconfig -o /boot/grub/grub.cfg
+
+mkinitcpio -p linux # Not sure if this step is necessary, haven't tried without it
+
+
+Ubuntu
+------
+
+sudo grub-setup -d /media/XXXXX/boot/grub /dev/sda
+
+# source: http://www.hackourlives.com/restore-grub-2-0-after-windows-7-install-ubuntu-10-04-or-9-10/
+
+Grub Legacy
+-----------
+
 sudo grub
 
 find /boot/grub/stage1 #if you dont know if it is hd0 or what
@@ -6,13 +31,3 @@ root (hd0,0)
 setup (hd0)
 
 quit
-
-#!! Watch the SPACES and remember to SUDO
-
-# For NEWER ubuntu version like lucid lynx
-# mount the partition with the ubuntu root install first
-# then:
-
-sudo grub-setup -d /media/XXXXX/boot/grub /dev/sda
-
-# source: http://www.hackourlives.com/restore-grub-2-0-after-windows-7-install-ubuntu-10-04-or-9-10/

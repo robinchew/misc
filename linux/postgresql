@@ -206,3 +206,6 @@ mv /var/lib/postgres/data /var/lib/postgres/data-9.1
 mkdir /var/lib/postgres/data
 initdb -D /var/lib/postgres/data
 pg_upgrade -b /opt/pgsql-9.1/bin/ -B /usr/bin/ -d /var/lib/postgres/data-9.1 -D /var/lib/postgres/data
+
+# Output of select query fits all columns in one screen and wrapped
+\pset format wrapped

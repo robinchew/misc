@@ -1,4 +1,9 @@
 # grid of images
+# t is for thumbnails
+# m is for montage
+
+# Thumbnail is preferred because the thumbnails are clickable to show full image 
+
 feh -t .
 feh -m .
 

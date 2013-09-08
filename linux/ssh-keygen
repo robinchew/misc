@@ -6,6 +6,7 @@ ssh-keygen
 
 #throw id_rsa.pub to SERVER computer in ~/.ssh
 #!!!! MAKE SURE AUTHORIZED_KEYS HAS PERMISSION 600 !!!
+#!!!! MAKE SURE FOLDER OF AUTHORIZED_KEYS HAS PERMISSION 700 !!!
 cat id_rsa.pub >> ~/.ssh/authorized_keys
 
 sudo vi /etc/ssh/sshd_config 

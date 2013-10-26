@@ -28,7 +28,7 @@ mount $2 usb
 [ -d "usb/arch" ] && rm -R usb/arch
 cp -r iso/arch usb/
 uuid=`blkid -o value $2|head -n 1`
-sed -i "s|label=ARCH_.*|device=/dev/disk/by-uuid/$uuid|" usb/arch/boot/syslinux/syslinux.cfg
+sed -i "s|label=MY_ARCH.*|device=/dev/disk/by-uuid/$uuid|" usb/arch/boot/syslinux/syslinux.cfg
 extlinux --install usb/arch/boot/syslinux/
 umount iso
 umount usb

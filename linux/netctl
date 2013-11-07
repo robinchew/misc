@@ -2,7 +2,7 @@ Useful Tools
 ============
 
 iwconfig wlan0
-
+iwlist wlan0 scan
 
 Restart WIFI
 ============
@@ -13,3 +13,21 @@ https://github.com/joukewitteveen/netctl/issues/11#issuecomment-13028593
 sudo netctl stop 'wlan0-poopy' # You need the inverted comma to escape the dash
 sudo netctl start 'wlan0-poopy'
 sudo netctl reenable 'wlan0-poopy'
+
+AD-HOC
+======
+
+For connecting to Wifi-Hotspot on the N9::
+
+    ifconfig wlan0 down;iwconfig wlan0 mode ad-hoc;iwconfig wlan0 essid Nokia_10F9EEF781A7;ifconfig wlan0 up;dhcpcd wlan0
+
+https://bbs.archlinux.org/viewtopic.php?id=66273&p=1
+
+To re-enable usual wifi connection again do the following first::
+    
+    sudo ifconfig wlan0 down
+    sudo systemctl stop dhcpcd
+
+Then re-enable usual profile with::
+
+    sudo netctl start 'wlan0-name'

@@ -80,6 +80,39 @@ Listen 443
     SSLCertificateKeyFile "/srv/http/web/server.pem"
 </VirtualHost>
 
+###################################
+# APACHE SSL WITH NAMEVIRTUALHOST #
+###################################
+
+Because Apache is a fucking piece of shit, you must meet many stict criterias for port 80 and 443 virtualhosts to work together.
+
+- Listen 443
+- <Virtualhost> and NameVirtualHost must be declared with ip AND port number
+- Port 443 virtualhost must be at the top, then namevirtualhost declaration, then port 80 virtualhosts.
+- To avoid duplicate rules, include a common file (eg. robin_vhost.conf), but WSGI rules must NOT be in the common file to avoid multiple WSGI instances running. 
+
+Listen 443
+
+<VirtualHost 192.168.0.29:443>
+    Include /srv/http/robin_vhost.conf
+    WSGIProcessGroup robin.com.au
+    WSGIScriptAlias / /srv/http/robin/django.wsgi
+
+    SSLEngine on
+    SSLCertificateFile /srv/http/robin/local.crt
+    SSLCertificateKeyFile /srv/http/robin/local.key
+</VirtualHost>
+
+NameVirtualHost 192.168.0.29:80
+
+<VirtualHost 192.168.0.29:80>
+    Include /srv/http/robin_vhost.conf
+
+    WSGIDaemonProcess robin.com.au user=http group=http threads=25
+    WSGIProcessGroup robin.com.au
+    WSGIScriptAlias / "/srv/http/robin/django.wsgi"
+</VirtualHost>
+
 ##################################
 # MULTIPLE SSL DOMAINS WITH 1 IP #
 ##################################

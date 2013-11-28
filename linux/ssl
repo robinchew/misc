@@ -44,7 +44,7 @@ https://wiki.archlinux.org/index.php/LAMP#SSL
 ########
 
 .crt and .cer are the same
-.key and .pem are the same
+.pem seems to sometimes mean certificate or private key, not sure
 
 # Below goes from KEY to CRT, bypassing CSR 
 
@@ -65,6 +65,12 @@ openssl genrsa -out domain.com.key 2048
 openssl req -new -key domain.com.key -out domain.com.csr
 
 http://www.rackspace.com/knowledge_center/article/generate-a-csr-with-openssl
+
+#########
+# NGINX #
+#########
+
+Refer to commented examples in nginx.conf and http://www.startssl.com/?app=42
 
 ##########
 # APACHE #

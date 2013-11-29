@@ -4,5 +4,6 @@ cat > ~/.sqliterc << EOF
 EOF
 
 # If you run below in the sqlite console, 
-# the first 2 column will be narrow, the 3rd wil be large
+# the first 2 column will be narrow, the 3rd wil be large.
+# The numbers represent the number of characters.
 .width 10 10 100

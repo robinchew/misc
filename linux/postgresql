@@ -209,3 +209,8 @@ pg_upgrade -b /opt/pgsql-9.1/bin/ -B /usr/bin/ -d /var/lib/postgres/data-9.1 -D 
 
 # Output of select query fits all columns in one screen and wrapped
 \pset format wrapped
+
+# TIMEZONE
+
+db=> show timezone;
+db=> set timezone='Australia/Perth';

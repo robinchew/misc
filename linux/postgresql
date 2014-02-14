@@ -90,6 +90,14 @@ CREATE SEQUENCE car_id_seq
 ALTER TABLE car ALTER COLUMN id SET DEFAULT nextval('car_id_seq');
 SELECT setval('car_id_seq', 72); 
 
+# RESET PRIMARY KEY
+# Find sequence name with:
+\d bill_quote
+# and look for column with modifiers that look like: default nextval('bill_quote_id_seq'::regclass)
+alter sequence bill_quote_id_seq restart with 1;
+
+# CHECK SEQUENCE VALUE
+select nextval('bill_quote_id_seq');
 
 #GROUPS
 17.3. Groups

@@ -23,5 +23,8 @@ sudo systemd daemon-reload
 # List status log of service
 sudo journalctl -f -u vdown
 
+# Follow tail
+sudo journalctl -xn --follow
+
 -f = follow
 -u = unit

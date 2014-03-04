@@ -14,6 +14,27 @@ sudo netctl stop 'wlan0-poopy' # You need the inverted comma to escape the dash
 sudo netctl start 'wlan0-poopy'
 sudo netctl reenable 'wlan0-poopy'
 
+No Network Found
+================
+
+http://askubuntu.com/questions/62166/siocsifflags-operation-not-possible-due-to-rf-kill
+
+If no network is found, check if wifi is blocked::
+
+~$ rfkill list
+
+0: asus-wlan: Wireless LAN
+   Soft blocked: no
+   Hard blocked: no
+1: phy0: Wireless LAN
+   Soft blocked: no
+   Hard blocked: no
+
+Above show that nothing is blocked, but if any is, try::
+
+    sudo rfkill unblock wifi
+
+
 AD-HOC
 ======
 

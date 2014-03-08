@@ -1,0 +1,2 @@
+# Determine default gateway with
+route -n

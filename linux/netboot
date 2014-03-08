@@ -1,3 +1,42 @@
+Follow the Arch Linux docs: https://wiki.archlinux.org/index.php/PXE
+
+# Add following to dnsmasq.conf so that the
+# correct default gateway/route is set.
+# The 3 stands for gateway/router.
+# See code list http://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol#DHCP_options
+dhcp-option-force=3,192.168.0.1
+
+###############
+# BOOT DEBIAN #
+###############
+
+Following the Arch Linux docs is still relevant, the only differences are:
+
+- dhcp-boot is different in dnsmasq.conf
+- content of /mnt/archiso is different
+
+# /etc/dnsmasq.conf
+port=0
+interface=eth0
+bind-interfaces
+dhcp-range=192.168.0.50,192.168.0.150,12h
+dhcp-boot=/pxelinux.0
+enable-tftp
+tftp-root=/mnt/archiso
+
+# Untar netboot files to /mnt/archiso
+Go to:
+
+    http://ftp.nl.debian.org/debian/dists/wheezy/main/installer-i386/current/images/netboot/
+
+Download netboot.tar.gz, IGNORE mini.iso and pxelinux.0.
+
+    tar xf netboot.tar.gz /mnt/archiso
+
+###########################
+# EVERYTHING BELOW IS OLD #
+###########################
+
 http://blog.tuxcoder.com/2008/06/configure-tftp-server-in-ubuntu.html
 https://help.ubuntu.com/community/Installation/LocalNet
 http://www.techienote.com/2010/06/pxe-booting-lucid-lynx-ubuntu-10-04.html

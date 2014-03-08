@@ -1,0 +1,16 @@
+If the N9's power button is broken and battery is drained, you have to boot via USB and commandline.
+
+Run the following, -R stands for reboot:
+
+    flasher -R
+
+You will see:
+
+    Suitable USB interface (bootloader/phonet) not found, waiting...
+
+Now plug in the USB, and the effect should be immediate with the N9 begining to boot.
+
+If nothing happens
+------------------
+
+Then try another USB port. Perhaps it needs to be a USB 2.0 port. The USB port in front of allendale with the Cooler Master case is known to not work.

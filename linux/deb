@@ -1,0 +1,42 @@
+BUILD DEB PACKAGE
+=================
+
+Get Source
+----------
+
+apt-get source nginx
+cd nginx-1.2.1
+# edit source
+
+Build Dependencies & Package (Doesn't Work)
+-------------------------------------------
+
+https://wiki.debian.org/BuildingAPackage
+
+According to wiki above, you must do the following (devscripts contains mk-build-deps)::
+
+    apt-get install devscripts
+    mk-build-deps -i -r fdupes
+
+Then build package with following while in nginx-1.2.1 folder::
+
+    fakeroot debian/rules binary
+
+But it doesn't work, because Debian's documentation sucks.
+
+Build Dependencies & Package (Works)
+------------------------------------
+
+https://sjp.co.nz/posts/building-nginx-for-debian-systems/
+
+Build dependencies with::
+
+    apt-get build-dep nginx
+
+    # perhaps mk-build-deps can be tried again,
+    # in case it doesn't at this stage or
+    # package building stage
+
+Build package while in nginx-1.2.1 folder::
+
+    dpkg-buildpackage

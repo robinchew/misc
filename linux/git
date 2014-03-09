@@ -13,6 +13,16 @@ http://toolmantim.com/thoughts/setting_up_a_new_remote_git_repository
 $ mkdir /var/git/myapp.git && cd /var/git/myapp.git
 $ git --bare init --shared=group
 # --shared=group allows group write access
+
+# If --shared=group was not done, then do the following,
+# which set group sticky bit on all folders in myapp.git.
+
+    find . -type d -exec chmod g+s {} \;
+
+# and make all folder and files group writeable.
+
+    chmod -R g+w .
+
 Initialized empty Git repository in /var/git/myapp.git
 $ exit
 Bye!

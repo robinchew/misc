@@ -5,3 +5,11 @@ OR
 
 tar -czvf archive.tgz files/
 #! flag czvf must be in order!
+
+List content:
+
+    tar -tf compressed.tar
+
+or more verbose:
+
+    tar -tfv compressed.tar

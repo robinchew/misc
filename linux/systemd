@@ -28,3 +28,14 @@ sudo journalctl -xn --follow
 
 -f = follow
 -u = unit
+
+################################
+# DISABLE SUSPEND ON LID CLOSE #
+################################
+
+# vim /etc/systemd/logind.conf
+HandleLidSwitch=ignore
+
+# Then run:
+systemctl restart systemd-logind
+

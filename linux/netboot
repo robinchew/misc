@@ -1,10 +1,14 @@
 Follow the Arch Linux docs: https://wiki.archlinux.org/index.php/PXE
 
+You just need to read the DHCP + TFTP section using just dnsmasq. You don't need to do the HTTP section with darkhttpd.
+
 # Add following to dnsmasq.conf so that the
-# correct default gateway/route is set.
+# correct default gateway/route and DNS are set.
 # The 3 stands for gateway/router.
 # See code list http://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol#DHCP_options
-dhcp-option-force=3,192.168.0.1
+dhcp-option-force=3,192.168.0.1 # 3 = Default gateway/route
+dhcp-option-force=5,192.168.0.1 # 5 = Name server (May not be relevant)
+dhcp-option-force=6,192.168.0.1 # 6 = Domain Name server
 
 ###############
 # BOOT DEBIAN #

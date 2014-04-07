@@ -35,8 +35,11 @@ SELECT groname FROM pg_group;
 
 The psql program's \dg meta-command is also useful for listing the existing groups.
 
-#ALTER OWNER FOR ALL TABLES
-select 'alter table '|| tablename ||' owner to ar_group;' from pg_tables where schemaname = 'public';
+# ALTER OWNER FOR ALL TABLES
+select 'ALTER TABLE '|| tablename ||' OWNER TO ar_group;' from pg_tables where schemaname = 'public';
+
+# DELETE ALL TABLES
+select 'DROP TABLE '|| tablename || ' CASCADE;' from pg_tables where schemaname = 'public';
 
 #ADD USER
 sudo -u postgres createuser -D -A -P -R myuser

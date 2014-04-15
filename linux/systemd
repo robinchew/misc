@@ -20,6 +20,9 @@ EOF
 # After creating a service file
 sudo systemd daemon-reload
 
+# Show units in failed state
+systemctl --failed
+
 # List status log of service
 sudo journalctl -f -u vdown
 

@@ -1,0 +1,2 @@
+#!/bin/sh
+pacman -Qi | awk '/Name/ { name=$3 } /Size/ { printf "%.3fMB\t%s\n", $4/1024, name }' | sort -rh | head -n 10

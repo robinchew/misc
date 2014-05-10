@@ -1,3 +1,6 @@
+# Fit to screen
+feh -F *
+
 # grid of images
 # t is for thumbnails
 # m is for montage

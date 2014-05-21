@@ -1,1 +1,8 @@
 zip -r archive.zip file1 folder1 file2
+
+# Password protect new zip
+# http://xmodulo.com/2013/09/how-to-create-encrypted-zip-file-on-linux.html
+zip --password MY_SECRET archive.zip doc.pdf doc2.pdf doc3.pdf
+
+# Password protect existing zip
+zipcloak archive.zip

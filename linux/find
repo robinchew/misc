@@ -1,0 +1,2 @@
+# Find file/folder named 'tests' while excluding file/folder named 'abc' or 'xyz'
+find . -name tests -not -path './abc*' -not -path './xyz*'

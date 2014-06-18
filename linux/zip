@@ -6,3 +6,6 @@ zip --password MY_SECRET archive.zip doc.pdf doc2.pdf doc3.pdf
 
 # Password protect existing zip
 zipcloak archive.zip
+
+# Output select file content without unzipping
+unzip -c ~/stuff.zip stuff/file.js

@@ -38,8 +38,11 @@ The psql program's \dg meta-command is also useful for listing the existing grou
 # ALTER OWNER FOR ALL TABLES
 select 'ALTER TABLE '|| tablename ||' OWNER TO ar_group;' from pg_tables where schemaname = 'public';
 
-# DELETE ALL TABLES
+# GET QUERY TO DELETE ALL TABLES
 select 'DROP TABLE '|| tablename || ' CASCADE;' from pg_tables where schemaname = 'public';
+
+# ACTUALLY DELETE ALL TABLES
+psql -t -U lightcube lightcube -c "select 'DROP TABLE '|| tablename || ' CASCADE;' from pg_tables where schemaname = 'public'" | psql -U lightcube lightcube;
 
 #ADD USER
 sudo -u postgres createuser -D -A -P -R myuser

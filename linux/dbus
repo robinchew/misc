@@ -1,0 +1,1 @@
+dbus-send --dest=org.mpris.MediaPlayer2.cantata --type=method_call /cantata/MainWindow_1 com.googlecode.cantata.MainWindow.stopAfterCurrentTrack

@@ -1,0 +1,17 @@
+#!/bin/sh
+
+localgit=/home/robin/backup/git
+
+# End
+cd ~/backup/
+for dirname in `ssh 192.168.0.20 "cd git;ls"`;do
+    echo -- $dirname
+    localhead=$localgit/$dirname/HEAD
+    if [ ! -e $localhead ];then
+        git clone 192.168.0.20:git/$dirname $localgit/$dirname
+    else
+        cd $localgit/$dirname
+        git fetch origin master:master
+    fi
+    echo
+done;

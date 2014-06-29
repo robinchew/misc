@@ -27,7 +27,10 @@ systemctl --failed
 sudo journalctl -f -u vdown
 
 # Follow tail
-sudo journalctl -xn --follow
+sudo journalctl -f
+
+# Show last n lines
+sudo journalctl -n 100
 
 -f = follow
 -u = unit

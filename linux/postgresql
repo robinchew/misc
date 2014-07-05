@@ -44,6 +44,12 @@ select 'DROP TABLE '|| tablename || ' CASCADE;' from pg_tables where schemaname 
 # ACTUALLY DELETE ALL TABLES
 psql -t -U lightcube lightcube -c "select 'DROP TABLE '|| tablename || ' CASCADE;' from pg_tables where schemaname = 'public'" | psql -U lightcube lightcube;
 
+createdb overzero -O overzero
+
+OR in psql:
+
+CREATE DATABASE overzero OWNER overzero
+
 #ADD USER
 sudo -u postgres createuser -D -A -P -R myuser
 

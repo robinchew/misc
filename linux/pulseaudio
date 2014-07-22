@@ -1,0 +1,18 @@
+# Install pulseaudio and pavucontrol for volume control
+sudo pacman -S pulseaudio pavucontrol
+
+# If no sound, run the following
+pactl load-module module-detect
+
+# List sinks. Sinks are applications producing sound I assume.
+pactl list
+
+# Here's another way but doesn't show sink index.
+pacmd list-sinks
+
+# (Un)mute a sink
+# Where 10 is the sink index
+# and 1 is mute
+# and 0 is unmute
+pactl set-sink-input-mute 10 1
+pactl set-sink-input-mute 10 0

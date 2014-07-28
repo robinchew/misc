@@ -59,6 +59,8 @@ in psql:
 CREATE USER robin
 ALTER USER robin WITH PASSWORD 'mypassword'
 ALTER USER robin WITH CREATEDB
+ALTER USER robin WITH NOCREATEDB
+# http://www.postgresql.org/docs/9.1/static/sql-alteruser.html
 
 OR
 

@@ -7,3 +7,6 @@ EOF
 # the first 2 column will be narrow, the 3rd wil be large.
 # The numbers represent the number of characters.
 .width 10 10 100
+
+# Set the width in command line
+sqlite3 -cmd '.width 5 5 100'  db.sqlite3 "select * from mytable"

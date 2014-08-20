@@ -1,5 +1,13 @@
-# Fit to screen
+# Full screen
+# there isn't an argument
+# for fitting just the screen
+#
 feh -F *
+
+# Show filename in top left (-d)
+# while fullscreen (-F)
+
+feh -d -F *
 
 # grid of images
 # t is for thumbnails

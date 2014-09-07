@@ -1,8 +1,11 @@
 # Full screen
-# there isn't an argument
-# for fitting just the screen
-#
+
 feh -F *
+
+# Fit in window
+
+feh --scale-down *
+feh -. *
 
 # Show filename in top left (-d)
 # while fullscreen (-F)

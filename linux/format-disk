@@ -2,3 +2,7 @@ su -
 fdisk /dev/sda
 # Remember to use 't' to change a partition format type to 'b' for W95 fat32
 mkfs -t vfat /dev/sda1 #i only need to use this line
+
+# Off USB write protection
+# http://askubuntu.com/questions/101637/usb-turn-write-protection-off
+sudo hdparm -r0 /dev/sdb

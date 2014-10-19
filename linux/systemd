@@ -1,4 +1,6 @@
-# Example Service
+###################
+# EXAMPLE SERVICE #
+###################
 
 cat > /etc/systemd/system/vdown.service << EOF
 [Unit]
@@ -16,6 +18,10 @@ ExecStart=/usr/bin/celery -A vdown.tasks worker
 [Install]
 WantedBy=multi-user.target
 EOF
+
+######################
+# SYSTEMCTL COMMANDS #
+######################
 
 # After creating a service file
 sudo systemd daemon-reload

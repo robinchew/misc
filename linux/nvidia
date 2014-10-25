@@ -1,0 +1,14 @@
+Install
+=======
+
+pacman -S nvidia
+
+
+Black Screen / Blank Screen
+===========================
+
+This can happen after installing nvidia and rebooting. This could be caused by conflicting graphics driver, so you need to remove them: 
+
+    sudo pacman -Rs mesa mesa-dri nouveau
+
+The command above is just an example of a few competing packages that needs to be removed, there are definitely others.

@@ -1,16 +1,38 @@
-Arch Linux
-----------
+CONSIDER USING SYSLINUX INSTEAD
+-------------------------------
+https://wiki.archlinux.org/index.php/syslinux
 
 mount /dev/sda1 /mnt
 arch-chroot /mnt
+pacman -S syslinux
+syslinux-install_update -i -a -m
+
+
+Arch Linux
+----------
+sfdisk -A1 /dev/sda # Make partition 1 bootabl
+
+mount /dev/sda1 /mnt
+
+# Chroot
+arch-chroot /mnt
+# Or
+chroot /mnt bash
 
 # Within chroot
-modprobe dm-mod # Not sure if this step is necessary, worked before without it
+modprobe dm-mod # Not sure if this step is necessary, and also whether order matters
 
-grub-install --recheck /dev/sda 
+mkinitcpio -p linux # Not sure if this step is necessary, and also whether order matters
+
+grub-install --recheck /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
 
-mkinitcpio -p linux # Not sure if this step is necessary, haven't tried without it
+or the other way round
+
+grub-mkconfig -o /boot/grub/grub.cfg
+grub-install --recheck /dev/sda
+
+Or does order matter?
 
 
 Ubuntu

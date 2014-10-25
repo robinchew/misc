@@ -19,6 +19,20 @@ sudo netctl stop 'wlan0-poopy' # You need the inverted comma to escape the dash
 sudo netctl start 'wlan0-poopy'
 sudo netctl reenable 'wlan0-poopy'
 
+
+No Such Interface
+=================
+
+If wifi-menu gives the following error:
+
+	No such interface: wlan0
+
+Then perhaps set the network name in /etc/udev/rules.d/10-network.rules:
+
+	SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="aa:bb:cc:dd:ee:ff", NAME="net1"
+
+https://wiki.archlinux.org/index.php/Network_configuration#Change_device_name
+
 No Network Found
 ================
 

@@ -1,5 +1,14 @@
-# Setup alsa 
-# alsaconf seems to detect the sound card and load the appropriate drivers 
+Troubleshooting
+===============
+
+Fix the following error:
+
+    alsamixer
+    cannot open mixer: No such file or directory
+
+with:
+
+    alsactl init # Maybe run as root
 
 run: alsaconf
 then reboot computer

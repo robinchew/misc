@@ -1,0 +1,32 @@
+https://wiki.archlinux.org/index.php/Music_Player_Daemon
+
+mpd.conf
+========
+
+echo > /etc/mpd.conf << EOF
+pid_file "/run/mpd/mpd.pid"
+db_file "/var/lib/mpd/mpd.db"
+state_file "/var/lib/mpd/mpdstate"
+playlist_directory "/var/lib/mpd/playlists"
+music_directory "/var/lib/mpd/music"
+
+audio_output {
+    type "pulse"
+    name "Pulseaudio"
+}
+EOF
+
+Permissions
+===========
+Assuming systemd service file defaults to 'mpd' user
+
+chown -R mpd /run/mpd/mpd.pid
+chown -R mpd /var/lib/mpd/
+
+Add music with cantata
+======================
+
+- Launch cantata
+- Setup database by choosing 'Server' mode
+- Refresh database
+- Add music

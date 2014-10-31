@@ -1,14 +1,36 @@
 Troubleshooting
 ===============
 
-Fix the following error:
+If the following error occurs:
 
     alsamixer
     cannot open mixer: No such file or directory
 
-with:
+There are a few possible solutions, try:
 
     alsactl init # Maybe run as root
+
+If that doesn't work, then check:
+
+    cat /proc/asound/modules
+
+Which normally shows something like:
+
+    0 snd_hda_intel
+    1 snd_hda_intel
+
+If instead, it shows:
+
+    1 snd_hda_intel
+    2 snd_hda_intel
+
+Then that could be the defining problem and the solution
+can be to disable any unused sound cards in the BIOS, until
+0 index shows again.
+
+
+OLD
+===
 
 run: alsaconf
 then reboot computer

@@ -9,6 +9,7 @@ db_file "/var/lib/mpd/mpd.db"
 state_file "/var/lib/mpd/mpdstate"
 playlist_directory "/var/lib/mpd/playlists"
 music_directory "/var/lib/mpd/music"
+mixer_type "software"
 
 audio_output {
     type "pulse"

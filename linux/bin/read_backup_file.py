@@ -10,4 +10,4 @@ month_name = date.strftime('%B')
 week_day = date.strftime('%A')
 
 # File is mispelt Fal, so that text to speech pronounce it better
-print '3. 2. 1.', 'Last backup is on,', num2words(int(day), ordinal=True), 'of', month_name, ',', week_day, '. Fal size is ', size
+print '3. 2. 1.', 'Last backup was on,', num2words(int(day), ordinal=True), 'of', month_name, ',', week_day, '. Fal size is ', size

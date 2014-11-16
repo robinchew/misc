@@ -37,3 +37,14 @@ redirect 301 /file http://www.google.com
 <Directory>
 AllowOverride All
 </Directory>
+
+#################
+# FULL FILENAME #
+#################
+
+DocumentRoot "/home/robin/share"
+<Directory "/home/robin/share">
+    #...
+    IndexOptions NameWidth=*
+</Directory>
+

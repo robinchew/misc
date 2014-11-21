@@ -1,0 +1,28 @@
+Flash Android
+=============
+
+Power off android device, then power on with volume 'up' and 'down' pressed.
+
+You will see the picture of the robot with its belly open, stay on that screen, and do NOT press 'Start'.
+
+Install fastboot:
+
+    sudo pacman -S android-tools
+
+Downlad factory image:
+
+    https://developers.google.com/android/nexus/images
+
+Extract tar file:
+
+    tar xf nakasi-jdq39-factory-c317339e.2.tar
+
+Go to extracted folder:
+
+    cd nakasi-jdq39
+
+Run flash script as root:
+
+    sudo flash-all.sh
+
+Then wait until flashing and installation is complete.

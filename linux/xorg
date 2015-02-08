@@ -1,3 +1,12 @@
 .xinitrc is for when startx starts
 .xsession is for when kdm starts
 .xsession must be executable
+
+# Custom xinitrc and xorg.conf
+#
+# IMPORTANT NOTE!
+# custom-xorg.conf must live in /etc/X11/
+# whereas custom-xinitrc can live anywhere
+# as long as the path in the argument is correct
+
+startx ./custom-xinitrc -- -xf86config custom-xorg.conf

@@ -1,3 +1,14 @@
+###################
+# USEFUL COMMANDS #
+###################
+
+# Check certificate
+# https://www.sslshopper.com/article-most-common-openssl-commands.html
+openssl x509 -in certificate.crt -text -noout
+
+# Check certificate from web
+openssl s_client -connect some.web.com:443 -showcerts
+
 https://help.ubuntu.com/community/forum/server/apache2/SSL
 
 http://ubuntuforums.org/showthread.php?t=51753

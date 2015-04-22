@@ -1,0 +1,17 @@
+lein repl
+
+# Connect to repl with vim
+
+:Connect
+
+# Slurp/Barf
+# Assuming , is vim's ___ key
+
+,<
+,>
+
+# Evaluating coljure in vim
+
+cpp
+
+https://github.com/tpope/vim-fireplace#evaluating-from-the-buffer

@@ -71,3 +71,10 @@ To re-enable usual wifi connection again do the following first::
 Then re-enable usual profile with::
 
     sudo netctl start 'wlan0-name'
+
+
+AUTO-CONNECT (WIFI)
+===================
+
+sudo systemctl start netctl-auto@wlan0
+sudo systemctl enable netctl-auto@wlan0

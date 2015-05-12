@@ -1,3 +1,7 @@
+#################
+# EDITOR & LEIN #
+#################
+
 lein repl
 
 # Connect to repl with vim
@@ -5,13 +9,27 @@ lein repl
 :Connect
 
 # Slurp/Barf
-# Assuming , is vim's ___ key
+# Assuming , is vim's LEADER key
 
 ,<
 ,>
 
-# Evaluating coljure in vim
+# Evaluating clojure in vim
 
 cpp
 
 https://github.com/tpope/vim-fireplace#evaluating-from-the-buffer
+
+####################################
+# Create project based on chestnut #
+####################################
+
+lein new chestnut myproject2
+
+##################
+# RUN WEB SERVER #
+##################
+
+cd myproject2
+lein repl
+(run)

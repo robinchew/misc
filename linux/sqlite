@@ -10,3 +10,6 @@ EOF
 
 # Set the width in command line
 sqlite3 -cmd '.width 5 5 100'  db.sqlite3 "select * from mytable"
+
+# Dump database
+sqlite3 db.sqlite .dump

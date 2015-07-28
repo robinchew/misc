@@ -1,10 +1,57 @@
+###########
+# INSTALL #
+###########
+
+pacman -S java-runtime-common jdk7-openjdk # java-runtime-common could be superfluous
+pacman -U leiningen # get from AUR
+
 #################
 # EDITOR & LEIN #
 #################
 
+https://github.com/vim-scripts/paredit.vim
+
+# Unzip as:
+
+├── doc
+│   └── paredit.txt
+├── plugin
+│   └── paredit.vim
+└── README
+
+# Install fireplace
+
+https://github.com/tpope/vim-fireplace#evaluating-from-the-buffer
+
+# UNzip and you end up with:
+
+├── autoload
+│   └── fireplace
+│       ├── nrepl_connection.vim
+│       └── nrepl.vim
+├── doc
+│   └── paredit.txt
+├── plugin
+│   ├── fireplace
+│   │   └── zip.vim
+│   ├── fireplace.vim
+│   └── paredit.vim
+└── python
+    └── nrepl_fireplace.py
+
+# Test it works in vim
+# by opening a .clj file.
+# NOTE if you edit a NON .clj file,
+# the installed plugins don't work
+
+vim test.clj
+
+# Lein command
+
 lein repl
 
-# Connect to repl with vim
+# Connect to repl with vim,
+# fireplace is resposible for this
 
 :Connect
 

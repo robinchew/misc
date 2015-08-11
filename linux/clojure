@@ -94,4 +94,6 @@ lein repl
 lein clean
 lein cljsbuild once release
 
-# 'release' is defined in myproject2/project.clj
+# 'release' is defined in myproject2/project.clj, find the line looking like:
+
+:cljsbuild {:build {:release

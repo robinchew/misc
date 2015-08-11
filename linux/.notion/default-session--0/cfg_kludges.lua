@@ -3,6 +3,17 @@
 --
 
 defwinprop{
+    --class = "Chromium",
+    target = 'ws2b',
+    --switchto = false,
+    --jumpto = false,
+    match = function(prop, cwin, winattrs)
+        --ioncore.exec('echo "|'.. winattrs.instance .. '|" >> ~/t.txt')
+        return string.find(winattrs.instance, 'Chromium %(/tmp') ~= nil
+    end
+}
+
+defwinprop{
     class = "Xfce4-notifyd",
 --    instance = "documentShell",
     orientation = 'vertical',

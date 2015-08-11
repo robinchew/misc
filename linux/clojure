@@ -97,3 +97,15 @@ lein cljsbuild once release
 # 'release' is defined in myproject2/project.clj, find the line looking like:
 
 :cljsbuild {:build {:release
+
+See README.md
+
+###########
+# REAGENT #
+###########
+
+-> is a macro that converts (-> .-target .-value) to (.-value (.-target %))
+
+the '-' in -value and -target makes value and target non-callable
+
+(swap! atom function extra_arguments)

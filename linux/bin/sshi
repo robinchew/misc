@@ -7,4 +7,4 @@ else
     user=''
     ip=$1
 fi
-ssh $user`ip route|tail -n 1|grep -o '192[0-9.]*'|sed 's/[0-9]*$//'`$ip
+ssh $user`/sbin/ip route|tail -n 1|grep -o '192[0-9.]*'|sed 's/[0-9]*$//'`$ip

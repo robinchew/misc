@@ -76,5 +76,6 @@ Then re-enable usual profile with::
 AUTO-CONNECT (WIFI)
 ===================
 
+sudo pacman -S wpa_actiond
 sudo systemctl start netctl-auto@wlan0
 sudo systemctl enable netctl-auto@wlan0

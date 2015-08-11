@@ -73,6 +73,10 @@ https://github.com/tpope/vim-fireplace#evaluating-from-the-buffer
 
 lein new chestnut myproject2
 
+# For vanilla install
+
+lein new myproject2
+
 ##################
 # RUN WEB SERVER #
 ##################
@@ -80,3 +84,14 @@ lein new chestnut myproject2
 cd myproject2
 lein repl
 (run)
+
+##############
+# COMPILE JS #
+##############
+
+# While inside myproject2
+
+lein clean
+lein cljsbuild once release
+
+# 'release' is defined in myproject2/project.clj

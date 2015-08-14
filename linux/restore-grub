@@ -22,17 +22,10 @@ chroot /mnt bash
 # Within chroot
 modprobe dm-mod # Not sure if this step is necessary, and also whether order matters
 
-mkinitcpio -p linux # Not sure if this step is necessary, and also whether order matters
+mkinitcpio -p linux
 
 grub-install --recheck /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
-
-or the other way round
-
-grub-mkconfig -o /boot/grub/grub.cfg
-grub-install --recheck /dev/sda
-
-Or does order matter?
 
 
 Ubuntu

@@ -1,10 +1,57 @@
 # Encrypt via password
-
 gpg -c file.txt
 
 # Decrypt file
-
 gpg file.txt
+
+##############
+# Create key #
+##############
+
+gpg --gen-key
+
+# If the last 2 lines say:
+gpg: agent_genkey failed: No pinentry
+Key generation failed: No pinentry
+
+# Then do the following:
+cat > ~/.gnupg/gpg-agent.conf << EOF
+pinentry-program /usr/bin/pinentry-curses
+EOF
+
+# Then kill gpg-agent and try again
+sudo killall gpg-agent
+
+# When gpg asks:
+We need to generate a lot of random bytes. It is a good idea to perform
+some other action (type on the keyboard, move the mouse, utilize the
+disks) during the prime generation; this gives the random number
+generator a better chance to gain enough entropy.
+We need to generate a lot of random bytes. It is a good idea to perform
+some other action (type on the keyboard, move the mouse, utilize the
+disks) during the prime generation; this gives the random number
+generator a better chance to gain enough entropy.
+
+# This could stay a long time when done through a virtual machine, so
+# then maybe do some disk operations in another terminal like:
+find / -type f | xargs grep -i blahblahblha
+
+# See other suggestions in https://bugs.launchpad.net/ubuntu/+source/gnupg/+bug/706011
+
+# List keys
+gpg --list-keys
+gpg --list-secret-keys
+
+# Export keys
+#  -a, --armor create ascii armored output
+# Determine the "username" by using --list-keys or --list-secret-keys
+# The "username" does not have to match fully, as long as it's unambiguous.
+gpg --export -a  "Robin" > public.key
+gpg --export-secret-key -a  "Robin" > private.key
+
+# Import keys
+gpg --import public.key
+gpg --allow-secret-key-import --import private.key
 
 # Sign key
 gpg --edit-key 'OBSI PTY LTD'

@@ -19,9 +19,13 @@ https://github.com/vim-scripts/paredit.vim
 │   └── paredit.vim
 └── README
 
-# Install fireplace
+# Install fireplace & apply patch
+# for browser REPL integration
 
-https://github.com/tpope/vim-fireplace#evaluating-from-the-buffer
+https://github.com/tpope/vim-fireplace
+
+# Patch
+https://gist.github.com/malyn/646e291d01101dcc8b48#file-vim-fireplace-figwheel-diff
 
 # UNzip and you end up with:
 
@@ -77,13 +81,21 @@ lein new chestnut myproject2
 
 lein new myproject2
 
-##################
-# RUN WEB SERVER #
-##################
+###########################
+# RUN CHESTNUT WEB SERVER #
+###########################
 
 cd myproject2
 lein repl
 (run)
+
+###########################
+# RUN FIGWHEEL WEB SERVER #
+###########################
+
+lein new figwheel myproject2
+cd mproject2
+lein figwheel
 
 ##############
 # COMPILE JS #
@@ -109,3 +121,9 @@ See README.md
 the '-' in -value and -target makes value and target non-callable
 
 (swap! atom function extra_arguments)
+
+# 
+cljsbuild auto
+cljsbuild once
+:whitespace
+:advance

@@ -76,8 +76,8 @@ genfstab -p /mnt >> /mnt/etc/fstab
 sudo blkid
 
 
-# Run command outside of chroot 
-arch-chroot /mnt pacman -S grub-bios
+# Run command outside of chroot
+arch-chroot /mnt pacman -S grub
 
 # ENTER CHROOT...
 arch-chroot /mnt
@@ -116,8 +116,12 @@ sfdisk -A1 /dev/sdx # make partition 1 of sdx bootable if not done during partit
 # Apparently you need to 'modprobe dm-mod' first but you can't do it within chroot.
 # Not sure if you need it
 # Maybe remove /boot/grub first
-pacman -S grub-bios
+pacman -S grub
+
 grub-install --target=i386-pc --recheck --debug /dev/sdx
+OR try just:
+grub-install --recheck /dev/sdx
+
 grub-mkconfig -o /boot/grub/grub.cfg
 
 #############################
@@ -147,11 +151,13 @@ locale-gen
 # NETWORKING #
 ##############
 
+# You might want to disable IPV6 for troubleshooting purposes, see ipv5 in folder of this file
+
 dhcpcd eth0
 
-OR 
+OR
 
 systemctl start dhcpcd@eth0
 
-# start on boot
+# start dhcpcd on boot
 systemctl enable dhcpcd@eth0

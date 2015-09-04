@@ -38,9 +38,14 @@ sudo journalctl -f
 # Show last n lines
 sudo journalctl -n 100
 
+# Logs of current boot only
+sudo journalctl -b
+
+# Logs of last boot
+sudo journalctl -b -1
+
 -f = follow
 -u = unit
--b = logs of current boot only
 
 ################################
 # DISABLE SUSPEND ON LID CLOSE #

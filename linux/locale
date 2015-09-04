@@ -1,3 +1,13 @@
+
+ARCHLINUX
+
+cat >> /etc/locale.gen <<EOF
+en_US.UTF-8 UTF-8
+EOF
+
+sudo locale-gen
+
+
 UBUNTU
 
 #IF

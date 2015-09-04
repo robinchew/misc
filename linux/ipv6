@@ -1,0 +1,9 @@
+################
+# DISABLE IPV6 #
+################
+
+# Append ipv6.disable=1 to the following line in /boot/grub/grub.cfg::
+
+linux   /boot/vmlinuz-linux root=UUID=f393ff34-8777-43d3-b170-b92b20a03971 rw ipv6.disable=1
+
+# https://wiki.archlinux.org/index.php/IPv6#Disable_functionality

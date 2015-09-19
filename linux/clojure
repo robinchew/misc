@@ -122,8 +122,10 @@ the '-' in -value and -target makes value and target non-callable
 
 (swap! atom function extra_arguments)
 
-# 
+# Watches and automatically build the files 
 cljsbuild auto
+
+# Just build once
 cljsbuild once
 :whitespace
 :advance

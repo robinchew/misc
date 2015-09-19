@@ -11,5 +11,6 @@
 
 startx ./custom-xinitrc -- -xf86config custom-xorg.conf
 
-# Gnome keyring daemon in .xinitrc
+# Gnome keyring daemon by adding the following line in .xinitrc
+# before the line that launches the window manager
 eval $(/usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh)

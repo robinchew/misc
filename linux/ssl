@@ -50,6 +50,11 @@ openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
 
 https://wiki.archlinux.org/index.php/LAMP#SSL
 
+# Password unprotect generated key
+# https://docs.webfaction.com/user-guide/websites.html#secure-sites-https
+
+openssl rsa -in keyfile.key -out keyfile.key2
+
 ########
 # XERO #
 ########

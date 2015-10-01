@@ -10,3 +10,7 @@
 # as long as the path in the argument is correct
 
 startx ./custom-xinitrc -- -xf86config custom-xorg.conf
+
+# Gnome keyring daemon by adding the following line in .xinitrc
+# before the line that launches the window manager
+eval $(/usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh)

@@ -1,6 +1,9 @@
 # Encrypt via password
 gpg -c file.txt
 
+# Encrypt via public key
+gpg -r obsi file.txt
+
 # Decrypt file
 gpg file.txt
 

@@ -50,6 +50,18 @@ https://gist.github.com/malyn/646e291d01101dcc8b48#file-vim-fireplace-figwheel-d
 
 vim test.clj
 
+# Configure vim further to suit my editing style
+
+cat > ~/.vim/after/ftplugin/clojure.vim << EOF
+setlocal sw=2
+setlocal tabstop=2
+EOF
+
+# Modify paredit.vim so it doesn't do indentation the "clojure way"
+# by commenting the "filetype indent on" line in the file ~/.vim/plugin/paredit.vim
+
+"filetype indent on
+
 # Lein command
 
 lein repl
@@ -122,8 +134,10 @@ the '-' in -value and -target makes value and target non-callable
 
 (swap! atom function extra_arguments)
 
-# 
+# Watches and automatically build the files 
 cljsbuild auto
+
+# Just build once
 cljsbuild once
 :whitespace
 :advance

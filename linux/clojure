@@ -27,6 +27,9 @@ https://github.com/tpope/vim-fireplace
 # Patch
 https://gist.github.com/malyn/646e291d01101dcc8b48#file-vim-fireplace-figwheel-diff
 
+cd ~/.vim/plugin
+patch < vim-fireplace-figwheel.diff
+
 # UNzip and you end up with:
 
 ├── autoload

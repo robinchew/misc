@@ -1,2 +1,5 @@
 top -oCOMMAND
 shift+r to toggle sort order
+
+# Kill
+press k then enter the PID

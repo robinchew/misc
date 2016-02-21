@@ -6,5 +6,7 @@ patch -p0 -R < bla.patch
 
 -p0 
   file is in current directory 
+-p1
+  file path is specified in the diff?
 -R, --reverse 
   Do a reverse patch: attempt to undo the damage done by patching with the old and new files reversed.

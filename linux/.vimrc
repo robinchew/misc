@@ -16,24 +16,26 @@ command SSFS syntax sync fromstart
 noremap Q <Esc>
 noremap q <Esc>
 set iskeyword-=_
+set iskeyword-=-
 "au Syntax python source ~/.vim/syntax/mine.vim
 hi Search ctermfg=White
-set list
-set listchars=tab:▸\ ,
+"set list
+"set listchars=tab:▸\ ,
+set hlsearch
 
 "Jump n lines and down the page without moving the cursor 
 nnoremap <PageUp> 10<C-y>
 nnoremap <PageDown> 10<C-e>
+"set clipboard=unnamedplus
+let g:paredit_electric_return = 0
 
-" Explain map, remap, noremap, nnoremap
-" http://stackoverflow.com/questions/3776117/vim-what-is-the-difference-between-the-remap-noremap-nnoremap-and-vnoremap-ma
+set backup
+set swapfile
+set backupdir=~/.vim-tmp
+set directory=~/.vim-tmp
 
-" For some reason home and end keys are not mapping properly.
-" Home key
-imap <esc>OH <esc>0i
-cmap <esc>OH <home>
-nmap <esc>OH 0
-" End key
-nmap <esc>OF $
-imap <esc>OF <esc>$a
-cmap <esc>OF <end>
+"Disable automatic comment insertion
+"http://vim.wikia.com/wiki/Disable_automatic_comment_insertion
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+execute pathogen#infect()

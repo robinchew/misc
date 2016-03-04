@@ -72,6 +72,13 @@ Then re-enable usual profile with::
 
     sudo netctl start 'wlan0-name'
 
+AUTO-CONNECT (ETHERNET)
+=======================
+
+sudo pacman -S ifplugd
+sudo systemctl enable netctl-ifplugd@enp0s25
+sudo journalctl -f -u netctl-ifplugd@enp0s25
+
 
 AUTO-CONNECT (WIFI)
 ===================

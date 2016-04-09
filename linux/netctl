@@ -3,6 +3,17 @@ Restart Network
 
 sudo systemctl restart netctl-ifplugd@eth0.service
 
+Bring Down Network
+==================
+
+try:
+
+    sudo netctl stop ethernet-static
+
+If doesn't work, theni try:
+
+    ip link set dev eth0 down
+
 Useful Tools
 ============
 

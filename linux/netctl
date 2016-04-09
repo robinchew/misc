@@ -60,9 +60,12 @@ If no network is found, check if wifi is blocked::
    Soft blocked: no
    Hard blocked: no
 
-Above show that nothing is blocked, but if any is, try::
+If soft blocked, do::
 
     sudo rfkill unblock wifi
+
+If hard blocked, find keyboard shortcut on laptop to toggle wifi.
+
 
 
 AD-HOC

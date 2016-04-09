@@ -100,3 +100,12 @@ AUTO-CONNECT (WIFI)
 sudo pacman -S wpa_actiond
 sudo systemctl start netctl-auto@wlan0
 sudo systemctl enable netctl-auto@wlan0
+
+
+TROUBLESHOOT
+============
+
+netctl or systemctl failures are unhelpful. It could mean any or all of the following:
+
+- interface is already up, perhaps disable all the auto-connects.
+- wifi is blocked, try "rfkill list", see above "No Network Found" section.

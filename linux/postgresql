@@ -53,6 +53,11 @@ CREATE DATABASE overzero OWNER overzero
 #ADD USER
 sudo -u postgres createuser -D -A -P -R myuser
 
+# -D = cannot create database
+# -A = ?
+# -P = password prompt
+# -R = cannot create role
+
 OR
 
 in psql: 

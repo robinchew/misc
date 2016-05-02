@@ -4,6 +4,17 @@ Restart Network
 sudo systemctl restart netctl-ifplugd@eth0.service
 sudo systemctl restart netctl-auto@wlan0
 
+Bring Down Network
+==================
+
+try:
+
+    sudo netctl stop ethernet-static
+
+If doesn't work, theni try:
+
+    ip link set dev eth0 down
+
 Useful Tools
 ============
 
@@ -50,9 +61,12 @@ If no network is found, check if wifi is blocked::
    Soft blocked: no
    Hard blocked: no
 
-Above show that nothing is blocked, but if any is, try::
+If soft blocked, do::
 
     sudo rfkill unblock wifi
+
+If hard blocked, find keyboard shortcut on laptop to toggle wifi.
+
 
 
 AD-HOC
@@ -73,6 +87,13 @@ Then re-enable usual profile with::
 
     sudo netctl start 'wlan0-name'
 
+AUTO-CONNECT (ETHERNET)
+=======================
+
+sudo pacman -S ifplugd
+sudo systemctl enable netctl-ifplugd@enp0s25
+sudo journalctl -f -u netctl-ifplugd@enp0s25
+
 
 AUTO-CONNECT (WIFI)
 ===================
@@ -80,3 +101,12 @@ AUTO-CONNECT (WIFI)
 sudo pacman -S wpa_actiond
 sudo systemctl start netctl-auto@wlan0
 sudo systemctl enable netctl-auto@wlan0
+
+
+TROUBLESHOOT
+============
+
+netctl or systemctl failures are unhelpful. It could mean any or all of the following:
+
+- interface is already up, perhaps disable all the auto-connects.
+- wifi is blocked, try "rfkill list", see above "No Network Found" section.

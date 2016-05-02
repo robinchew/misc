@@ -2,6 +2,7 @@ Restart Network
 ===============
 
 sudo systemctl restart netctl-ifplugd@eth0.service
+sudo systemctl restart netctl-auto@wlan0
 
 Useful Tools
 ============

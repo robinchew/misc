@@ -1,1 +1,5 @@
+# Determine nameserver
 nslookup robin.com.au
+
+# Determine TTL
+dig robin.com.au

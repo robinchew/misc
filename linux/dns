@@ -1,0 +1,11 @@
+# Determine nameservers
+nslookup robin.com.au
+# Or
+dig NS obsi.com.au
+# NOTE!
+# You cannot get a list of nameservers for subdomains
+# because NS is setup only for the root domain.
+dig NS lightcube.obsi.com.au # <- WRONG
+
+# Determine TTL
+dig robin.com.au

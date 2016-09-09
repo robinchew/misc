@@ -7,6 +7,16 @@ arch-chroot /mnt
 pacman -S syslinux
 syslinux-install_update -i -a -m
 
+# THIS CAUSED COMPUTER UNABLE TO BOOT
+# STILL DOCUMENTED HERE ONLY AS NOTES
+# For partitionless BTRFS
+# http://unix.stackexchange.com/questions/103501/boot-partiotionless-disk-with-syslinux
+# dd bs=440 count=1 conv=notrunc if=/usr/lib/syslinux/bios/mbr.bin of=/dev/sda
+
+# To re-install /boot/initramfs-linux.img if syslinux
+# blue screen bootloader menu cannot find /dev/sda in 10 seconds
+pacman -S linux
+
 
 Arch Linux
 ----------

@@ -51,6 +51,8 @@ sudo journalctl -b -1
 # https://www.digitalocean.com/community/tutorials/how-to-use-systemctl-to-manage-systemd-services-and-units
 sudo systemctl list-units --state=active
 sudo systemctl list-units --state=running
+sudo systemctl list-units --state=dead
+sudo systemctl list-units --all
 
 ################################
 # DISABLE SUSPEND ON LID CLOSE #

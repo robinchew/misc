@@ -3,3 +3,17 @@ shift+r to toggle sort order
 
 # Kill
 press k then enter the PID
+
+# Classic top
+
+remove your ~/.toprc (if any)
+start "top"
+press z
+press V
+press 1
+press y
+press m m
+press t t t
+press W
+
+https://bbs.archlinux.org/viewtopic.php?pid=1474872#p1474872

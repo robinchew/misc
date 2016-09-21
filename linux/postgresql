@@ -53,10 +53,15 @@ CREATE DATABASE overzero OWNER overzero
 #ADD USER
 sudo -u postgres createuser -D -A -P -R myuser
 
-# -D = cannot create database
-# -A = ?
-# -P = password prompt
-# -R = cannot create role
+-D, --no-createdb
+The new user is not allowed to create databases. 
+
+-A, --no-adduser
+The new user is not allowed to create other users (i.e., the new user is a regular user not a superuser). 
+
+-P, --pwprompt
+
+-R, --no-createrole
 
 OR
 
@@ -72,16 +77,6 @@ OR
 CREATE ROLE robn LOGIN ENCRYPTED PASSWORD 'my_password' NOINHERIT VALID UNTIL 'infinity';
 
 sudo -u postgres createdb -O myuser mydb
-
--D, --no-createdb
-The new user is not allowed to create databases. 
-
--A, --no-adduser
-The new user is not allowed to create other users (i.e., the new user is a regular user not a superuser). 
-
--P, --pwprompt
-
--R, --no-createrole
 
 #then copy the lines and paste
 

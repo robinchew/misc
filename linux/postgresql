@@ -147,6 +147,10 @@ GRANT { { SELECT | INSERT | UPDATE | DELETE | RULE | REFERENCES | TRIGGER }
 GRANT { { CREATE | TEMPORARY | TEMP } [,...] | ALL [ PRIVILEGES ] }
     ON DATABASE dbname [, ...]
     TO { username | GROUP groupname | PUBLIC } [, ...] [ WITH GRANT OPTION ]
+
+# GRANT FOR ALL TABLES
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO gavin;
+
 #JOIN
 SELECT * FROM weather INNER JOIN cities ON (weather.city = cities.name);
 

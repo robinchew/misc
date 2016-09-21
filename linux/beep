@@ -1,0 +1,4 @@
+# Remove loud beed in console (not in X)
+# https://wiki.archlinux.org/index.php/Disable_PC_speaker_beep
+
+echo "blacklist pcspkr" > /etc/modprobe.d/nobeep.conf

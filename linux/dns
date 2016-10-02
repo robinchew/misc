@@ -9,3 +9,11 @@ dig NS lightcube.obsi.com.au # <- WRONG
 
 # Determine TTL
 dig robin.com.au
+
+# Sometimes the following doesn't work:
+
+dig overwrite.com.au
+
+So you have to do the following instead, for some reason:
+
+dig +noadflag overwrite.com.au

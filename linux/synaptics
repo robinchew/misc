@@ -64,3 +64,21 @@ EndSection
 # DISABLE TOUCHPAD WHILE TYPING
 syndaemon -i 0.5 -d # i = seconds for delay, d = daemon
 # make it autostart somewhere maybe in .profile or rc.local
+
+
+# ARCHLINUX
+# sudo pacman -S xf86-input-synaptics
+# vim /etc/X11/xorg.conf.d/70-synaptics.conf
+# https://wiki.archlinux.org/index.php/Touchpad_Synaptics
+
+Section "InputClass"
+    Identifier "touchpad"
+    Driver "synaptics"
+    MatchIsTouchpad "on"
+        Option "VertEdgeScroll" "on"
+        Option "VertTwoFingerScroll" "on"
+        Option "SingleTapTimeout" "0"
+        Option "TapButton1" "1"
+        Option "TapButton2" "2"
+        Option "TapButton3" "3"
+EndSection

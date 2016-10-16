@@ -77,7 +77,14 @@ Section "InputClass"
     MatchIsTouchpad "on"
         Option "VertEdgeScroll" "on"
         Option "VertTwoFingerScroll" "on"
-        Option "SingleTapTimeout" "0"
+
+        # Must not be zero so that double tap hold emulates mouse down.
+        Option "SingleTapTimeout" "100"
+
+        # To make a single tap as fast as possible,
+        # set ClickTime, instead of SingleTapTimeout, to zero
+        Option "ClickTime" "0"
+
         Option "TapButton1" "1"
         Option "TapButton2" "2"
         Option "TapButton3" "3"

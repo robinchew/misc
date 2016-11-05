@@ -15,6 +15,11 @@ If doesn't work, theni try:
 
     ip link set dev eth0 down
 
+Restart LAN
+===========
+
+sudo systemctl restart netctl-ifplugd@enp0s25
+
 Useful Tools
 ============
 

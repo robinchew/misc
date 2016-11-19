@@ -61,6 +61,6 @@ sudo systemctl list-units --all
 # vim /etc/systemd/logind.conf
 HandleLidSwitch=ignore
 
-# Then run:
+# Then run (WARNING! this will exit your X session):
 systemctl restart systemd-logind
 

@@ -57,7 +57,7 @@ sudo -u postgres createuser -D -A -P -R myuser
 The new user is not allowed to create databases. 
 
 -A, --no-adduser
-The new user is not allowed to create other users (i.e., the new user is a regular user not a superuser). 
+The new user is not allowed to create other users (i.e., the new user is a regular user not a superuser).
 
 -P, --pwprompt
 
@@ -65,12 +65,16 @@ The new user is not allowed to create other users (i.e., the new user is a regul
 
 OR
 
-in psql: 
+in psql:
 CREATE USER robin
 ALTER USER robin WITH PASSWORD 'mypassword'
 ALTER USER robin WITH CREATEDB
 ALTER USER robin WITH NOCREATEDB
 # http://www.postgresql.org/docs/9.1/static/sql-alteruser.html
+
+OR
+
+\password robin
 
 OR
 

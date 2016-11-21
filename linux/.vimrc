@@ -18,7 +18,7 @@ noremap q <Esc>
 set iskeyword-=_
 set iskeyword-=-
 "au Syntax python source ~/.vim/syntax/mine.vim
-hi Search ctermfg=White
+hi Search ctermfg=black
 "set list
 "set listchars=tab:▸\ ,
 set hlsearch

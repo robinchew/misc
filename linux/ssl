@@ -62,7 +62,7 @@ openssl rsa -in keyfile.key -out keyfile.key2
 .crt and .cer are the same
 .pem seems to sometimes mean certificate or private key, not sure
 
-# Below goes from KEY to CRT, bypassing CSR 
+# Below goes from KEY to CRT, bypassing CSR because of the -x509 argument
 
 openssl genrsa -out privatekey.pem 1024
 openssl req -new -x509 -key privatekey.pem -out publickey.cer -days 365

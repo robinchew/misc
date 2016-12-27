@@ -230,7 +230,9 @@ psql -C alter table cars_car rename column product_id to product_ptr_id;
 
 sudo pacman -S --needed postgresql-old-upgrade
 
+# https://wiki.archlinux.org/index.php/PostgreSQL
 # Do the following commands as user 'postgres'
+sudo pacman -S postgresql-old-upgrade
 sudo su postgres
 mv /var/lib/postgres/data /var/lib/postgres/data-9.1
 mkdir /var/lib/postgres/data

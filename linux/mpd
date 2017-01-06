@@ -24,6 +24,20 @@ Assuming systemd service file defaults to 'mpd' user
 chown -R mpd /run/mpd/mpd.pid
 chown -R mpd /var/lib/mpd/
 
+Troubleshoot
+============
+
+Run mpd without systemd complicating things. Usually it's permission problems.
+
+    /usr/bin/mpd --no-daemon --stderr --verbose
+
+Once mpd works, get mpd systemd service working by adding:
+
+    [Service]
+    Environment=XDG_RUNTIME_DIR=/run/user/1000
+
+https://blog.louiz.org/pulseaudio_mpd
+
 Add music with cantata
 ======================
 

@@ -1,5 +1,12 @@
 https://wiki.archlinux.org/index.php/Music_Player_Daemon
 
+MPD and PulseAudio
+==================
+
+mpd and pulseaudio will have more success of working if
+they are both run as a local user. So create service files
+in /usr/lib/systemd/user/ instead of /usr/lib/systemd/system.
+
 mpd.conf
 ========
 
@@ -29,7 +36,7 @@ Troubleshoot
 
 Run mpd without systemd complicating things. Usually it's permission problems.
 
-    /usr/bin/mpd --no-daemon --stderr --verbose
+    /usr/bin/mpd --no-daemon --stderr --verbose ~/mpd.conf
 
 Once mpd works, get mpd systemd service working by adding:
 

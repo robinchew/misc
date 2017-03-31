@@ -2,3 +2,7 @@
 -b something to do with many types of clipboard s
 
 echo 'copy this'|xsel -i -b
+
+# Dump/Output clipboard content
+xclip -o
+

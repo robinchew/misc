@@ -7,6 +7,13 @@ mpd and pulseaudio will have more success of working if
 they are both run as a local user. So create service files
 in /usr/lib/systemd/user/ instead of /usr/lib/systemd/system.
 
+mpd.service
+===========
+
+Find mpd.service file in this folder, and put in /usr/lib/systemd/user/.
+The difference between this user service file and the system service file
+is that the system service file has `User` explicitly set under `[Service]`.
+
 mpd.conf
 ========
 

@@ -17,8 +17,8 @@ is that the system service file has `User` explicitly set under `[Service]`.
 mpd.conf
 ========
 
-echo > /etc/mpd.conf << EOF
-pid_file "/run/mpd/mpd.pid"
+echo > /home/robin/mpd.conf << EOF
+pid_file "/home/robin/mpd.pid"
 db_file "/var/lib/mpd/mpd.db"
 state_file "/var/lib/mpd/mpdstate"
 playlist_directory "/var/lib/mpd/playlists"

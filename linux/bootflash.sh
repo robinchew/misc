@@ -10,6 +10,11 @@ if [ "$#" -ne 2 ];then
     exit 1 
 fi
 
+if [ "$EUID" -ne 0 ];then
+    echo "Must run as root"
+    exit 1
+fi
+
 fs=`blkid $2|sed 's/.*TYPE="\([^"]*\)".*/\1/g'`
 
 if [ "$fs" != "vfat" ];then

@@ -7,6 +7,16 @@ mpd and pulseaudio will have more success of working if
 they are both run as a local user. So create service files
 in /usr/lib/systemd/user/ instead of /usr/lib/systemd/system.
 
+Disable system's mpd with::
+
+    sudo systemctl stop mpd
+    sudo systemctl disable mpd
+
+Enable local user's mpd with::
+
+    systemctl --user start mpd
+    systemctl --user enable mpd
+
 mpd.service
 ===========
 

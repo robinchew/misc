@@ -26,7 +26,11 @@ set hlsearch
 "Jump n lines and down the page without moving the cursor 
 nnoremap <PageUp> 10<C-y>
 nnoremap <PageDown> 10<C-e>
-"set clipboard=unnamedplus
+
+" Ensure y, yy, d and dd does not copy to system clipboard
+" https://stackoverflow.com/questions/38617304/how-to-disable-vim-pasting-to-from-system-clipboard
+set clipboard=
+
 let g:paredit_electric_return = 0
 
 set backup
@@ -53,4 +57,3 @@ set directory=~/.vim-tmp
 " the bullshit autoindent and autocommment for all file types by default.
 " http://stackoverflow.com/questions/158968/changing-vim-indentation-behavior-by-file-type
 autocmd FileType go setlocal shiftwidth=2 noexpandtab copyindent preserveindent softtabstop=0 shiftwidth=4 tabstop=4
-"set clipboard=unnamedplus

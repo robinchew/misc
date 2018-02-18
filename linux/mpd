@@ -21,8 +21,20 @@ mpd.service
 ===========
 
 Find mpd.service file in this folder, and put in /usr/lib/systemd/user/.
-The difference between this user service file and the system service file
-is that the system service file has `User` explicitly set under `[Service]`.
+See difference between system's and user's service files below.
+
+/usr/lib/systemd/system/mpd.service::
+
+    [Service]
+    User=mpd
+    Type=notify
+    ExecStart=/usr/bin/mpd --no-daemon
+
+/usr/lib/systemd/user/mpd.service::
+
+    [Service]
+    Type=notify
+    ExecStart=/usr/bin/mpd --no-daemon /home/robin/mpd.conf
 
 mpd.conf
 ========

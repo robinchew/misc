@@ -57,8 +57,12 @@ Permissions
 ===========
 Assuming systemd service file defaults to 'mpd' user
 
-chown -R mpd /run/mpd/mpd.pid
-chown -R mpd /var/lib/mpd/
+    chown -R mpd /run/mpd/mpd.pid
+    chown -R mpd /var/lib/mpd/
+
+However /var/lib/mpd/playlists folder may need user permission so that m3u files in it can save or delete.
+
+    chown robin /var/lib/mpd/playlists
 
 Troubleshoot
 ============

@@ -1,0 +1,5 @@
+lircd is the daemon, which executes irexec on events. See lircd.service and irexec.service
+
+Determine the right value of --device=/dev/input/event? by running::
+
+    cat /proc/bus/input/devices

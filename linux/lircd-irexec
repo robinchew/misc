@@ -1,5 +1,17 @@
-lircd is the daemon, which executes irexec on events. See lircd.service and irexec.service
+lircd is the daemon, which executes irexec on events.
 
-Determine the right value of --device=/dev/input/event? by running::
+Run lircd::
+
+    /usr/sbin/lircd --nodaemon --device=/dev/input/event5 --pidfile=/home/robin/lirc.pid --output=/home/robin/lirc.socket
+
+Argument --device=/dev/input/event5 may not be the right value so run::
 
     cat /proc/bus/input/devices
+
+Run irexec:
+
+    LIRC_SOCKET_PATH=/home/robin/lirc.socket irexec /home/robin/lircrc
+
+Refer to lircrc file in this folder.
+
+Adjust lircd.service and irexec.service accordingly

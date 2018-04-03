@@ -1,0 +1,21 @@
+begin
+    prog = irexec
+    remote = devinput-32
+    button = KEY_VOLUMEDOWN
+    repeat = 1
+    config = pactl set-sink-volume 0 -3%
+end
+begin
+ prog = irexec
+ remote = devinput-32
+ button = KEY_VOLUMEUP
+ repeat = 1
+ config = pactl set-sink-volume 0 +3%
+end
+begin
+ prog = irexec
+ remote = devinput-32
+ button = KEY_MUTE
+ repeat = 1
+ config = pactl set-sink-mute 0 toggle
+end

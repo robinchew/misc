@@ -60,7 +60,7 @@ Assuming systemd service file defaults to 'mpd' user
     chown -R mpd /run/mpd/mpd.pid
     chown -R mpd /var/lib/mpd/
 
-However /var/lib/mpd/playlists folder may need user permission so that m3u files in it can save or delete.
+However /var/lib/mpd/playlists folder needs 'robin' permission so that m3u file can save or delete because cantata is launched by 'robin'.
 
     chown robin /var/lib/mpd/playlists
 

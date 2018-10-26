@@ -1,3 +1,11 @@
+MPV
+===
+
+https://github.com/mpv-player/mpv/blob/master/etc/input.conf
+
+Mplayer
+=======
+
 http://www.mplayerhq.hu/DOCS/HTML/en/control.html
 mplayer -input keylist
 mplayer -input cmdlist

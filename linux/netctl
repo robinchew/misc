@@ -1,3 +1,8 @@
+Network Manager WIFI connect
+============================
+
+nmcli device wifi connect AndroidAP_3285 password fda81d5687eb
+
 Restart Network
 ===============
 

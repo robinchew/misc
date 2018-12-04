@@ -1,4 +1,5 @@
 sudo mount -t cifs //192.168.1.122/fortomato test_mnt/ -o username=robin,password=abc123
+sudo mount.cifs -v //LATLOGIC/code ~/share -o 'username=robin.chew,password=abc123,domain=lwa.local,uid=robin'
 
 Troubleshoot
 ############

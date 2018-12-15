@@ -3,6 +3,19 @@ Network Manager WIFI connect
 
 nmcli device wifi connect AndroidAP_3285 password fda81d5687eb
 
+Switch Off WIFI
+===============
+
+Arch Linux
+----------
+
+ip link set wlp11s0 down
+
+Ubuntu
+------
+
+nmcli radio wifi off
+
 Restart Network
 ===============
 

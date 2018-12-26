@@ -30,7 +30,7 @@ See difference between system's and user's service files below.
     Type=notify
     ExecStart=/usr/bin/mpd --no-daemon
 
-/usr/lib/systemd/user/mpd.service::
+/usr/lib/systemd/user/mpd-custom.service (because mpd.service already exists)::
 
     [Service]
     Type=notify
@@ -66,6 +66,18 @@ However /var/lib/mpd/playlists folder needs 'robin' permission so that m3u file 
 
 Troubleshoot
 ============
+
+After Arch Linux upgrade, disable default systemd services::
+
+    sudo systemctl stop mpd
+    sudo systemctl disable mpd
+    systemctl --user stop mpd
+    systemctl --user disable mpd
+
+Then start the custom mpd-custom.service which should have been created following the above instructions::
+
+    systemctl --user start mpd-custom
+    systemctl --user enable mpd-custom
 
 Run mpd without systemd complicating things. Usually it's permission problems.
 

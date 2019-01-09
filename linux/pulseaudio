@@ -5,9 +5,9 @@ sudo pacman -S pulseaudio pavucontrol
 pactl load-module module-detect
 
 # List sinks. Sinks are applications producing sound I assume.
+# Useful when getting error: Failed to get sink information: No such entity
 pactl list
-
-# Here's another way but doesn't show sink index.
+# OR
 pacmd list-sinks
 
 # (Un)mute a sink

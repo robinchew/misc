@@ -1,3 +1,23 @@
+QUICK INSTALL
+=============
+
+parted --script /dev/sda mklabel gpt mkpart primary linux-swap 0% 2048MiB mkpart primary ext4 2048MiB 100%
+mkswap /dev/sda1
+swapon /dev/sda1
+mkfs.ext4 /dev/sda2
+
+mount /dev/sda2 /mnt
+pacstrap /mnt base
+
+genfstab -U /mnt >> /mnt/etc/fstab
+
+arch-chroot /mnt
+pacman -S gptfdisk syslinux # installation of syslinux will create /boot/syslinux/syslinux.cfg file
+nano /boot/syslinux/syslinux.cfg # change /dev/sda3 to /dev/sda2
+syslinux-install_update -i -a -m
+exit # exit arch-chroot
+reboot # Rebooting this way is ESSENTIAL, or else if you hard reset here, you will find the reboot works but a reboot again causes INT18: Boot failure
+
 #############
 # PARTITION #
 #############

@@ -1,3 +1,14 @@
+# 13 April 2019
+
+pacman -S arch-install-scripts archiso
+cp -r /usr/share/archiso/configs/releng/ archlive
+cd archlive
+vim airootfs/root/customize_airootfs.sh
+cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist32
+build.sh -v
+
+# Old
+
 https://wiki.archlinux.org/index.php/Archiso
 
 # START

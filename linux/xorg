@@ -11,6 +11,12 @@
 
 startx ./custom-xinitrc -- -xf86config custom-xorg.conf
 
+# It's possible to execute an application (web browser) directly BUT
+# a full path must be specified
+
+startx chromium # WRONG!
+startx /usr/bin/chromium # correct
+
 # Gnome keyring daemon by adding the following line in .xinitrc
 # before the line that launches the window manager
 eval $(/usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh)

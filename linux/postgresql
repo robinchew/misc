@@ -51,13 +51,10 @@ OR in psql:
 CREATE DATABASE overzero OWNER overzero
 
 #ADD USER
-sudo -u postgres createuser -D -A -P -R myuser
+sudo -u postgres createuser -D -P -R myuser
 
 -D, --no-createdb
-The new user is not allowed to create databases. 
-
--A, --no-adduser
-The new user is not allowed to create other users (i.e., the new user is a regular user not a superuser).
+The new user is not allowed to create databases.
 
 -P, --pwprompt
 

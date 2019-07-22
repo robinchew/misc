@@ -57,3 +57,4 @@ set directory=~/.vim-tmp
 " the bullshit autoindent and autocommment for all file types by default.
 " http://stackoverflow.com/questions/158968/changing-vim-indentation-behavior-by-file-type
 autocmd FileType go setlocal shiftwidth=2 noexpandtab copyindent preserveindent softtabstop=0 shiftwidth=4 tabstop=4
+autocmd FileType javascript setlocal shiftwidth=2 tabstop=2

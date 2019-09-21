@@ -31,6 +31,9 @@ nnoremap <PageDown> 10<C-e>
 " https://stackoverflow.com/questions/38617304/how-to-disable-vim-pasting-to-from-system-clipboard
 set clipboard=
 
+" https://superuser.com/questions/271023/can-i-disable-continuation-of-comments-to-the-next-line-in-vim
+:set formatoptions-=cro
+
 let g:paredit_electric_return = 0
 
 set backup

@@ -10,6 +10,9 @@ noremap r :%s:::g<left><left><left>
 vnoremap r :s:::g<Left><Left><Left>
 au! BufRead,BufNewFile *.module    set filetype=php
 au! BufRead,BufNewFile *.ctp    set filetype=html
+"https://vim.fandom.com/wiki/Forcing_Syntax_Coloring_for_files_with_odd_extensions
+autocmd BufNewFile,BufRead *.ex set syntax=elixir
+
 command W w
 command E e
 command SSFS syntax sync fromstart

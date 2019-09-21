@@ -37,6 +37,9 @@ set clipboard=
 " https://superuser.com/questions/271023/can-i-disable-continuation-of-comments-to-the-next-line-in-vim
 :set formatoptions-=cro
 
+" https://gist.github.com/u0d7i/01f78999feff1e2a8361
+set mouse-=a
+
 let g:paredit_electric_return = 0
 
 set backup

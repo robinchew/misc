@@ -19,6 +19,15 @@ Exclude directory
 -----------------
 https://stackoverflow.com/questions/4290174/excluding-directory-when-creating-a-tar-gz-file
 
+Extract
+=======
+
+tar -xf archive.tar
+
+OR to another folder
+
+tar -xf archive.tar --directory ouput_folder
+
 List Content
 ============
 

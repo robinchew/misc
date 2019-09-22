@@ -1,3 +1,6 @@
+Compress
+========
+
 tar -cvf foo.tar /home/mine/work /home/mine/school
 gzip foo.tar
 
@@ -5,6 +8,19 @@ OR
 
 tar -czvf archive.tgz files/
 #! flag czvf must be in order!
+
+Compress without preserving ownership
+-------------------------------------
+https://unix.stackexchange.com/questions/285237/tar-without-preserving-user
+
+tar -c -f archive.tar --owner=0 --group=0 .
+
+Exclude directory
+-----------------
+https://stackoverflow.com/questions/4290174/excluding-directory-when-creating-a-tar-gz-file
+
+List Content
+============
 
 List content:
 

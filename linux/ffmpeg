@@ -5,3 +5,9 @@
 # Below scale argument is saying: Make the width smaller at 75% and automatically resize the height
 
 ffmpeg -i input.mp4  -vf scale=iw/1.35:-1 output.mp4
+
+# Scaling AVI by outputting to MP4
+# For some reason converting AVI to smaller AVI will result with file size 10 times smaller but with bad pixelated quality.
+# That's why outputting to MP4 gives a better result.
+
+ffmpeg -i input.avi  -vf scale=-1:720 output.mp4

@@ -1,4 +1,12 @@
 #!/bin/sh
+
+# Or just do:
+#
+#   dd bs=4M if=/path/to/archlinux.iso of=/dev/sdx status=progress oflag=sync
+#
+# https://wiki.archlinux.org/index.php/USB_flash_installation_media#In_GNU.2FLinux
+
+
 if [ "$#" -ne 2 ];then
     echo ERROR
     echo Need 2 arguments:

@@ -1,2 +1,5 @@
 # Determine default gateway with
 route -n
+
+# Disconnect WIFI
+sudo ip link set wlp11s0 down

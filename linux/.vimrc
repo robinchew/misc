@@ -47,6 +47,8 @@ set swapfile
 set backupdir=~/.vim-tmp
 set directory=~/.vim-tmp
 
+"set statusline=%f\ %n
+
 "execute pathogen#infect()
 
 " Below is a piece of shit way to set indentations per file type

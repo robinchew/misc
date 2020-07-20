@@ -10,3 +10,18 @@ mkfs -t vfat /dev/sda1 #i only need to use this line
 # Off USB write protection
 # http://askubuntu.com/questions/101637/usb-turn-write-protection-off
 sudo hdparm -r0 /dev/sdb
+
+# Delete all partitions
+# https://serverfault.com/questions/250839/deleting-all-partitions-from-the-command-line
+dd if=/dev/zero of=/dev/sdx bs=512 count=1 conv=notrunc
+
+# Make partition 1 for vfat
+
+# Try
+sudo parted --script /dev/sdc mklabel msdos  mkpart primary fat32 0 100%
+# Which may result with:
+#
+#    Warning: The resulting partition is not properly aligned for best performance: 1s % 2048s != 0s
+#
+# Which you might have to amend to:
+sudo parted --script /dev/sdc mklabel msdos  mkpart primary fat32 2048s 100%

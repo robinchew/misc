@@ -1,0 +1,60 @@
+# https://linuxcontainers.org/lxc/getting-started/
+# https://wiki.debian.org/LXC
+
+Create
+------
+
+For lxc-create to be run without being root, you must do 2 things:
+
+1.
+
+	echo > ~/.config/lxc/default.conf << EOF
+	lxc.idmap = u 0 100000 65536
+	lxc.idmap = g 0 100000 65536
+	EOF
+
+2. Set current user in /etc/subgid and /etc/subuid
+
+Then create:
+
+	lxc-create --template download --name my-container
+
+OR
+
+	lxc-create --template download --name conti -- -d ubuntu -r bionic -a i386
+
+Start
+-----
+
+Running:
+
+	setfacl -m u:100000:x . .local .local/share
+
+Avoids the following error:
+
+	lxc-start: my-container: start.c: print_top_failing_dir: 97 Permission denied - Could not access /home/robin. Please grant it x access, or add an ACL for the container root
+
+You must start with systemd-run as follows:
+
+	systemd-run --unit=myshell --user --scope -p "Delegate=yes" lxc-start --name my-container 
+
+er else execution will freeze:
+
+	Failed to read AF_UNIX datagram queue length, ignoring: No such file or directory
+	Failed to install release agent, ignoring: No such file or directory
+	Failed to create /init.scope control group: Permission denied
+	Failed to allocate manager object: Permission denied
+	[!!!!!!] Failed to allocate manager object, freezing.
+	Freezing execution.
+
+And stopping with lxc-stop will take a long time.
+
+Run in foreground for debugging:
+
+	... lxc-start --name my-container --foreground
+
+
+Attach/Run
+----------
+
+lxc-attach --name my-container -- python3 <<< 'print(44+4)'

@@ -1,3 +1,6 @@
+# https://bbs.archlinux.org/viewtopic.php?id=226770
+pacman-key --refresh-keys --keyserver hkp://keys.gnupg.net
+
 
 (1/1) checking package integrity                   [#####################] 100%
 warning: Public keyring not found; have you run 'pacman-key --init'?

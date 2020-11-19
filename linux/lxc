@@ -58,3 +58,23 @@ Attach/Run
 ----------
 
 lxc-attach --name my-container -- python3 <<< 'print(44+4)'
+
+
+Troubleshooting
+---------------
+
+https://wiki.codigoparallevar.com/containers/Setup%20unprivileged%20LXC.html#Potential%20errors
+
+Failed to create directory /run/user/0/lxc/
+
+	lxc-create: utils.c: mkdir_p: 253 Permission denied - failed to create directory '/run/user/0/lxc/'
+
+To solve this unset the variables starting with XDG, as the user:
+
+	gitit@codigoparallevar:~$ env|grep XDG
+	XDG SESSIONID=3943
+	XDG RUNTIMEDIR=/run/user/0
+	gitit@codigoparallevar:~$ unset XDG SESSIONID
+	gitit@codigoparallevar:~$ unset XDG RUNTIMEDIR
+	gitit@codigoparallevar:~$ env|grep XDG
+	gitit@codigoparallevar:~$

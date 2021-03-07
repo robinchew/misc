@@ -21,4 +21,4 @@ robin@192.168.0.29:/srv/share /home/robin/share29 fuse.sshfs defaults,_netdev,al
 ssh-agent notion
 
 # .notion/default-session--0/cfg_notion.lua
-ioncore.exec('xfce4-terminal -e "bash -c ssh-add"')
+ioncore.exec('xfce4-terminal -e "bash -c ssh-add ~/.ssh/fire-idea"')

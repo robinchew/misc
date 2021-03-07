@@ -21,10 +21,12 @@ Then create:
 
 OR
 
-	lxc-create --template download --name conti -- -d ubuntu -r bionic -a i386
+	lxc-create --template download --name my-container -- -d ubuntu -r bionic -a amd64
 
 Start
 -----
+
+https://www.linuxquestions.org/questions/linux-general-1/what-is-the-difference-between-chmod-and-setfacl-766617/#post3750035
 
 Running:
 
@@ -36,9 +38,9 @@ Avoids the following error:
 
 You must start with systemd-run as follows:
 
-	systemd-run --unit=myshell --user --scope -p "Delegate=yes" lxc-start --name my-container 
+	systemd-run --unit=myshell --user --scope -p "Delegate=yes" lxc-start --name my-container
 
-er else execution will freeze:
+or else execution will freeze:
 
 	Failed to read AF_UNIX datagram queue length, ignoring: No such file or directory
 	Failed to install release agent, ignoring: No such file or directory
@@ -46,6 +48,10 @@ er else execution will freeze:
 	Failed to allocate manager object: Permission denied
 	[!!!!!!] Failed to allocate manager object, freezing.
 	Freezing execution.
+
+or:
+
+    lxc-start: my-container1: tools/lxc_start.c: main: 268 No container config specified
 
 And stopping with lxc-stop will take a long time.
 

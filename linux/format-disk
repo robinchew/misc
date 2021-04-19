@@ -7,6 +7,12 @@ fdisk /dev/sda
 # Remember to use 't' to change a partition format type to 'b' for W95 fat32 (outdated comment)
 mkfs -t vfat /dev/sda1 #i only need to use this line
 
+# CANNOT DETECT USB IN WINDOWS
+# whether it was formatted in NTFS or VFAT on Linux.
+# https://superuser.com/questions/509992/unable-to-format-disk-the-system-cannot-find-the-file-specified
+# Try:
+sudo dd if=/dev/zero of=/dev/sdf count=1 bs=4096
+
 # Off USB write protection
 # http://askubuntu.com/questions/101637/usb-turn-write-protection-off
 sudo hdparm -r0 /dev/sdb

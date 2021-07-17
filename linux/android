@@ -28,3 +28,50 @@ Run flash script as root:
     sudo flash-all.sh
 
 Then wait until flashing and installation is complete.
+
+Install Lineage OS 17 on Mi A2 Lite
+===================================
+
+THE STEPS ARE NOT EXACT!
+twrp command may not even work
+
+https://forum.xda-developers.com/t/rom-unofficial-11-0-lineage-os-18-1-xiaomi-a2-lite.4229439/
+https://castrillo.gitlab.io/figaro/post/lineageos17-xiaomi/
+
+* Download lineage-*.zip from xda.
+* Download GApps from https://wiki.lineageos.org/gapps.html
+* Download twrp-*.img somewhere.
+* Switch off phone.
+* Boot with Volume Down and Power button pressed.
+* Then run on the desktop computer::
+
+    fastboot boot twrp-3.5.0_9-1-daisy-unofficial.img
+    adb push lineage-18.1-20210623-UNOFFICIAL-daisy.zip /external_sd/
+    adb push open_gapps-arm64-11.0-nano-20210717.zip /external_sd/
+    adb shell
+
+    twrp wipe data
+    twrp wipe cache
+    twrp wipe system
+
+    # Look out for swipe prompts!
+    twrp install /external_sd/lineage-17.1-20200413-UNOFFICIAL-daisy.zip
+
+    # Look out for swipe prompts!
+    twrp install /external_sd/MindTheGapps-8.1.0-arm64-20180808_153856.zip
+
+    adb reboot bootloader
+
+
+
+# Install Magisk
+
+Switch off phone. Boot with Volume Down and Power button pressed. Then run on the desktop computer
+
+    sudo fastboot oem unlock
+
+Install magisk from f-droid, install magisk again on the magisk app.
+
+In the step selecting patching.
+
+???

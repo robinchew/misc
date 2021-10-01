@@ -11,3 +11,7 @@ ffmpeg -i input.mp4  -vf scale=iw/1.35:-1 output.mp4
 # That's why outputting to MP4 gives a better result.
 
 ffmpeg -i input.avi  -vf scale=-1:720 output.mp4
+
+# Amplify Sound
+# https://bytefreaks.net/uncategorized/increase-volume-in-video-using-ffmpeg
+ffmpeg -i input.mkv -filter:a "volume=4.0" output.mkv

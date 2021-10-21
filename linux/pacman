@@ -10,7 +10,7 @@ error: failed to commit transaction (invalid or corrupted package (PGP signature
 Errors occurred, no packages were upgraded.
 
 sudo pacman-key --init
-pacman-key --populate archlinux
+sudo pacman-key --populate archlinux
 
 init can take forever if you do it through SSH or Virtualmachine because it needs mouse movement to create entropy,
 so:
@@ -37,3 +37,37 @@ SigLevel = Optional TrustAll
 
 # if importing key is slow, change the keyserver from /etc/pacman.d/gnupg/gpg.conf to hkp://pgp.mit.edu
 # https://bbs.archlinux.org/viewtopic.php?id=128682
+
+Signature is unknown trust
+==========================
+
+Error
+-----
+
+:: Proceed with installation? [Y/n] y
+:: Retrieving packages...
+ libqtxdg-3.7.1-1-x86_64                                                                            150.2 KiB   683 KiB/s 00:00 [#############################################################################] 100%
+ smplayer-21.8.0-1-x86_64                                                                             3.5 MiB  4.13 MiB/s 00:01 [#############################################################################] 100%
+(837/837) checking keys in keyring                                                                                              [#############################################################################] 100%
+(837/837) checking package integrity                                                                                            [#############################################################################] 100%
+error: libqtxdg: signature from "Chih-Hsuan Yen <yan12125@gmail.com>" is unknown trust
+:: File /var/cache/pacman/pkg/libqtxdg-3.7.1-1-x86_64.pkg.tar.zst is corrupted (invalid or corrupted package (PGP signature)).
+Do you want to delete it? [Y/n] y
+error: smplayer: signature from "Caleb Maclennan <alerque@archlinux.org>" is marginal trust
+:: File /var/cache/pacman/pkg/smplayer-21.8.0-1-x86_64.pkg.tar.zst is corrupted (invalid or corrupted package (PGP signature)).
+Do you want to delete it? [Y/n] y
+error: failed to commit transaction (invalid or corrupted package)
+Errors occurred, no packages were upgraded
+
+Fix
+---
+# https://bbs.archlinux.org/viewtopic.php?id=226770
+
+sudo pacman -Sy
+sudo pacman -S archlinux-keyring
+
+# The following may have contributed above working. Who knows?
+
+sudo pacman-key --init
+sudo pacman-key --populate archlinux
+pacman-key --refresh-keys --keyserver hkp://keys.gnupg.net

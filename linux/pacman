@@ -66,7 +66,7 @@ Fix
 sudo pacman -Sy
 sudo pacman -S archlinux-keyring
 
-# The following may have contributed above working. Who knows?
+# The following were not necessary the last time this fix was applied.
 
 sudo pacman-key --init
 sudo pacman-key --populate archlinux

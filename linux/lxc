@@ -65,9 +65,17 @@ Attach/Run
 
 lxc-attach --name my-container -- python3 <<< 'print(44+4)'
 
+OR
+
+systemd-run --user --scope lxc-attach -n container1 -- python3 <<< 'print(44)'
+
 
 Troubleshooting
 ---------------
+===============
+
+1
+-
 
 https://wiki.codigoparallevar.com/containers/Setup%20unprivileged%20LXC.html#Potential%20errors
 
@@ -84,3 +92,16 @@ To solve this unset the variables starting with XDG, as the user:
 	gitit@codigoparallevar:~$ unset XDG RUNTIMEDIR
 	gitit@codigoparallevar:~$ env|grep XDG
 	gitit@codigoparallevar:~$
+
+Attach without systemd
+-----------------------
+
+lxc-attach --name my-container -- python3 <<< 'print(44+4)'
+
+lxc-attach: container1: conf.c: userns_exec_minimal: 5180 Permission denied - Running parent function failed
+lxc-attach: container1: attach.c: do_attach: 1331 Input/output error - Failed to prepare terminal file descriptor 14
+lxc-attach: container1: attach.c: do_attach: 1375 Failed to attach to container
+
+Solve with:
+
+systemd-run --user --scope lxc-attach -n container1 -- python3 <<< 'print(44)'

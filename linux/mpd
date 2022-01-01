@@ -7,20 +7,24 @@ mpd and pulseaudio will have more success of working if
 they are both run as a local user. So create service files
 in /usr/lib/systemd/user/ instead of /usr/lib/systemd/system.
 
-Disable system's mpd with::
+Disable system's and user's mpd with::
 
     sudo systemctl stop mpd
     sudo systemctl disable mpd
 
+    systemctl --user stop mpd
+    systemctl --user disable mpd
+
 Enable local user's mpd with::
 
-    systemctl --user start mpd
-    systemctl --user enable mpd
+    systemctl --user start mpd-custom
+    systemctl --user enable mpd-custom
 
 mpd.service
 ===========
 
-Find mpd.service file in this folder, and put in /usr/lib/systemd/user/.
+Find mpd.service file in this folder, and put in /usr/lib/systemd/user/,
+and rename to mpd-custom.service because mpd.service already exists.
 See difference between system's and user's service files below.
 
 /usr/lib/systemd/system/mpd.service::
@@ -30,7 +34,7 @@ See difference between system's and user's service files below.
     Type=notify
     ExecStart=/usr/bin/mpd --no-daemon
 
-/usr/lib/systemd/user/mpd-custom.service (because mpd.service already exists)::
+/usr/lib/systemd/user/mpd-custom.service::
 
     [Service]
     Type=notify
@@ -66,6 +70,12 @@ However /var/lib/mpd/playlists folder needs 'robin' permission so that m3u file 
 
 Troubleshoot
 ============
+
+MPD output:
+
+    Jan 01 18:56:49 silverstone mpd[17491]: exception: Failed to open "Pulseaudio" (pulse); failed to connect: Connection refused
+
+Fix with stopping all mpd services and starting mpd-custom as a user using systemd as described below.
 
 After Arch Linux upgrade, disable default systemd services::
 

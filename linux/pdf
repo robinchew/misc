@@ -1,0 +1,11 @@
+Join PDFs into 1 file.
+
+https://stackoverflow.com/questions/2507766/merge-convert-multiple-pdf-files-into-one-pdf
+
+You could use pdfunite but you might get:
+
+    Unimplemented Feature: Could not merge encrypted files ('COVID-19 digital certificate.pdf')
+
+
+gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=merged.pdf mine1.pdf mine2.pdf
+gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/default -dNOPAUSE -dQUIET -dBATCH -dDetectDuplicateImages -dCompressFonts=true -r150 -sOutputFile=output.pdf input.pdf

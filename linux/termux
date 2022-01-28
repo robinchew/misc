@@ -1,0 +1,10 @@
+Don't install from playstore
+
+Install latest apk
+
+pkg update
+pkg install openssh
+
+Launch termux and sshd via adb
+
+https://android.stackexchange.com/a/245017

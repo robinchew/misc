@@ -1,6 +1,5 @@
-# https://bbs.archlinux.org/viewtopic.php?id=226770
-pacman-key --refresh-keys --keyserver hkp://keys.gnupg.net
-
+Key issues
+----------
 
 (1/1) checking package integrity                   [#####################] 100%
 warning: Public keyring not found; have you run 'pacman-key --init'?
@@ -9,8 +8,16 @@ error: key "771DF6627EDF681F" could not be looked up remotely
 error: failed to commit transaction (invalid or corrupted package (PGP signature))
 Errors occurred, no packages were upgraded.
 
-sudo pacman-key --init
-sudo pacman-key --populate archlinux
+Fixed by just refreshing keys:
+
+    # https://bbs.archlinux.org/viewtopic.php?id=226770
+    # refresh can take a long time
+    pacman-key --refresh-keys --keyserver hkp://keys.gnupg.net
+
+Or else try the following:
+
+    sudo pacman-key --init
+    sudo pacman-key --populate archlinux
 
 init can take forever if you do it through SSH or Virtualmachine because it needs mouse movement to create entropy,
 so:

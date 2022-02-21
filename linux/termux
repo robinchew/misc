@@ -1,10 +1,17 @@
-Don't install from playstore
+Don't install from play store
 
 Install latest apk
 
 pkg update
 pkg install openssh
 
+Allow access to /storage by running:
+
+    termux-setup-storage
+
+Then you will be prompted on the phone to allow
+
 Launch termux and sshd via adb
+------------------------------
 
 https://android.stackexchange.com/a/245017

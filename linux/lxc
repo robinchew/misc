@@ -8,18 +8,18 @@ For lxc-create to be run without being root, you must do 2 things:
 
 1.
 
-	echo > ~/.config/lxc/default.conf << EOF
-	lxc.idmap = u 0 100000 65536
-	lxc.idmap = g 0 100000 65536
-	EOF
+echo > ~/.config/lxc/default.conf << EOF
+lxc.idmap = u 0 100000 65536
+lxc.idmap = g 0 100000 65536
+EOF
 
 2. Set current user in /etc/subgid and /etc/subuid
 
-Then create:
+Then create with prompts:
 
 	lxc-create --template download --name my-container
 
-OR
+OR without prompts:
 
 	lxc-create --template download --name my-container -- -d ubuntu -r bionic -a amd64
 
@@ -59,6 +59,10 @@ Run in foreground for debugging:
 
 	... lxc-start --name my-container --foreground
 
+Run with explicit config:
+
+    systemd-run --unit=myshell3 --user --scope -p "Delegate=yes"  lxc-start -n overlord-container -f /home/robin/.local/share/lxc/overlord-container/config --foreground
+
 
 Attach/Run
 ----------
@@ -69,14 +73,31 @@ OR
 
 systemd-run --user --scope lxc-attach -n container1 -- python3 <<< 'print(44)'
 
+NAT Bridge Networking
+---------------------
+https://wiki.archlinux.org/title/Linux_Containers
+
+# /etc/lxc/lxc-usernet
+# This file is apparently required for non-privileged networking
+robin veth lxcbr0 10
+
+# ~/.local/share/lxc/overlord-container/config
+lxc.net.0.type = veth
+lxc.net.0.link = lxcbr0
+lxc.net.0.flags = up
+# lxc.net.0.hwaddr = 00:16:3e:00:00:01 # this may not be required
+
+# /etc/default/lxc-net
+USE_LXC_BRIDGE="true"
+LXC_BRIDGE="lxcbr0"
+LXC_ADDR="10.0.3.1"
+LXC_NETMASK="255.255.255.0"
+LXC_NETWORK="10.0.3.0/24"
+LXC_DHCP_RANGE="10.0.3.2,10.0.3.254"
+LXC_DHCP_MAX="253"
 
 Troubleshooting
 ---------------
-===============
-
-1
--
-
 https://wiki.codigoparallevar.com/containers/Setup%20unprivileged%20LXC.html#Potential%20errors
 
 Failed to create directory /run/user/0/lxc/

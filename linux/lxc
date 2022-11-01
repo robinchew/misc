@@ -78,7 +78,7 @@ NAT Bridge Networking
 https://wiki.archlinux.org/title/Linux_Containers
 
 # /etc/lxc/lxc-usernet
-# This file is apparently required for non-privileged networking
+# This is definitely necessary for lxc-start to work unprivileged
 robin veth lxcbr0 10
 
 # ~/.local/share/lxc/overlord-container/config
@@ -88,6 +88,7 @@ lxc.net.0.flags = up
 # lxc.net.0.hwaddr = 00:16:3e:00:00:01 # this may not be required
 
 # /etc/default/lxc-net
+# This must be set before lxc-net systemd service is called
 USE_LXC_BRIDGE="true"
 LXC_BRIDGE="lxcbr0"
 LXC_ADDR="10.0.3.1"
@@ -95,6 +96,10 @@ LXC_NETMASK="255.255.255.0"
 LXC_NETWORK="10.0.3.0/24"
 LXC_DHCP_RANGE="10.0.3.2,10.0.3.254"
 LXC_DHCP_MAX="253"
+
+# Start lxc-net service
+pacman -S dnsmasq
+systemctl start lxc-net
 
 Troubleshooting
 ---------------

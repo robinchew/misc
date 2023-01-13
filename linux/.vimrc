@@ -42,7 +42,7 @@ set mouse-=a
 
 let g:paredit_electric_return = 0
 
-set backup
+"set backup " not sure why we need this in the first place, but having it causes hard links to break
 set swapfile
 set backupdir=~/.vim-tmp
 set directory=~/.vim-tmp

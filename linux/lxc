@@ -8,12 +8,20 @@ For lxc-create to be run without being root, you must do 2 things:
 
 1.
 
-echo > ~/.config/lxc/default.conf << EOF
+cat > ~/.config/lxc/default.conf << EOF
 lxc.idmap = u 0 100000 65536
 lxc.idmap = g 0 100000 65536
 EOF
 
 2. Set current user in /etc/subgid and /etc/subuid
+
+cat > /etc/subuid << EOF
+ubuntu:100000:65536
+EOF
+
+cat > /etc/subgid << EOF
+ubuntu:100000:65536
+EOF
 
 Then create with prompts:
 
@@ -63,6 +71,15 @@ Run with explicit config:
 
     systemd-run --unit=myshell3 --user --scope -p "Delegate=yes"  lxc-start -n overlord-container -f /home/robin/.local/share/lxc/overlord-container/config --foreground
 
+POSSIBLE ERROR WHILE STARTING
+
+Running scope as unit: myshell.scope
+lxc-start: dt-container: ../src/lxc/lxccontainer.c: wait_on_daemonized_start: 877 Received container state "ABORTING" instead of "RUNNING"
+lxc-start: dt-container: ../src/lxc/tools/lxc_start.c: main: 306 The container failed to start
+lxc-start: dt-container: ../src/lxc/tools/lxc_start.c: main: 309 To get more details, run the container in foreground mode
+lxc-start: dt-container: ../src/lxc/tools/lxc_start.c: main: 311 Additional information can be obtained by setting the --logfile and --logpriority options
+
+FIX by: systemctl start lxc-net
 
 Attach/Run
 ----------

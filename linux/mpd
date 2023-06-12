@@ -65,8 +65,11 @@ Assuming systemd service file defaults to 'mpd' user
     chown -R mpd /var/lib/mpd/
 
 However /var/lib/mpd/playlists folder needs 'robin' permission so that m3u file can save or delete because cantata is launched by 'robin'.
+Instead of using chown, create the following tmpfiles.d file:
 
-    chown robin /var/lib/mpd/playlists
+    # /usr/lib/tmpfiles.d/mpd-custom.conf
+    d /var/lib/mpd/music 0755 robin mpd
+    d /var/lib/mpd/playlists 0755 robin mpd
 
 Troubleshoot
 ============
